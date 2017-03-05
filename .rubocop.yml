@@ -1,0 +1,26 @@
+Documentation:
+  Enabled: false
+
+LineLength:
+  Max: 100
+
+CyclomaticComplexity:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+AllCops:
+  Exclude:
+    - bin/**/*
+    - db/**/*
+    - vendor/**/*
+    - config/boot.rb
+    - config.ru
+  CacheRootDirectory: tmp/
+
+Rails:
+  Enabled: true
