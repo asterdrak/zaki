@@ -1,20 +1,18 @@
-image: "ruby:2.3"
+image: 'ruby:2.3.3'
+
+services:
+  - postgres:latest
+
+variables:
+  POSTGRES_DB: rails_template_test
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: ""
 
 test:
   script:
-  - apt-get update -qy
+  - apt-get update -qq && apt-get install -y -qq postgresql postgresql-contrib libpq-dev cmake
   - apt-get install -y nodejs
-  - gem install bundler
-  - bundle install -j $(nproc) --without production
+  - gem install bundler --no-ri --no-rdoc
   - bundle install --path /cache
-  - bundle exec rails db:create RAILS_ENV=test
-  - bundle exec rails db:migrate RAILS_ENV=test
+  - bundle exec rake db:create RAILS_ENV=test
   - bundle exec rake
-
-staging:
-  type: deploy
-  script:
-  - gem install dpl
-  - dpl --provider=heroku --api-key=$HEROKU_STAGING_API_KEY
-  only:
-  - master
