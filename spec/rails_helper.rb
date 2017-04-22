@@ -54,4 +54,17 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  # configuring FactoryGirl
+  config.include FactoryGirl::Syntax::Methods
+  FactoryGirl.find_definitions
+  # configuring file for rspec --only-failures and --next-failures
+  config.example_status_persistence_file_path = 'rspec-only-failures'
+end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
 end
