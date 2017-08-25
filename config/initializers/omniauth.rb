@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Change this omniauth configuration to point to your registered provider
 # Since this is a registered application, add the app id and secret here
 APP_ID = Rails.application.secrets.sso_app_id
