@@ -21,6 +21,8 @@ AllCops:
     - config/boot.rb
     - config.ru
   CacheRootDirectory: tmp/
+  TargetRubyVersion: 2.3
+
 
 Rails:
   Enabled: true

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 source 'https://rubygems.org'
 
 ruby '2.3.3'
@@ -42,7 +43,9 @@ gem 'jbuilder', '~> 2.5'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'coffeelint'
   gem 'factory_girl'
+  gem 'haml_lint', require: false
   gem 'pry-rails'
   gem 'rspec-rails', '~> 3.5'
   gem 'rubocop', require: false
