@@ -1,0 +1,8 @@
+- if current_user.present?
+  %h1 Welcome
+  %p
+    Username: #{current_user.email}
+  %p= link_to 'Private page', home_private_index_path
+  %p= link_to 'Logout', logout_path, method: :delete
+- else
+  = link_to 'sign in', '/auth/sso'
