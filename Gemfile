@@ -51,6 +51,7 @@ group :development, :test do
   gem 'factory_girl'
   gem 'haml_lint', require: false
   gem 'pry-rails'
+  gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 3.5'
   gem 'rubocop', require: false
 end
