@@ -1,4 +1,4 @@
-= form_for trial do |f|
+= form_for [@committee, trial] do |f|
   - if trial.errors.any?
     #error-explanation
       %h2

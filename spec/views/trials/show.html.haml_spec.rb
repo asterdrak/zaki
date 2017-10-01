@@ -4,6 +4,7 @@ require 'rails_helper'
 RSpec.describe 'trials/show', type: :view do
   before(:each) do
     @trial = assign(:trial, create(:trial))
+    @committee = @trial.committee
   end
 
   it 'renders attributes in <p>' do

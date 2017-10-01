@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 Rails.application.routes.draw do
-  resources :committees
-  resources :trials
+  resources :committees do
+    resources :trials
+  end
 
   root 'home#index'
   match 'home/private_index' => 'home#private_index', via: :get

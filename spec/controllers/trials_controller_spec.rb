@@ -23,7 +23,8 @@ RSpec.describe TrialsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # trial. As you add validations to trial, be sure to
   # adjust the attributes here as well.
-  let(:trial) { create(:trial) }
+  let(:committee) { create(:committee) }
+  let(:trial) { create(:trial, committee: committee) }
 
   let(:invalid_attributes) { attributes_for(:trial, title: nil) }
 
@@ -36,28 +37,28 @@ RSpec.describe TrialsController, type: :controller do
 
   describe 'GET #index' do
     it 'assigns all trials as @trials' do
-      get :index, params: {}, session: valid_session
+      get :index, params: { committee_id: committee.id }, session: valid_session
       expect(assigns(:trials)).to eq([trial])
     end
   end
 
   describe 'GET #show' do
     it 'assigns the requested trial as @trial' do
-      get :show, params: { id: trial.to_param }, session: valid_session
+      get :show, params: { committee_id: committee.id, id: trial.to_param }, session: valid_session
       expect(assigns(:trial)).to eq(trial)
     end
   end
 
   describe 'GET #new' do
     it 'assigns a new trial as @trial' do
-      get :new, params: {}, session: valid_session
+      get :new, params: { committee_id: committee.id }, session: valid_session
       expect(assigns(:trial)).to be_a_new(Trial)
     end
   end
 
   describe 'GET #edit' do
     it 'assigns the requested trial as @trial' do
-      get :edit, params: { id: trial.to_param }, session: valid_session
+      get :edit, params: { committee_id: committee.id, id: trial.to_param }, session: valid_session
       expect(assigns(:trial)).to eq(trial)
     end
   end
@@ -66,30 +67,35 @@ RSpec.describe TrialsController, type: :controller do
     context 'with valid params' do
       it 'creates a new trial' do
         expect do
-          post :create, params: { trial: attributes_for(:trial) }, session: valid_session
+          post :create, params: { committee_id: committee.id, trial: attributes_for(:trial) },
+                        session: valid_session
         end.to change(Trial, :count).by(1)
       end
 
       it 'assigns a newly created trial as @trial' do
-        post :create, params: { trial: attributes_for(:trial) }, session: valid_session
+        post :create, params: { committee_id: committee.id, trial: attributes_for(:trial) },
+                      session: valid_session
         expect(assigns(:trial)).to be_a(Trial)
         expect(assigns(:trial)).to be_persisted
       end
 
       it 'redirects to the created trial' do
-        post :create, params: { trial: attributes_for(:trial) }, session: valid_session
-        expect(response).to redirect_to(Trial.last)
+        post :create, params: { committee_id: committee.id, trial: attributes_for(:trial) },
+                      session: valid_session
+        expect(response).to redirect_to([committee, Trial.last])
       end
     end
 
     context 'with invalid params' do
       it 'assigns a newly created but unsaved trial as @trial' do
-        post :create, params: { trial: invalid_attributes }, session: valid_session
+        post :create, params: { committee_id: committee.id, trial: invalid_attributes },
+                      session: valid_session
         expect(assigns(:trial)).to be_a_new(Trial)
       end
 
       it "re-renders the 'new' template" do
-        post :create, params: { trial: invalid_attributes }, session: valid_session
+        post :create, params: { committee_id: committee.id, trial: invalid_attributes },
+                      session: valid_session
         expect(response).to render_template('new')
       end
     end
@@ -100,34 +106,35 @@ RSpec.describe TrialsController, type: :controller do
       let(:new_attributes) { attributes_for(:trial) }
 
       it 'updates the requested trial' do
-        put :update, params: { id: trial.to_param, trial: new_attributes }, session: valid_session
+        put :update, params: { committee_id: committee.id, id: trial.to_param,
+                               trial: new_attributes }, session: valid_session
         trial.reload
         expect(trial.title).to eq(new_attributes[:title])
       end
 
       it 'assigns the requested trial as @trial' do
-        put :update, params: { id: trial.to_param, trial: attributes_for(:trial) },
-                     session: valid_session
+        put :update, params: { committee_id: committee.id, id: trial.to_param,
+                               trial: attributes_for(:trial) }, session: valid_session
         expect(assigns(:trial)).to eq(trial)
       end
 
       it 'redirects to the trial' do
-        put :update, params: { id: trial.to_param, trial: attributes_for(:trial) },
-                     session: valid_session
-        expect(response).to redirect_to(trial)
+        put :update, params: { committee_id: committee.id, id: trial.to_param,
+                               trial: attributes_for(:trial) }, session: valid_session
+        expect(response).to redirect_to([committee, trial])
       end
     end
 
     context 'with invalid params' do
       it 'assigns the trial as @trial' do
-        put :update, params: { id: trial.to_param, trial: invalid_attributes },
-                     session: valid_session
+        put :update, params: { committee_id: committee.id, id: trial.to_param,
+                               trial: invalid_attributes }, session: valid_session
         expect(assigns(:trial)).to eq(trial)
       end
 
       it "re-renders the 'edit' template" do
-        put :update, params: { id: trial.to_param, trial: invalid_attributes },
-                     session: valid_session
+        put :update, params: { committee_id: committee.id, id: trial.to_param,
+                               trial: invalid_attributes }, session: valid_session
         expect(response).to render_template('edit')
       end
     end
@@ -138,13 +145,15 @@ RSpec.describe TrialsController, type: :controller do
 
     it 'destroys the requested trial' do
       expect do
-        delete :destroy, params: { id: Trial.last.to_param }, session: valid_session
+        delete :destroy, params: { committee_id: committee.id, id: Trial.last.to_param },
+                         session: valid_session
       end.to change(Trial, :count).by(-1)
     end
 
     it 'redirects to the trials list' do
-      delete :destroy, params: { id: Trial.last.to_param }, session: valid_session
-      expect(response).to redirect_to(trials_url)
+      delete :destroy, params: { committee_id: committee.id, id: Trial.last.to_param },
+                       session: valid_session
+      expect(response).to redirect_to(committee_trials_url(committee))
     end
   end
 end

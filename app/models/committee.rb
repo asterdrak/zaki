@@ -7,4 +7,7 @@ class Committee < ApplicationRecord
 
   # validations
   validates :name, presence: true, uniqueness: true
+
+  # relations
+  has_many :trials
 end

@@ -6,6 +6,7 @@ RSpec.describe 'trials/index', type: :view do
 
   before(:each) do
     assign(:trials, trial_list)
+    @committee = create(:committee)
   end
 
   it 'renders a list of trials' do

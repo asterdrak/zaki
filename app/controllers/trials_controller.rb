@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class TrialsController < ApplicationController
   before_action :set_trial, only: [:show, :edit, :update, :destroy]
+  before_action :set_committee
 
   # GET /trials
   # GET /trials.json
@@ -24,10 +25,11 @@ class TrialsController < ApplicationController
   # POST /trials.json
   def create
     @trial = Trial.new(trial_params)
+    @trial.committee = @committee
 
     respond_to do |format|
       if @trial.save
-        format.html { redirect_to @trial, notice: 'trial was successfully created.' }
+        format.html { redirect_to [@committee, @trial], notice: 'trial was successfully created.' }
         format.json { render :show, status: :created, location: @trial }
       else
         format.html { render :new }
@@ -41,7 +43,7 @@ class TrialsController < ApplicationController
   def update
     respond_to do |format|
       if @trial.update(trial_params)
-        format.html { redirect_to @trial, notice: 'trial was successfully updated.' }
+        format.html { redirect_to [@committee, @trial], notice: 'trial was successfully updated.' }
         format.json { render :show, status: :ok, location: @trial }
       else
         format.html { render :edit }
@@ -55,7 +57,10 @@ class TrialsController < ApplicationController
   def destroy
     @trial.destroy
     respond_to do |format|
-      format.html { redirect_to trials_url, notice: 'trial was successfully destroyed.' }
+      format.html do
+        redirect_to committee_trials_url(@committee),
+                    notice: 'trial was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end
@@ -65,6 +70,10 @@ class TrialsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_trial
     @trial = Trial.find(params[:id])
+  end
+
+  def set_committee
+    @committee = Committee.find(params[:committee_id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

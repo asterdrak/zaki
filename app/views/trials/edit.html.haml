@@ -2,6 +2,6 @@
 
 = render 'form', trial: @trial
 
-= link_to 'Show', @trial
+= link_to 'Show', [@committee, @trial]
 \|
-= link_to 'Back', trials_path
+= link_to 'Back', committee_trials_path(@committee)

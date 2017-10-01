@@ -7,5 +7,7 @@ FactoryGirl.define do
     sequence :title do |n|
       "trial title#{n}"
     end
+
+    association :committee
   end
 end

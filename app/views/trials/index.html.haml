@@ -12,11 +12,11 @@
     - @trials.each do |trial|
       %tr
         %td= trial.title
-        %td= link_to 'Show', trial
-        %td= link_to 'Edit', edit_trial_path(trial)
-        %td= link_to 'Destroy', trial, method: :delete,
+        %td= link_to 'Show', [@committee, trial]
+        %td= link_to 'Edit', edit_committee_trial_path(@committee, trial)
+        %td= link_to 'Destroy', [@committee, trial], method: :delete,
         data: { confirm: 'Are you sure?' }
 
 %br
 
-= link_to 'New trial', new_trial_path
+= link_to 'New trial', new_committee_trial_path(@committee)
