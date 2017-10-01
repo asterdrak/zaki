@@ -1,0 +1,15 @@
+= form_for trial do |f|
+  - if trial.errors.any?
+    #error-explanation
+      %h2
+        = pluralize(trial.errors.count, 'error')
+        prohibited this trial from being saved:
+      %ul
+        - trial.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :title
+    = f.text_field :title
+  .actions
+    = f.submit 'Save'

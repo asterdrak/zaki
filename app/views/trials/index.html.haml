@@ -1,0 +1,22 @@
+%h1 Listing trials
+
+%table
+  %thead
+    %tr
+      %th Title
+      %th
+      %th
+      %th
+
+  %tbody
+    - @trials.each do |trial|
+      %tr
+        %td= trial.title
+        %td= link_to 'Show', trial
+        %td= link_to 'Edit', edit_trial_path(trial)
+        %td= link_to 'Destroy', trial, method: :delete,
+        data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New trial', new_trial_path
