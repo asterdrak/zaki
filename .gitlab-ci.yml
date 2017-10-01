@@ -10,6 +10,11 @@ variables:
 
 before_script:
   - apt-get update -qq && apt-get install -y -qq postgresql postgresql-contrib libpq-dev cmake
+  - apt-get install apt-transport-https
+  - echo "deb https://cli-assets.heroku.com/branches/stable/apt ./" > /etc/apt/sources.list.d/heroku.list
+  - wget -O- https://cli-assets.heroku.com/apt/release.key | apt-key add -
+  - apt-get update
+  - apt-get install -y heroku
   - apt-get install -y nodejs
   - gem install bundler --no-ri --no-rdoc
   - bundle install --path /cache
@@ -36,3 +41,23 @@ specs:
   script:
     - bundle exec rake db:create RAILS_ENV=test
     - bundle exec rspec
+staging_deploy:
+  stage: deploy
+  variables:
+    HEROKU_API_KEY: $HEROKU_STAGING_API_KEY
+  script:
+    - gem install dpl
+    - dpl --provider=heroku --app=$HEROKU_STAGING_APP --api-key=$HEROKU_STAGING_API_KEY
+    - heroku run rails db:migrate --exit-code --app $HEROKU_STAGING_APP
+  only:
+    - master
+production_deploy:
+  stage: deploy
+  variables:
+    HEROKU_API_KEY: $HEROKU_PRODUCTION_API_KEY
+  script:
+  - gem install dpl
+  - dpl --provider=heroku --app=$HEROKU_PRODUCTION_APP --api-key=$HEROKU_PRODUCTION_API_KEY
+  - heroku run rails db:migrate --exit-code --app $HEROKU_PRODUCTION_APP
+  only:
+  - tags
