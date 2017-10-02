@@ -1,0 +1,14 @@
+# frozen_string_literal: true
+
+require 'rails_helper'
+
+FactoryGirl.define do
+  factory :trial do
+    sequence :title do |n|
+      "trial title#{n}"
+    end
+
+    deadline Time.zone.now
+    association :committee
+  end
+end

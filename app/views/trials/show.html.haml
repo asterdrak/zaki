@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%h1= @trial.title
+%h2= @trial.committee.name
+
+%p
+  %b Deadline:
+  = @trial.deadline
+%p
+  %b Status:
+  = @trial.status
+
+= link_to 'Edit', edit_committee_trial_path(@committee, @trial)
+\|
+= link_to 'All trials', committee_trials_path(@committee)

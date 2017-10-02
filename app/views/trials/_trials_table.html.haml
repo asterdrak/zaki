@@ -1,0 +1,24 @@
+- if trials.present?
+  %br
+  %h3= header
+  %table
+    %thead
+      %tr
+        %th Title
+        %th Deadline
+        - unless defined? hide_options
+          %th
+          %th
+          %th
+          %th
+    %tbody
+      - trials.each do |trial|
+        %tr
+          %td= trial.title
+          %td= trial.deadline
+          - unless defined? hide_options
+            %td= render 'status_options', trial: trial, committee: committee
+            %td= link_to 'Show', [committee, trial]
+            %td= link_to 'Edit', edit_committee_trial_path(committee, trial)
+            %td= link_to 'Destroy', [committee, trial], method: :delete,
+            data: { confirm: 'Are you sure?' }

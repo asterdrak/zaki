@@ -1,9 +1,11 @@
 %p#notice= notice
 
-%p
-  %b Name:
-  = @committee.name
+%h1= @committee.name
+%h2 Number of trials: #{@committee.trials.count}
 
-= link_to 'Edit', edit_committee_path(@committee)
-\|
-= link_to 'Back', committees_path
+= link_to 'All Trials', committee_trials_path(@committee)
+%br
+- if current_user.present?
+  = link_to 'Edit committee', edit_committee_path(@committee)
+  \|
+= link_to 'All committees', committees_path
