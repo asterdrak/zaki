@@ -11,5 +11,11 @@
   .field
     = f.label :title
     = f.text_field :title
+  .field
+    = f.label :deadline
+    = f.date_select :deadline, discard_day: true
+  .field
+    = f.label :status
+    = f.select :status, Trial::STATUSES
   .actions
     = f.submit 'Save'

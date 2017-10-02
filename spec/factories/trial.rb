@@ -8,6 +8,7 @@ FactoryGirl.define do
       "trial title#{n}"
     end
 
+    deadline Time.zone.now
     association :committee
   end
 end

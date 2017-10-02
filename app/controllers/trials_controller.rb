@@ -6,7 +6,7 @@ class TrialsController < ApplicationController
   # GET /trials
   # GET /trials.json
   def index
-    @trials = Trial.all
+    @trials = @committee.trials
   end
 
   # GET /trials/1
@@ -43,7 +43,10 @@ class TrialsController < ApplicationController
   def update
     respond_to do |format|
       if @trial.update(trial_params)
-        format.html { redirect_to [@committee, @trial], notice: 'trial was successfully updated.' }
+        format.html do
+          redirect_to @trial.referer || [@committee, @trial],
+                      notice: 'trial was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: @trial }
       else
         format.html { render :edit }
@@ -78,6 +81,6 @@ class TrialsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def trial_params
-    params.require(:trial).permit(:title)
+    params.require(:trial).permit(:title, :deadline, :status, :referer)
   end
 end

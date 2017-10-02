@@ -37,7 +37,7 @@ RSpec.describe TrialsController, type: :controller do
 
   describe 'GET #index' do
     it 'assigns all trials as @trials' do
-      get :index, params: { committee_id: committee.id }, session: valid_session
+      get :index, params: { committee_id: trial.committee.id }, session: valid_session
       expect(assigns(:trials)).to eq([trial])
     end
   end
