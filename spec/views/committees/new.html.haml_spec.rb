@@ -3,7 +3,9 @@ require 'rails_helper'
 
 RSpec.describe 'committees/new', type: :view do
   before(:each) do
-    assign(:committee, build(:committee))
+    assign(:committee, Committee.new(
+                         name: 'MyString'
+    ))
   end
 
   it 'renders new committee form' do

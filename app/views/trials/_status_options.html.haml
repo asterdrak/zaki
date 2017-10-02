@@ -1,9 +1,0 @@
-- if trial.pending?
-  = form_for [committee, trial], html: { class: 'float-right' } do |f|
-    = f.hidden_field :status, value: 'accepted'
-    = f.hidden_field :referer, value: committee_trials_path(committee)
-    = f.submit 'Accept', class: 'btn btn-sm btn-success'
-  = form_for [committee, trial], html: { class: 'float-right' } do |f|
-    = f.hidden_field :status, value: 'rejected'
-    = f.hidden_field :referer, value: committee_trials_path(committee)
-    = f.submit 'Reject', class: 'btn btn-sm btn-danger'

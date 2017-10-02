@@ -4,9 +4,6 @@ Documentation:
 LineLength:
   Max: 100
 
-MethodLength:
-  Max: 15
-
 CyclomaticComplexity:
   Enabled: false
 
