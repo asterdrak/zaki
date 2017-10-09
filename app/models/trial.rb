@@ -1,16 +1,25 @@
 # frozen_string_literal: true
 class Trial < ApplicationRecord
-  # t.string   "title",        null: false
-  # t.datetime "created_at",   null: false
-  # t.datetime "updated_at",   null: false
-  # t.integer  "committee_id", null: false
+  # t.string   "title",                            null: false
+  # t.datetime "created_at",                       null: false
+  # t.datetime "updated_at",                       null: false
+  # t.integer  "committee_id",                     null: false
+  # t.date     "deadline"
+  # t.string   "status",       default: "pending", null: false
+  # t.string   "email"
+  # t.string   "phone_number"
+  # t.string   "supervisor"
+  # t.string   "environment"
   # t.index ["committee_id"], name: "index_trials_on_committee_id", using: :btree
 
   # validations
   validates :title, presence: true, uniqueness: true
-  validates :committee, presence: true
+  validates :committee, :deadline, presence: true
   STATUSES = %w(pending accepted rejected).freeze
   validates :status, inclusion: { within: STATUSES, allow_nil: true }
+  validates :email, presence: true, format: /@/
+  validates :phone_number, numericality: { only_integer: true }, length: { in: 9..13 }
+  validates :supervisor, :environment, presence: true
 
   # relations
   belongs_to :committee

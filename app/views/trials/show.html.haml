@@ -5,10 +5,28 @@
 
 %p
   %b Deadline:
-  = @trial.deadline
+  = l(@trial.deadline, format: :month_year)
 %p
   %b Status:
   = @trial.status
+%p
+  %b Email:
+  = @trial.email
+%p
+  %b Phone Number:
+  = @trial.phone_number
+%p
+  %b Supervisor:
+  = @trial.supervisor
+%p
+  %b Environment:
+  = @trial.environment
+%p
+  %b Created at:
+  = l(@trial.created_at, format: :long)
+%p
+  %b Updated at:
+  = l(@trial.updated_at, format: :long)
 
 = link_to 'Edit', edit_committee_trial_path(@committee, @trial)
 \|

@@ -8,7 +8,11 @@ FactoryGirl.define do
       "trial title#{n}"
     end
 
-    deadline Time.zone.now
-    association :committee
+    association     :committee
+    deadline        Time.zone.now
+    email           'fake@gmail.com'
+    phone_number    '667582231'
+    supervisor      'pwd. Marcin Marciniak'
+    environment     'Szczep Wichry'
   end
 end

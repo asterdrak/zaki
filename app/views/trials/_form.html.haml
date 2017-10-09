@@ -14,8 +14,21 @@
   .field
     = f.label :deadline
     = f.date_select :deadline, discard_day: true
+  - unless action_name == 'new'
+    .field
+      = f.label :status
+      = f.select :status, Trial::STATUSES
   .field
-    = f.label :status
-    = f.select :status, Trial::STATUSES
+    = f.label :email
+    = f.text_field :email
+  .field
+    = f.label :phone_number
+    = f.text_field :phone_number
+  .field
+    = f.label :supervisor
+    = f.text_field :supervisor
+  .field
+    = f.label :environment
+    = f.text_field :environment
   .actions
     = f.submit 'Save'
