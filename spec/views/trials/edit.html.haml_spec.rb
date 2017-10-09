@@ -15,6 +15,10 @@ RSpec.describe 'trials/edit', type: :view do
       assert_select 'select#trial_deadline_1i[name=?]', 'trial[deadline(1i)]'
       assert_select 'select#trial_deadline_2i[name=?]', 'trial[deadline(2i)]'
       assert_select 'select#trial_status[name=?]', 'trial[status]'
+      assert_select 'input#trial_email[name=?]', 'trial[email]'
+      assert_select 'input#trial_phone_number[name=?]', 'trial[phone_number]'
+      assert_select 'input#trial_supervisor[name=?]', 'trial[supervisor]'
+      assert_select 'input#trial_environment[name=?]', 'trial[environment]'
     end
   end
 end

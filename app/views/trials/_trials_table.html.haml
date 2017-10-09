@@ -15,7 +15,7 @@
       - trials.each do |trial|
         %tr
           %td= trial.title
-          %td= trial.deadline
+          %td= l(trial.deadline, format: :month_year)
           - unless defined? hide_options
             %td= render 'status_options', trial: trial, committee: committee
             %td= link_to 'Show', [committee, trial]
