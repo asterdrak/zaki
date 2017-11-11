@@ -7,6 +7,12 @@ RSpec.describe 'trials/index', type: :view do
       @committee = create(:committee)
       @trial_list = create_list(:trial, 2, committee: @committee)
       assign(:trials, @committee.trials)
+
+      allow_any_instance_of(TrialsHelper).to receive(:style_for_trial_badge)
+
+      allow_any_instance_of(TrialsHelper).to receive(:stateman_trial) do
+        OpenStruct.new(state: OpenStruct.new(name: 'name1', color: '000000'))
+      end
     end
 
     it 'renders a list of trials' do

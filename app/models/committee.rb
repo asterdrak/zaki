@@ -7,7 +7,29 @@ class Committee < ApplicationRecord
 
   # validations
   validates :name, presence: true, uniqueness: true
+  # validates :stateman, presence: true
 
   # relations
   has_many :trials
+  has_one :stateman, dependent: :destroy
+
+  # callbacks
+  after_create :create_stateman_resources, unless: :stateman_present?
+
+  private
+
+  def create_stateman_resources
+    organization = StatemanOrganization.create(name: name)
+    create_stateman(organization_id: organization.id) if organization.save
+
+    return if stateman.trials_created?
+
+    stateman.update(trials_created: StatemanItemType.create(
+      title: 'trials', organization_id: organization.id
+    ))
+  end
+
+  def stateman_present?
+    stateman.present?
+  end
 end

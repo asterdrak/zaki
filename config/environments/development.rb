@@ -1,4 +1,7 @@
 # frozen_string_literal: true
+
+require 'rails/commands/server'
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -52,4 +55,12 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  module DefaultOptions
+    def default_options
+      super.merge!(Port: 3033, Host: '0.0.0.0')
+    end
+  end
+
+  Rails::Server.prepend(DefaultOptions)
 end

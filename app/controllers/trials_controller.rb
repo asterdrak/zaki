@@ -7,6 +7,7 @@ class TrialsController < ApplicationController
   # GET /trials.json
   def index
     @trials = @committee.trials
+    @stateman_trials = @committee.stateman.organization.stateman_trials
   end
 
   # GET /trials/1
@@ -51,6 +52,26 @@ class TrialsController < ApplicationController
       else
         format.html { render :edit }
         format.json { render json: @trial.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH/PUT /trials/1
+  # PATCH/PUT /trials/1.json
+  def set_state
+    trial = Trial.find(params[:trial_id])
+    retval = StatemanTrial.find(trial.stateman_trial_id, params: {
+                                  organization_id: @committee.stateman.organization_id
+                                })
+                          .update_attributes(item: { state_id: params[:state_id] },
+                                             organization_id: @committee.stateman.organization_id)
+    respond_to do |format|
+      if retval
+        format.html { redirect_to [@committee, trial], notice: 'state was successfully updated.' }
+        format.json { head :ok }
+      else
+        format.html { redirect_to [@committee, trial], notice: 'state couldn\'t be updated.' }
+        format.json { head :unprocessable_entity }
       end
     end
   end

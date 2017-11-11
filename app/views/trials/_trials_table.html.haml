@@ -6,6 +6,7 @@
       %tr
         %th Title
         %th Deadline
+        %th State
         - unless defined? hide_options
           %th
           %th
@@ -16,6 +17,9 @@
         %tr
           %td= trial.title
           %td= l(trial.deadline, format: :month_year)
+          %td
+            %span.badge{ style: style_for_trial_badge(trial, stateman_trials) }
+              = stateman_trial(trial, stateman_trials).state.name
           - unless defined? hide_options
             %td= render 'status_options', trial: trial, committee: committee
             %td= link_to 'Show', [committee, trial]

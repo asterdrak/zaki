@@ -2,6 +2,8 @@
 require 'rails_helper'
 
 RSpec.describe Trial, type: :model do
+  let(:committee) { create(:committee) }
+
   it { is_expected.to validate_presence_of(:title) }
   it { is_expected.to validate_presence_of(:committee) }
   it { is_expected.to validate_presence_of(:deadline) }
@@ -101,6 +103,30 @@ RSpec.describe Trial, type: :model do
 
     it 'overdue trial include overdue soon trial' do
       expect(Trial.overdue).to_not include(overdue_soon_trial)
+    end
+  end
+
+  describe 'callbacks' do
+    it 'triggers create_stateman_trial after create' do
+      # trial = Trial.new(attributes_for(:trial))
+      trial = build(:trial, committee: committee)
+      # trial.committee = committee
+      expect(trial).to receive(:create_stateman_trial)
+      trial.send(:save)
+    end
+
+    it 'triggers destroy_stateman_trial before destroy' do
+      trial = create(:trial)
+      expect(trial).to receive(:destroy_stateman_trial)
+      trial.send(:destroy)
+    end
+  end
+
+  describe '#stateman_trial' do
+    it '' do
+      trial = create(:trial)
+      expect(StatemanTrial).to receive(:find)
+      trial.stateman_trial
     end
   end
 end

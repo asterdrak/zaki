@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 Rails.application.routes.draw do
   resources :committees do
-    resources :trials
+    resources :trials do
+      match 'state/:state_id', to: 'trials#set_state', via: :patch, as: 'set_state'
+    end
   end
 
   root 'home#index'

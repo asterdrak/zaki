@@ -40,6 +40,10 @@ RSpec.describe CommitteesController, type: :controller do
   end
 
   describe 'GET #show' do
+    before do
+      allow(StatemanTrial).to receive(:get)
+    end
+
     it 'assigns the requested committee as @committee' do
       get :show, params: { id: committee.to_param }, session: valid_session
       expect(assigns(:committee)).to eq(committee)
