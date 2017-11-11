@@ -21,6 +21,7 @@ Metrics/BlockLength:
     - 'Rakefile'
     - '**/*.rake'
     - 'spec/**/*.rb'
+    - 'config/environments/*'
 
 AllCops:
   Exclude:

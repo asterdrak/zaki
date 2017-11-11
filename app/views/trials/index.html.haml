@@ -4,19 +4,20 @@
 - if @trials.empty?
   %h3 No trials yet
 = render 'trials_table', trials: @trials.overdue_soon, committee: @committee,
-header: 'Soon overdue !!! (one month)', hide_options: true
+header: 'Soon overdue !!! (one month)', hide_options: true,
+stateman_trials: @stateman_trials
 
 = render 'trials_table', trials: @trials.ongoing, committee: @committee,
-header: 'Ongoing'
+header: 'Ongoing', stateman_trials: @stateman_trials
 
 = render 'trials_table', trials: @trials.overdue, committee: @committee,
-header: 'Overdue'
+header: 'Overdue', stateman_trials: @stateman_trials
 
 = render 'trials_table', trials: @trials.rejected, committee: @committee,
-header: 'Rejected'
+header: 'Rejected', stateman_trials: @stateman_trials
 
 = render 'trials_table', trials: @trials.accepted, committee: @committee,
-header: 'Accepted'
+header: 'Accepted', stateman_trials: @stateman_trials
 
 %br
 

@@ -10,7 +10,11 @@ class CommitteesController < ApplicationController
 
   # GET /committees/1
   # GET /committees/1.json
-  def show; end
+  def show
+    @state_trial_count = StatemanTrial.get(:summary,
+                                           organization_id: @committee.stateman.organization_id,
+                                           id: 'trials')
+  end
 
   # GET /committees/new
   def new

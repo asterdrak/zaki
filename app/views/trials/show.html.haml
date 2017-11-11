@@ -22,6 +22,16 @@
   %b Environment:
   = @trial.environment
 %p
+  %b State:
+  %span.badge.badge-default{ style: style_for_trial_badge(@trial) }
+    = @trial.stateman_trial.state.name
+%p
+  %b Reachable states:
+  - @trial.stateman_trial.reachable_states.each do |state|
+    = link_to state.name, committee_trial_set_state_path(@committee, @trial,
+    state.id), class: 'btn btn-secondary',
+    style: "background-color: ##{state.color}", method: :patch
+%p
   %b Created at:
   = l(@trial.created_at, format: :long)
 %p

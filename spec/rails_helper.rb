@@ -61,6 +61,14 @@ RSpec.configure do |config|
   FactoryGirl.find_definitions
   # configuring file for rspec --only-failures and --next-failures
   config.example_status_persistence_file_path = 'rspec-only-failures'
+
+  config.before(:each) do
+    allow(StatemanOrganization).to receive(:create).and_return(OpenStruct.new(id: 1, save: 1))
+    allow(StatemanItemType).to receive(:create).and_return(OpenStruct.new(id: 1, save: 1))
+    allow(StatemanTrial).to receive(:new).and_return(OpenStruct.new(id: 1, save: 1,
+                                                                    prefix_options: nil))
+    allow(StatemanTrial).to receive(:find).and_return(OpenStruct.new(id: 1))
+  end
 end
 
 Shoulda::Matchers.configure do |config|

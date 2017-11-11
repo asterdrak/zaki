@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171003134333) do
+ActiveRecord::Schema.define(version: 20171023083956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,17 +22,28 @@ ActiveRecord::Schema.define(version: 20171003134333) do
     t.index ["name"], name: "index_committees_on_name", unique: true, using: :btree
   end
 
+  create_table "statemen", force: :cascade do |t|
+    t.string   "organization_id",                 null: false
+    t.integer  "committee_id",                    null: false
+    t.boolean  "trials_created",  default: false, null: false
+    t.boolean  "tasks_created",   default: false, null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.index ["committee_id"], name: "index_statemen_on_committee_id", using: :btree
+  end
+
   create_table "trials", force: :cascade do |t|
-    t.string   "title",                            null: false
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-    t.integer  "committee_id",                     null: false
+    t.string   "title",                                 null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "committee_id",                          null: false
     t.date     "deadline"
-    t.string   "status",       default: "pending", null: false
+    t.string   "status",            default: "pending", null: false
     t.string   "email"
     t.string   "phone_number"
     t.string   "supervisor"
     t.string   "environment"
+    t.string   "stateman_trial_id"
     t.index ["committee_id"], name: "index_trials_on_committee_id", using: :btree
   end
 
@@ -44,5 +55,6 @@ ActiveRecord::Schema.define(version: 20171003134333) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "statemen", "committees"
   add_foreign_key "trials", "committees"
 end

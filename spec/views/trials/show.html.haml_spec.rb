@@ -5,6 +5,10 @@ RSpec.describe 'trials/show', type: :view do
   before(:each) do
     @trial = assign(:trial, create(:trial))
     @committee = @trial.committee
+    allow(@trial).to receive_message_chain('stateman_trial.state.name')
+    allow(@trial).to receive_message_chain('stateman_trial.reachable_states') { [] }
+
+    allow_any_instance_of(TrialsHelper).to receive(:style_for_trial_badge)
   end
 
   it 'renders attributes in <p>' do

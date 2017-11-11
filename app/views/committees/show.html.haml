@@ -2,6 +2,9 @@
 
 %h1= @committee.name
 %h2 Number of trials: #{@committee.trials.count}
+%h2 Summary:
+- @state_trial_count.each do |state|
+  %p #{state['name']}: #{state['count']}
 
 = link_to 'All Trials', committee_trials_path(@committee)
 %br

@@ -36,6 +36,8 @@ RSpec.describe TrialsController, type: :controller do
   let(:valid_session) { {} }
 
   describe 'GET #index' do
+    before { allow(StatemanOrganization).to receive(:find) { OpenStruct.new(stateman_trials: []) } }
+
     it 'assigns all trials as @trials' do
       get :index, params: { committee_id: trial.committee.id }, session: valid_session
       expect(assigns(:trials)).to eq([trial])
