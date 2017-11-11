@@ -30,7 +30,7 @@ RSpec.describe CommitteesController, type: :controller do
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # CommitteesController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) { { user_id: create(:user) } }
 
   describe 'GET #index' do
     it 'assigns all committees as @committees' do

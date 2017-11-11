@@ -2,13 +2,17 @@
 
 %h1= @committee.name
 %h2 Number of trials: #{@committee.trials.count}
+%h3 Visible for public!!! Here some info about meetings and so on.
 %h2 Summary:
 - @state_trial_count.each do |state|
   %p #{state['name']}: #{state['count']}
 
-= link_to 'All Trials', committee_trials_path(@committee)
-%br
 - if current_user.present?
+  = link_to 'All Trials', committee_trials_path(@committee)
+  %br
   = link_to 'Edit committee', edit_committee_path(@committee)
   \|
-= link_to 'All committees', committees_path
+  = link_to 'All committees', committees_path
+- else
+  = link_to 'Register', new_committee_trial_path(@committee),
+  class: 'btn btn-success'

@@ -2,6 +2,7 @@
 class TrialsController < ApplicationController
   before_action :set_trial, only: [:show, :edit, :update, :destroy]
   before_action :set_committee
+  skip_before_action :login_required, only: [:new, :create]
 
   # GET /trials
   # GET /trials.json
