@@ -15,9 +15,10 @@
     = f.label :deadline
     = f.date_select :deadline, discard_day: true
   - unless action_name == 'new'
-    .field
-      = f.label :status
-      = f.select :status, Trial::STATUSES
+    - if current_user.present?
+      .field
+        = f.label :status
+        = f.select :status, Trial::STATUSES
   .field
     = f.label :email
     = f.text_field :email
@@ -30,5 +31,9 @@
   .field
     = f.label :environment
     = f.text_field :environment
+  - if trial.private_key_digest.blank?
+    .field
+      = f.label :private_key
+      = f.text_field :private_key
   .actions
-    = f.submit 'Save'
+    = f.submit 'Save', class: 'btn btn-success'

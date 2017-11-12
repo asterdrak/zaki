@@ -22,22 +22,33 @@
   %b Environment:
   = @trial.environment
 %p
+  %b Private key digest:
+  = @trial.private_key_digest
+%p
   %b State:
   %span.badge.badge-default{ style: style_for_trial_badge(@trial) }
     = @trial.stateman_trial.state.name
-%p
-  %b Reachable states:
-  - @trial.stateman_trial.reachable_states.each do |state|
-    = link_to state.name, committee_trial_set_state_path(@committee, @trial,
-    state.id), class: 'btn btn-secondary',
-    style: "background-color: ##{state.color}", method: :patch
+- if current_user.present?
+  %p
+    %b Reachable states:
+    - @trial.stateman_trial.reachable_states.each do |state|
+      = link_to state.name, committee_trial_set_state_path(@committee, @trial,
+      state.id), class: 'btn btn-secondary',
+      style: "background-color: ##{state.color}", method: :patch
 %p
   %b Created at:
   = l(@trial.created_at, format: :long)
 %p
   %b Updated at:
   = l(@trial.updated_at, format: :long)
+- unless current_user.present?
+  %p
+    = link_to 'Clear from this computer',
+    committee_trial_clear_permitted_path(@committee), method: :delete
 
-= link_to 'Edit', edit_committee_trial_path(@committee, @trial)
-\|
-= link_to 'All trials', committee_trials_path(@committee)
+= link_to 'Edit', edit_committee_trial_path(@committee, @trial),
+class: 'btn btn-info'
+= link_to @committee.name, committee_path(@committee), class: 'btn btn-primary'
+- if current_user.present?
+  \|
+  = link_to 'All trials', committee_trials_path(@committee)

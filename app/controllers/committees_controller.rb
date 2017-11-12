@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class CommitteesController < ApplicationController
   before_action :set_committee, only: [:show, :edit, :update, :destroy]
+  skip_before_action :login_required, only: :show
 
   # GET /committees
   # GET /committees.json

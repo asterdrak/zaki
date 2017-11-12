@@ -1,0 +1,12 @@
+%h1= @title
+
+%p
+  = @greeting
+%p
+  = @link_info
+  - trial_url = committee_trial_authorize_url(@trial.committee.id,
+  @trial.id, @trial.private_key_digest)
+  = link_to trial_url, trial_url
+%p
+  = @key_info
+  = @private_key

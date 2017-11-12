@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class HomeController < ApplicationController
-  before_action :login_required, except: :index
+  skip_before_action :login_required, only: :index
 
   def index; end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171023083956) do
+ActiveRecord::Schema.define(version: 20171111235547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,18 +33,20 @@ ActiveRecord::Schema.define(version: 20171023083956) do
   end
 
   create_table "trials", force: :cascade do |t|
-    t.string   "title",                                 null: false
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.integer  "committee_id",                          null: false
+    t.string   "title",                                  null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.integer  "committee_id",                           null: false
     t.date     "deadline"
-    t.string   "status",            default: "pending", null: false
+    t.string   "status",             default: "pending", null: false
     t.string   "email"
     t.string   "phone_number"
     t.string   "supervisor"
     t.string   "environment"
     t.string   "stateman_trial_id"
+    t.string   "private_key_digest"
     t.index ["committee_id"], name: "index_trials_on_committee_id", using: :btree
+    t.index ["private_key_digest"], name: "index_trials_on_private_key_digest", unique: true, using: :btree
   end
 
   create_table "users", force: :cascade do |t|

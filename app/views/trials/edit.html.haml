@@ -2,6 +2,7 @@
 
 = render 'form', trial: @trial
 
-= link_to 'Show', [@committee, @trial]
-\|
-= link_to 'All trials', committee_trials_path(@committee)
+= link_to 'Show', [@committee, @trial], class: 'btn btn-primary'
+- if current_user.present?
+  \|
+  = link_to 'All trials', committee_trials_path(@committee)
