@@ -14,5 +14,6 @@ FactoryGirl.define do
     phone_number    '667582231'
     supervisor      'pwd. Marcin Marciniak'
     environment     'Szczep Wichry'
+    private_key     'Key'
   end
 end

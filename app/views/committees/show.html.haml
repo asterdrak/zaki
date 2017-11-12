@@ -6,6 +6,16 @@
 %h2 Summary:
 - @state_trial_count.each do |state|
   %p #{state['name']}: #{state['count']}
+- unless session['permitted_trials'].blank?
+  %h2 My trials:
+  = link_to '(Clear from this computer)',
+  committee_trial_clear_permitted_path(@committee), method: :delete
+  %p
+    %ul
+      - session['permitted_trials'].each do |private_key_digest|
+        - trial = Trial.find_by(private_key_digest: private_key_digest)
+        - unless trial.nil?
+          %li= link_to trial.title, [@committee, trial]
 
 - if current_user.present?
   = link_to 'All Trials', committee_trials_path(@committee)
@@ -14,5 +24,5 @@
   \|
   = link_to 'All committees', committees_path
 - else
-  = link_to 'Register', new_committee_trial_path(@committee),
+  = link_to 'New trial', new_committee_trial_path(@committee),
   class: 'btn btn-success'
