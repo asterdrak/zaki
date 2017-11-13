@@ -7,6 +7,7 @@
         %th Title
         %th Deadline
         %th State
+        %th Formsub keyword
         - unless defined? hide_options
           %th
           %th
@@ -20,6 +21,7 @@
           %td
             %span.badge{ style: style_for_trial_badge(trial, stateman_trials) }
               = stateman_trial(trial, stateman_trials).state.name
+          %td= trial.formsub_case_keyword
           - unless defined? hide_options
             %td= render 'status_options', trial: trial, committee: committee
             %td= link_to 'Show', [committee, trial]

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class StatemanState < ApplicationResource
+class StatemanState < StatemanResource
   self.prefix = '/organizations/:organization_id/:item_type/'
   self.element_name = 'state'
 

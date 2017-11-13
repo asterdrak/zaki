@@ -12,6 +12,8 @@ class Trial < ApplicationRecord
   # t.string   "environment"
   # t.string   "stateman_trial_id"
   # t.string   "private_key_digest"
+  # t.string   "formsub_case_id"
+  # t.string   "formsub_case_keyword"
   # t.index ["committee_id"], name: "index_trials_on_committee_id", using: :btree
   # t.index ["private_key_digest"], name: "index_trials_on_private_key_digest",
   # unique: true, using: :btree
@@ -31,8 +33,8 @@ class Trial < ApplicationRecord
   belongs_to :committee
 
   # callbacks
-  after_save     :create_stateman_trial
-  before_destroy :destroy_stateman_trial
+  after_save     :create_stateman_trial, :create_formsub_case
+  before_destroy :destroy_stateman_trial, :destroy_formsub_case
   after_create   :send_notification
 
   # scopes
@@ -59,9 +61,15 @@ class Trial < ApplicationRecord
   end
 
   def stateman_trial
+    return if stateman_trial_id.nil?
     StatemanTrial.find(stateman_trial_id, params: {
                          organization_id: committee.stateman.organization_id
                        })
+  end
+
+  def formsub_case
+    return if formsub_case_id.nil?
+    FormsubCase.find(formsub_case_id)
   end
 
   private
@@ -76,6 +84,18 @@ class Trial < ApplicationRecord
 
   def destroy_stateman_trial
     stateman_trial.destroy
+  end
+
+  def create_formsub_case
+    return unless committee.formsub_committee_id? && private_key_digest? && formsub_case_id.nil?
+    formsub_case = FormsubCase.create(title: title, keyword: "#{id}-#{private_key_digest[0..2]}")
+
+    return unless formsub_case.save
+    update(formsub_case_id: formsub_case.id, formsub_case_keyword: formsub_case.keyword)
+  end
+
+  def destroy_formsub_case
+    formsub_case.destroy if formsub_case_id?
   end
 
   def send_notification

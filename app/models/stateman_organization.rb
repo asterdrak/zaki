@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class StatemanOrganization < ApplicationResource
+class StatemanOrganization < StatemanResource
   self.element_name = 'organization'
 
   has_many :stateman_item_types

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class StatemanTrial < ApplicationResource
+class StatemanTrial < StatemanResource
   self.prefix = '/organizations/:organization_id/'
   self.element_name = 'trial'
 
