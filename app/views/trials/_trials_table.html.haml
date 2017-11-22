@@ -1,30 +1,36 @@
 - if trials.present?
-  %br
   %h3= header
-  %table
-    %thead
-      %tr
-        %th Title
-        %th Deadline
-        %th State
-        %th Formsub keyword
-        - unless defined? hide_options
-          %th
-          %th
-          %th
-          %th
-    %tbody
-      - trials.each do |trial|
+  .table-responsive.no-min-height
+    %table.table
+      %thead
         %tr
-          %td= trial.title
-          %td= l(trial.deadline, format: :month_year)
-          %td
-            %span.badge{ style: style_for_trial_badge(trial, stateman_trials) }
-              = stateman_trial(trial, stateman_trials).state.name
-          %td= trial.formsub_case_keyword
+          %th Title
+          %th Deadline
+          %th State
+          %th Formsub keyword
           - unless defined? hide_options
-            %td= render 'status_options', trial: trial, committee: committee
-            %td= link_to 'Show', [committee, trial]
-            %td= link_to 'Edit', edit_committee_trial_path(committee, trial)
-            %td= link_to 'Destroy', [committee, trial], method: :delete,
-            data: { confirm: 'Are you sure?' }
+            %th
+            %th
+      %tbody
+        - trials.each do |trial|
+          %tr
+            %td= link_to trial.title, [committee, trial]
+            %td= l(trial.deadline, format: :month_year)
+            %td
+              %span.badge{ style: style_for_trial_badge(trial,
+              stateman_trials) }
+                = stateman_trial(trial, stateman_trials).state.name
+            %td= trial.formsub_case_keyword
+            - unless defined? hide_options
+              %td= render 'status_options', trial: trial, committee: committee
+              %td
+                .dropdown
+                  %button#tr-options{ type: 'button',
+                  'data-toggle': 'dropdown', 'aria-haspopup': 'true',
+                  'aria-expanded': 'false' }
+                    More
+                  .dropdown-menu{ 'aria-labelledby': 'tr-options' }
+                    = link_to 'Edit', edit_committee_trial_path(committee,
+                    trial), class: 'dropdown-item'
+                    = link_to 'Destroy', [committee, trial], method: :delete,
+                    data: { confirm: 'Are you sure?' }, class: 'dropdown-item'

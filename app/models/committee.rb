@@ -15,7 +15,7 @@ class Committee < ApplicationRecord
   has_one :stateman, dependent: :destroy
 
   # callbacks
-  after_create :create_stateman_resources, unless: :stateman_present?
+  after_create :create_stateman_resources
   after_save :create_formsub_resource, unless: :formsub_committee_id?
 
   # rest instance methods

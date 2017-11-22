@@ -8,8 +8,8 @@
         - committee.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
+  .field.form-group
     = f.label :name
-    = f.text_field :name
-  .actions
-    = f.submit 'Save'
+    = f.text_field :name, class: 'form-control'
+  .actions.d-inline-block.float-right
+    = f.submit 'Save', class: 'btn btn-success'

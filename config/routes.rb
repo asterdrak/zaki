@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   root 'home#index'
   match 'home/private_index' => 'home#private_index', via: :get
+  match 'permitted_keywords' => 'home#permitted_keywords', via: :get
 
   # omniauth
   get '/auth/:provider/callback' => 'user_sessions#create'

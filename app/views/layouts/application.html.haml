@@ -13,4 +13,39 @@
     'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    = yield
+    %nav.navbar#main-navbar
+      %button.navbar-toggler{ 'aria-controls': 'navbar-nav',
+      'aria-expanded': 'false', 'aria-label': 'Toggle navigation',
+      'data-target': '#navbar-nav', 'data-toggle': 'collapse',
+      type: 'button' }
+        %span.navbar-toggler-icon
+      %a.navbar-brand Zaki
+      .collapse.navbar-collapse#navbar-nav
+        %ul.navbar-nav
+          - if current_user.present?
+            %li.nav-item
+              = link_to root_path, class: 'nav-link' do
+                Home
+                %span.sr-only (current)
+            %li.nav-item
+              - if @committee.present? && @committee.persisted?
+                = link_to @committee.name, @committee, class: 'nav-link'
+              - else
+                = link_to 'Committees', :committees, class: 'nav-link'
+            %li.nav-item
+              - if @committee.present? && @committee.persisted?
+                = link_to 'Trials List', committee_trials_path(@committee),
+                class: 'nav-link'
+          - if @committee.present? && @committee.persisted?
+            %li.nav-item
+              = link_to 'Meetings', formsub_committee_url,
+              class: 'nav-link'
+    .container-fluid
+      = yield
+
+    :javascript
+      if (innerWidth > 767) {
+        $('.btn[data-toggle="tooltip"]').tooltip({
+         container: 'body'
+        })
+      }
