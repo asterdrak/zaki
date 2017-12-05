@@ -1,13 +1,20 @@
-%p#notice= notice
+.row.second-bar
+  = render template: 'shared/breadcrumbs',
+  locals: { final_title: 'Trial authentication' }
 
-= form_for :trial, url: [@committee, @trial] do |f|
-  - if @trial.errors.any?
-    #error-explanation
-      %ul
-        - @trial.errors.full_messages.each do |msg|
-          %li= msg
-  .field
-    = f.label :private_key
-    = f.text_field :private_key
-  .actions
-    = f.submit 'Authorize'
+= render 'shared/alerts'
+
+.ls60
+.row
+  .col-md-6.offset-md-3
+    = form_for :trial, url: [@committee, @trial] do |f|
+      - if @trial.errors.any?
+        #error-explanation
+          %ul
+            - @trial.errors.full_messages.each do |msg|
+              %li= msg
+      .field.form-group
+        = f.label :private_key
+        = f.text_field :private_key, class: 'form-control'
+      .actions
+        = f.submit 'Authorize', class: 'btn btn-success float-right'

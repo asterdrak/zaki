@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 class Committee < ApplicationRecord
-  # t.string   "name",       null: false
-  # t.datetime "created_at", null: false
-  # t.datetime "updated_at", null: false
+  # t.string   "name",                 null: false
+  # t.datetime "created_at",           null: false
+  # t.datetime "updated_at",           null: false
+  # t.string   "formsub_committee_id"
   # t.index ["name"], name: "index_committees_on_name", unique: true, using: :btree
 
   # validations
@@ -14,7 +15,13 @@ class Committee < ApplicationRecord
   has_one :stateman, dependent: :destroy
 
   # callbacks
-  after_create :create_stateman_resources, unless: :stateman_present?
+  after_create :create_stateman_resources
+  after_save :create_formsub_resource, unless: :formsub_committee_id?
+
+  # rest instance methods
+  def formsub_committee
+    FormsubCommittee.find(formsub_committee_id)
+  end
 
   private
 
@@ -27,6 +34,11 @@ class Committee < ApplicationRecord
     stateman.update(trials_created: StatemanItemType.create(
       title: 'trials', organization_id: organization.id
     ))
+  end
+
+  def create_formsub_resource
+    committee = FormsubCommittee.create(name: name, zaki_committee_id: id)
+    update(formsub_committee_id: committee.id) if committee.save
   end
 
   def stateman_present?

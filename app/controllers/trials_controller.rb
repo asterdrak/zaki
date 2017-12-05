@@ -10,7 +10,8 @@ class TrialsController < ApplicationController
 
   # for private key based authentication on trial show
   before_action :set_session_permitted_trials, only: %w(receive_private_key
-                                                        receive_private_key_digest)
+                                                        receive_private_key_digest
+                                                        create)
   before_action :render_private_key_monit, only: [:show, :edit, :update],
                                            unless: :trial_authorized?
 
@@ -42,12 +43,15 @@ class TrialsController < ApplicationController
 
     respond_to do |format|
       if @trial.save
+        session['permitted_trials'] = session['permitted_trials'] | [@trial.private_key_digest]
+
         format.html do
           if current_user.present?
-            redirect_to [@committee, @trial], notice: 'trial was successfully created.'
+            redirect_to @trial.referer || [@committee, @trial],
+                        notice: 'trial was successfully created.'
           else
-            redirect_to committee_trial_authorize_path(@committee, @trial,
-                                                       @trial.private_key_digest),
+            redirect_to @trial.referer || committee_trial_authorize_path(@committee, @trial,
+                                                                         @trial.private_key_digest),
                         notice: 'trial was successfully created.'
           end
         end

@@ -68,6 +68,7 @@ RSpec.configure do |config|
     allow(StatemanTrial).to receive(:new).and_return(OpenStruct.new(id: 1, save: 1,
                                                                     prefix_options: nil))
     allow(StatemanTrial).to receive(:find).and_return(OpenStruct.new(id: 1))
+    allow(FormsubCommittee).to receive(:create).and_return(OpenStruct.new(id: 1))
   end
 end
 

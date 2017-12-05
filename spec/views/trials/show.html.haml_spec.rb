@@ -7,6 +7,7 @@ RSpec.describe 'trials/show', type: :view do
     @committee = @trial.committee
     allow(@trial).to receive_message_chain('stateman_trial.state.name')
     allow(@trial).to receive_message_chain('stateman_trial.reachable_states') { [] }
+    allow(@trial).to receive_message_chain('formsub_case.registrations') { [] }
 
     allow_any_instance_of(TrialsHelper).to receive(:style_for_trial_badge)
   end

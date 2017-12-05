@@ -1,28 +1,62 @@
-%p#notice= notice
+.row.second-bar
+  = render template: 'shared/breadcrumbs', locals: { final_title: 'Trials' }
 
-%h1= @committee.name
-%h2 Number of trials: #{@committee.trials.count}
-%h3 Visible for public!!! Here some info about meetings and so on.
-%h2 Summary:
-- @state_trial_count.each do |state|
-  %p #{state['name']}: #{state['count']}
-- unless session['permitted_trials'].blank?
-  %h2 My trials:
-  = link_to '(Clear from this computer)',
-  committee_trial_clear_permitted_path(@committee), method: :delete
-  %p
-    %ul
-      - session['permitted_trials'].each do |private_key_digest|
-        - trial = Trial.find_by(private_key_digest: private_key_digest)
-        - unless trial.nil?
-          %li= link_to trial.title, [@committee, trial]
+  = render 'shared/additional_menu' do
+    = link_to new_committee_trial_path(@committee),
+    class: 'btn btn-success' do
+      %i.fa.fa-plus-square-o
+      %span New Trial
+    - if current_user.present?
+      = link_to edit_committee_path(@committee), class: 'btn btn-secondary',
+      title: 'Edit committee', 'data-toggle': 'tooltip',
+      'data-placement': 'bottom' do
+        %i.fa.fa-edit
+        %span.hidden-sm-up Edit
+      = link_to @committee,
+      method: :delete, data: { confirm: 'Are you sure?' },
+      class: 'btn btn-danger', title: 'Delete committee',
+      'data-toggle': 'tooltip', 'data-placement': 'bottom',
+      'data-offset': '0 25' do
+        %i.fa.fa-trash-o
+        %span.hidden-sm-up Delete
 
-- if current_user.present?
-  = link_to 'All Trials', committee_trials_path(@committee)
-  %br
-  = link_to 'Edit committee', edit_committee_path(@committee)
-  \|
-  = link_to 'All committees', committees_path
-- else
-  = link_to 'New trial', new_committee_trial_path(@committee),
-  class: 'btn btn-success'
+= render 'shared/alerts'
+
+.row
+  - if session['permitted_trials'].blank?
+    - unless current_user.present?
+      .col-md-6
+        .container
+          .jumbotron
+            %h1.display-3 Hello, world!
+            %p.lead
+            This is a simple hero unit, a simple jumbotron-style
+            component for calling extra attention to featured
+            content or information.
+            %hr.my-4/
+            %p It uses utility classes for typography and spacing to
+            space content out within the larger container.
+            %p.lead
+              = link_to 'New Trial', new_committee_trial_path(@committee),
+              class: 'btn btn-lg btn-success'
+  - else
+    .col-md-6
+      %h3 My trials:
+      = link_to 'Clear from this computer',
+      committee_trial_clear_permitted_path(@committee), method: :delete,
+      class: 'btn btn-sm btn-secondary'
+      .ls20
+      .container
+        %ul.list-group
+          - session['permitted_trials'].each do |private_key_digest|
+            - trial = Trial.find_by(private_key_digest: private_key_digest)
+            - unless trial.nil?
+              %li.list-group-item= link_to trial.title, [@committee, trial]
+  .col-md-6
+    %h2 Number of trials: #{@committee.trials.count}
+    %hr
+    %h4 Visible for public!!! Here some info about meetings and so on.
+    %hr
+    %h2 Summary:
+    - @state_trial_count.each do |state|
+      %p #{state['name']}: #{state['count']}

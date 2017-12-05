@@ -12,8 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require tether
+//= require tether/tether
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require_tree .
-//= require jquery-ui
+// require jquery-ui
+// do not inlcude jquery-ui tooltip

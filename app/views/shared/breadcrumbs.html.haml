@@ -1,0 +1,9 @@
+.col
+  %nav.breadcrumb
+    - if @committee.present? && @committee.persisted?
+      = link_to @committee.name, @committee, class: 'breadcrumb-item'
+      - if @trial.present? && @trial.persisted?
+        = link_to @trial.title, [@committee, @trial], class: 'breadcrumb-item'
+    - if defined? final_title
+      .breadcrumb-item.active
+        = final_title

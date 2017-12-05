@@ -1,3 +1,104 @@
 @import "bootstrap";
 @import "jquery-ui";
 @import "common/*";
+@import "font-awesome";
+
+.navbar, .nav {
+  margin-bottom: 20px;
+}
+
+.table-responsive:not(.no-min-height) {
+  min-height: calc(100vh - 250px);
+}
+
+.ls20 {
+  height: 20px;
+}
+
+.ls40 {
+  height: 40px;
+}
+
+.ls60 {
+  height: 60px;
+}
+
+body {
+  padding-bottom: 70px;
+  overflow-x: hidden;
+}
+
+// --------------------------------------------------------------------------------
+// -----------------------      FOR MAIN NAVBAR            ------------------------
+// --------------------------------------------------------------------------------
+
+#main-navbar {
+  @extend .navbar-toggleable-md, .navbar-light, .bg-faded, .bg-inverse, .navbar-inverse;
+
+  .navbar-toggler {
+    @extend .navbar-toggler-right;
+  }
+}
+
+// --------------------------------------------------------------------------------
+// --------------    FOR ADDITIONAL MENU AND BREADCRUMB         -------------------
+// --------------------------------------------------------------------------------
+
+.breadcrumb {
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+}
+
+ @media (min-width: 575px) {
+  .row.second-bar {
+    div:nth-last-child(2) {
+      padding-right: 0;
+      position: relative; left: 2px;
+    }
+
+    div:nth-child(2) {
+      padding-left: 0;
+      position: relative; right: 2px;
+    }
+  }
+}
+
+.menu-flex-box {
+  @extend .d-flex, .justify-content-end, .flex-wrap;
+  padding-top: 6px;
+  padding-bottom: 6px;
+
+  @media (min-width: 575px) {
+    border: solid #eceeef 2px;
+    border-radius: 0 5px 5px 0;
+  }
+
+  padding-top: 0;
+  padding-bottom: 0;
+
+  .btn {
+    margin-left: 10px;
+
+    @media (max-width: 575px) {
+      width: 100vh;
+      margin: 5px 0;
+      border-radius: 3px !important;
+    }
+
+    &.btn-secondary:not(:hover) {
+      background-color: #eceeef;
+    }
+  }
+}
+
+// --------------------------------------------------------------------------------
+// -----------------------          FOR TRIALS             ------------------------
+// --------------------------------------------------------------------------------
+
+#tr-options {
+  @extend .btn, .btn-sm, .btn-secondary, .dropdown-toggle;
+
+  & + .dropdown-menu {
+    @extend .dropdown-menu-right;
+  }
+}

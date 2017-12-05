@@ -1,27 +1,22 @@
-%h1 Listing trials
-%h2= @committee.name
+.row.second-bar
+  = render template: 'shared/breadcrumbs',
+  locals: { final_title: 'Trials List' }
+.row
+  .col-md-12
+    - if @trials.empty?
+      %h3 No trials yet
+    = render 'trials_table', trials: @trials.overdue_soon,
+    committee: @committee, header: 'Soon overdue !!! (one month)',
+    hide_options: true, stateman_trials: @stateman_trials
 
-- if @trials.empty?
-  %h3 No trials yet
-= render 'trials_table', trials: @trials.overdue_soon, committee: @committee,
-header: 'Soon overdue !!! (one month)', hide_options: true,
-stateman_trials: @stateman_trials
+    = render 'trials_table', trials: @trials.ongoing, committee: @committee,
+    header: 'Ongoing', stateman_trials: @stateman_trials
 
-= render 'trials_table', trials: @trials.ongoing, committee: @committee,
-header: 'Ongoing', stateman_trials: @stateman_trials
+    = render 'trials_table', trials: @trials.overdue, committee: @committee,
+    header: 'Overdue', stateman_trials: @stateman_trials
 
-= render 'trials_table', trials: @trials.overdue, committee: @committee,
-header: 'Overdue', stateman_trials: @stateman_trials
+    = render 'trials_table', trials: @trials.rejected, committee: @committee,
+    header: 'Rejected', stateman_trials: @stateman_trials
 
-= render 'trials_table', trials: @trials.rejected, committee: @committee,
-header: 'Rejected', stateman_trials: @stateman_trials
-
-= render 'trials_table', trials: @trials.accepted, committee: @committee,
-header: 'Accepted', stateman_trials: @stateman_trials
-
-%br
-
-= link_to 'New trial', new_committee_trial_path(@committee),
-class: 'btn btn-primary'
-%br
-= link_to 'Show Committee (back)', @committee
+    = render 'trials_table', trials: @trials.accepted, committee: @committee,
+    header: 'Accepted', stateman_trials: @stateman_trials

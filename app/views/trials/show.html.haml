@@ -1,54 +1,72 @@
-%p#notice= notice
+.row.second-bar
+  = render template: 'shared/breadcrumbs'
 
-%h1= @trial.title
-%h2= @trial.committee.name
+  = render 'shared/additional_menu' do
+    = link_to formsub_meetings_url,
+    class: 'btn btn-success' do
+      %i.fa.fa-plus-square-o
+      %span Register
+    = link_to edit_committee_trial_path(@committee, @trial),
+    class: 'btn btn-secondary' do
+      %i.fa.fa-edit
+      %span Edit
 
-%p
-  %b Deadline:
-  = l(@trial.deadline, format: :month_year)
-%p
-  %b Status:
-  = @trial.status
-%p
-  %b Email:
-  = @trial.email
-%p
-  %b Phone Number:
-  = @trial.phone_number
-%p
-  %b Supervisor:
-  = @trial.supervisor
-%p
-  %b Environment:
-  = @trial.environment
-%p
-  %b Private key digest:
-  = @trial.private_key_digest
-%p
-  %b State:
-  %span.badge.badge-default{ style: style_for_trial_badge(@trial) }
-    = @trial.stateman_trial.state.name
-- if current_user.present?
-  %p
-    %b Reachable states:
-    - @trial.stateman_trial.reachable_states.each do |state|
-      = link_to state.name, committee_trial_set_state_path(@committee, @trial,
-      state.id), class: 'btn btn-secondary',
-      style: "background-color: ##{state.color}", method: :patch
-%p
-  %b Created at:
-  = l(@trial.created_at, format: :long)
-%p
-  %b Updated at:
-  = l(@trial.updated_at, format: :long)
-- unless current_user.present?
-  %p
-    = link_to 'Clear from this computer',
-    committee_trial_clear_permitted_path(@committee), method: :delete
-
-= link_to 'Edit', edit_committee_trial_path(@committee, @trial),
-class: 'btn btn-info'
-= link_to @committee.name, committee_path(@committee), class: 'btn btn-primary'
-- if current_user.present?
-  \|
-  = link_to 'All trials', committee_trials_path(@committee)
+= render 'shared/alerts'
+.row
+  .col-md-6
+    %h4 Basic Info
+    %p
+      %b Deadline:
+      = l(@trial.deadline, format: :month_year)
+    %p
+      %b Status:
+      = @trial.status
+    %p
+      %b Email:
+      = @trial.email
+    %p
+      %b Phone Number:
+      = @trial.phone_number
+    %p
+      %b Supervisor:
+      = @trial.supervisor
+    %p
+      %b Environment:
+      = @trial.environment
+    %p
+      %b Private key digest:
+      = @trial.private_key_digest
+    %p
+      %b State:
+      %span.badge.badge-default{ style: style_for_trial_badge(@trial) }
+        = @trial.stateman_trial.state.name
+    - if current_user.present?
+      %p
+        %b Reachable states:
+        - @trial.stateman_trial.reachable_states.each do |state|
+          = link_to state.name, committee_trial_set_state_path(@committee,
+          @trial, state.id), class: 'btn btn-secondary',
+          style: "background-color: ##{state.color}", method: :patch
+    %p
+      %b Created at:
+      = l(@trial.created_at, format: :long)
+    %p
+      %b Updated at:
+      = l(@trial.updated_at, format: :long)
+    - unless current_user.present?
+      %p
+        = link_to 'Clear from this computer',
+        committee_trial_clear_permitted_path(@committee), method: :delete
+  .col-md-6
+    %h4 Registrations
+    - @trial.formsub_case.registrations.each do |registration|
+      %b= registration.title
+      = registration.description
+      %br
+      = registration.meeting.name
+      (
+      = l(registration.meeting.time_start.to_datetime, format: :short)
+      \-
+      = l(registration.meeting.time_end.to_datetime, format: :short)
+      )
+      %hr

@@ -1,9 +1,5 @@
-%h1 New trial
+.row.second-bar
+  = render template: 'shared/breadcrumbs', locals: { final_title: 'New trial' }
 
-= render 'form', trial: @trial
-
-- if current_user.present?
-  = link_to 'All trials', committee_trials_path(@committee)
-- else
-  = link_to @committee.name, committee_path(@committee),
-  class: 'btn btn-primary'
+.row
+  = render 'form', trial: @trial

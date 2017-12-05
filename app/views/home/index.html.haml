@@ -8,4 +8,11 @@
     = link_to 'Committees', committees_path, class: 'btn btn-primary'
     = link_to 'Logout', logout_path, method: :delete, class: 'btn btn-danger'
 - else
-  = link_to 'sign in', '/auth/sso', class: 'btn btn-success'
+  .card.col-md-6.offset-md-3
+    %h3.card-header Login required
+    .card-block
+      %h4.card-title Plese log in to use this app
+      %p.card-text
+        With any troubles plese contact
+        = mail_to('asterdrak@gmail.com')
+      = link_to 'Sign in', '/auth/sso', class: 'btn btn-success'

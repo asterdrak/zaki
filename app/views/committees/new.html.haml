@@ -1,5 +1,9 @@
-%h1 New committee
+.row.second-bar
+  = render template: 'shared/breadcrumbs',
+  locals: { final_title: 'New Committee' }
 
-= render 'form', committee: @committee
+.row
+  .col-md-4.offset-md-4
+    = render 'form', committee: @committee
 
-= link_to 'All committees', committees_path
+    = link_to 'Back', committees_path, class: 'btn btn-secondary'
