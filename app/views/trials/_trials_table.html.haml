@@ -19,7 +19,7 @@
             %td
               %span.badge{ style: style_for_trial_badge(trial,
               stateman_trials) }
-                = stateman_trial(trial, stateman_trials).state.name
+                = stateman_trial(trial, stateman_trials)&.state&.name
             %td= trial.formsub_case_keyword
             - unless defined? hide_options
               %td= render 'status_options', trial: trial, committee: committee
