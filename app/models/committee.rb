@@ -11,7 +11,7 @@ class Committee < ApplicationRecord
   # validates :stateman, presence: true
 
   # relations
-  has_many :trials
+  has_many :trials, dependent: :restrict_with_exception
   has_one :stateman, dependent: :destroy
 
   # callbacks

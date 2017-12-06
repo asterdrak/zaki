@@ -8,18 +8,22 @@
       %i.fa.fa-plus-square-o
       %span New Committee
 
-%table.table
-  %thead
-    %tr
-      %th Name
-      %th
-      %th
+= render 'shared/alerts'
 
-  %tbody
-    - @committees.each do |committee|
+.col-md-6.offset-md-3
+  %table.table
+    %thead
       %tr
-        %td= link_to committee.name, committee
-        %td= link_to 'Edit', edit_committee_path(committee),
-        class: 'btn btn-secondary'
-        %td= link_to 'Destroy', committee, class: 'btn btn-warning',
-        method: :delete, data: { confirm: 'Are you sure?' }
+        %th Name
+        %th
+
+    %tbody
+      - @committees.each do |committee|
+        %tr
+          %td= link_to committee.name, committee
+          %td
+            .btn-group
+              = link_to 'Edit', edit_committee_path(committee),
+              class: 'btn btn-secondary'
+              = link_to 'Destroy', committee, class: 'btn btn-warning',
+              method: :delete, data: { confirm: 'Are you sure?' }

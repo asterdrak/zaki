@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :login_required
 
+  rescue_from ActiveRecord::DeleteRestrictionError do |exception|
+    redirect_to(:back, alert: exception.message)
+  end
+
   def login_required
     return if current_user
     respond_to do |format|
