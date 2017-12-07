@@ -24,22 +24,26 @@
         %ul.navbar-nav
           - if current_user.present?
             %li.nav-item
-              = link_to root_path, class: 'nav-link' do
-                Home
-                %span.sr-only (current)
-            %li.nav-item
               - if @committee.present? && @committee.persisted?
                 = link_to @committee.name, @committee, class: 'nav-link'
               - else
-                = link_to 'Committees', :committees, class: 'nav-link'
+                = link_to t(:all_committees), :committees, class: 'nav-link'
             %li.nav-item
               - if @committee.present? && @committee.persisted?
-                = link_to 'Trials List', committee_trials_path(@committee),
+                = link_to t(:trials_list), committee_trials_path(@committee),
                 class: 'nav-link'
           - if @committee.present? && @committee.persisted?
             %li.nav-item
-              = link_to 'Meetings', formsub_committee_url,
+              = link_to t(:meetings), formsub_committee_url,
               class: 'nav-link'
+        - if current_user.present?
+          %ul.navbar-nav.ml-auto
+            %li.nav-item
+              = link_to logout_path, method: :delete,
+              class: 'btn btn-outline-danger', title: t(:logout),
+              'data-toggle': 'tooltip', 'data-placement': 'bottom',
+              'data-offset': '0 10' do
+                %i.fa.fa-sign-out
     .container-fluid
       = yield
 

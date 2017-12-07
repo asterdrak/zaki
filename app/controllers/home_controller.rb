@@ -2,7 +2,9 @@
 class HomeController < ApplicationController
   skip_before_action :login_required, only: [:index, :permitted_keywords]
 
-  def index; end
+  def index
+    redirect_to committees_path if current_user.present?
+  end
 
   def private_index; end
 

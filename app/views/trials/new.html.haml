@@ -1,5 +1,6 @@
 .row.second-bar
-  = render template: 'shared/breadcrumbs', locals: { final_title: 'New trial' }
+  = render template: 'shared/breadcrumbs',
+  locals: { final_title: t(:new_trial) }
 
 .row
   = render 'form', trial: @trial

@@ -1,12 +1,12 @@
 .row.second-bar
   = render template: 'shared/breadcrumbs',
-  locals: { final_title: 'Listing Committees' }
+  locals: { final_title: t(:listing_committees) }
 
   = render 'shared/additional_menu' do
     = link_to new_committee_path,
     class: 'nav-link btn btn-success' do
       %i.fa.fa-plus-square-o
-      %span New Committee
+      %span= t(:new_committee)
 
 = render 'shared/alerts'
 
@@ -14,7 +14,7 @@
   %table.table
     %thead
       %tr
-        %th Name
+        %th= t(:name)
         %th
 
     %tbody
@@ -23,7 +23,7 @@
           %td= link_to committee.name, committee
           %td
             .btn-group
-              = link_to 'Edit', edit_committee_path(committee),
+              = link_to t(:edit), edit_committee_path(committee),
               class: 'btn btn-secondary'
-              = link_to 'Destroy', committee, class: 'btn btn-warning',
-              method: :delete, data: { confirm: 'Are you sure?' }
+              = link_to t(:destroy), committee, class: 'btn btn-warning',
+              method: :delete, data: { confirm: t(:confirm_delete) }

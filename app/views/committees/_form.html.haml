@@ -2,8 +2,8 @@
   - if committee.errors.any?
     #error-explanation
       %h2
-        = pluralize(committee.errors.count, 'error')
-        prohibited this committee from being saved:
+        = t('errors', count: committee.errors.count)
+        = t('error_message', count: committee.errors.count)
       %ul
         - committee.errors.full_messages.each do |msg|
           %li= msg
@@ -12,4 +12,4 @@
     = f.label :name
     = f.text_field :name, class: 'form-control'
   .actions.d-inline-block.float-right
-    = f.submit 'Save', class: 'btn btn-success'
+    = f.submit t(:save), class: 'btn btn-success'
