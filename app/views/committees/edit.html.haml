@@ -1,9 +1,9 @@
 .row.second-bar
-  = render template: 'shared/breadcrumbs', locals: { final_title: 'Show' }
+  = render template: 'shared/breadcrumbs', locals: { final_title: t(:edit) }
 
 .row
   .col-md-4.offset-md-4
     .ls60
     = render 'form', committee: @committee
 
-    = link_to 'Back', committees_path, class: 'btn btn-secondary'
+    = link_to t(:back), committees_path, class: 'btn btn-secondary'

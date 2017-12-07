@@ -1,5 +1,5 @@
 - if current_user.present?
-  %h1 Welcome
+  %h1= t(:welcome)
   %p
     Username: #{current_user.email}
   .btn-group
@@ -9,10 +9,12 @@
     = link_to 'Logout', logout_path, method: :delete, class: 'btn btn-danger'
 - else
   .card.col-md-6.offset-md-3
-    %h3.card-header Login required
+    %h3.card-header= t(:login_required)
     .card-block
-      %h4.card-title Plese log in to use this app
+      %h4.card-title= t(:plese_log_in)
       %p.card-text
-        With any troubles plese contact
-        = mail_to('asterdrak@gmail.com')
-      = link_to 'Sign in', '/auth/sso', class: 'btn btn-success'
+        = t(:log_in_more_info)
+        %hr
+        = t(:with_any_troubles)
+        = mail_to(Rails.application.secrets.admin_email)
+      = link_to t(:sign_in).capitalize, '/auth/sso', class: 'btn btn-success'

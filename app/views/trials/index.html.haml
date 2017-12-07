@@ -1,22 +1,22 @@
 .row.second-bar
   = render template: 'shared/breadcrumbs',
-  locals: { final_title: 'Trials List' }
+  locals: { final_title: t(:trials_list) }
 .row
   .col-md-12
     - if @trials.empty?
       %h3 No trials yet
     = render 'trials_table', trials: @trials.overdue_soon,
-    committee: @committee, header: 'Soon overdue !!! (one month)',
+    committee: @committee, header: t(:soon_overdue),
     hide_options: true, stateman_trials: @stateman_trials
 
     = render 'trials_table', trials: @trials.ongoing, committee: @committee,
-    header: 'Ongoing', stateman_trials: @stateman_trials
+    header: t(:ongoing), stateman_trials: @stateman_trials
 
     = render 'trials_table', trials: @trials.overdue, committee: @committee,
-    header: 'Overdue', stateman_trials: @stateman_trials
+    header: t(:overdue), stateman_trials: @stateman_trials
 
     = render 'trials_table', trials: @trials.rejected, committee: @committee,
-    header: 'Rejected', stateman_trials: @stateman_trials
+    header: t(:rejected), stateman_trials: @stateman_trials
 
     = render 'trials_table', trials: @trials.accepted, committee: @committee,
-    header: 'Accepted', stateman_trials: @stateman_trials
+    header: t(:accepted), stateman_trials: @stateman_trials

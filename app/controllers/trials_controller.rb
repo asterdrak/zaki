@@ -48,11 +48,11 @@ class TrialsController < ApplicationController
         format.html do
           if current_user.present?
             redirect_to @trial.referer || [@committee, @trial],
-                        notice: 'trial was successfully created.'
+                        notice: t(:trial_successfully_created)
           else
             redirect_to @trial.referer || committee_trial_authorize_path(@committee, @trial,
                                                                          @trial.private_key_digest),
-                        notice: 'trial was successfully created.'
+                        notice: t(:trial_successfully_created)
           end
         end
         format.json { render :show, status: :created, location: @trial }
@@ -71,7 +71,7 @@ class TrialsController < ApplicationController
       if @trial.update(trial_params)
         format.html do
           redirect_to @trial.referer || [@committee, @trial],
-                      notice: 'trial was successfully updated.'
+                      notice: t(:trial_successfully_updated)
         end
         format.json { render :show, status: :ok, location: @trial }
       else
@@ -92,10 +92,10 @@ class TrialsController < ApplicationController
                                              organization_id: @committee.stateman.organization_id)
     respond_to do |format|
       if retval
-        format.html { redirect_to [@committee, trial], notice: 'state was successfully updated.' }
+        format.html { redirect_to [@committee, trial], notice: t(:state_was_successfully_updated) }
         format.json { head :ok }
       else
-        format.html { redirect_to [@committee, trial], notice: 'state couldn\'t be updated.' }
+        format.html { redirect_to [@committee, trial], notice: t(:state_couldnt_be_updated) }
         format.json { head :unprocessable_entity }
       end
     end
@@ -108,7 +108,7 @@ class TrialsController < ApplicationController
     respond_to do |format|
       format.html do
         redirect_to committee_trials_url(@committee),
-                    notice: 'trial was successfully destroyed.'
+                    notice: t(:trial_successfully_destroyed)
       end
       format.json { head :no_content }
     end
@@ -119,7 +119,7 @@ class TrialsController < ApplicationController
       session['permitted_trials'] = session['permitted_trials'] | [params[:private_key_digest]]
       redirect_to [@committee, @trial]
     else
-      @trial.errors.add(:private_key, 'must be correct')
+      @trial.errors.add(:private_key, t(:must_be_correct))
       render 'private_key_monit'
     end
   end
@@ -131,7 +131,7 @@ class TrialsController < ApplicationController
 
   def clear_permitted_trials
     session['permitted_trials'] = []
-    redirect_to @committee, notice: 'Your trial was cleared on this computer'
+    redirect_to @committee, notice: t(:your_trial_was_cleared)
   end
 
   private

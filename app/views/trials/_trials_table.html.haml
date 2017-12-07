@@ -4,10 +4,9 @@
     %table.table
       %thead
         %tr
-          %th Title
-          %th Deadline
-          %th State
-          %th Formsub keyword
+          %th= t(:title)
+          %th= t(:deadline)
+          %th= t(:state)
           - unless defined? hide_options
             %th
             %th
@@ -20,7 +19,6 @@
               %span.badge{ style: style_for_trial_badge(trial,
               stateman_trials) }
                 = stateman_trial(trial, stateman_trials)&.state&.name
-            %td= trial.formsub_case_keyword
             - unless defined? hide_options
               %td= render 'status_options', trial: trial, committee: committee
               %td
@@ -28,9 +26,10 @@
                   %button#tr-options{ type: 'button',
                   'data-toggle': 'dropdown', 'aria-haspopup': 'true',
                   'aria-expanded': 'false' }
-                    More
+                    = t(:more)
                   .dropdown-menu{ 'aria-labelledby': 'tr-options' }
-                    = link_to 'Edit', edit_committee_trial_path(committee,
+                    = link_to t(:edit), edit_committee_trial_path(committee,
                     trial), class: 'dropdown-item'
-                    = link_to 'Destroy', [committee, trial], method: :delete,
-                    data: { confirm: 'Are you sure?' }, class: 'dropdown-item'
+                    = link_to t(:delete), [committee, trial], method: :delete,
+                    data: { confirm: t(:confirm_delete) },
+                    class: 'dropdown-item'

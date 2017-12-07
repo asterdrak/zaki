@@ -1,0 +1,110 @@
+pl:
+  activerecord:
+    attributes:
+      committee:
+        name: Nazwa
+      trial:
+        title: Tytuł
+        email: Email
+        phone_number: Numer telefonu
+        supervisor: Opiekun
+        environment: Środowisko
+        private_key: Klucz dostępu
+    errors:
+      models:
+        committee:
+          attributes:
+            name:
+              blank: nie może być pusta
+        trial:
+          attributes:
+            title:
+              blank: nie może być pusty
+              taken: nie może się powtarzać
+            email:
+              blank: nie może być pusty
+              invalid: jest nieprawidłowy
+            phone_number:
+              not_a_number: musi mieć poprawny format
+              too_short: jest za krótki
+            supervisor:
+              blank: musi być uzupełniony
+            environment:
+              blank: nie może być puste
+            private_key:
+              blank: musi być uzupełniony
+
+  date:
+    formats:
+      month_year: "%B %Y"
+  errors:
+    one: 1 błąd
+    other: "%{count} błędy"
+  error_message:
+    one: 'uniemożliwia zapisanie formularza:'
+    other: 'uniemożliwiają zapisanie formularza:'
+  save: Zapisz
+  back: Powrót
+  edit: Edycja
+  destroy: Usuń
+  listing_committees: Wszystkie komisje
+  new_committee: Nowa komisja
+  name: Nazwa
+  trials: Próby
+  commitee_lead_text: Jeśli jesteś kandydatem na stopień możesz utowrzyć swoją próbę za pomocą przycisku na dole, jeśli jesteś członkiem komisji 
+  sign_in: zaloguj się
+  logout: Wyloguj
+  new_trial: Nowa próba
+  my_trials: Moja próba
+  clear_from_this_computer: Wyczyść na tym komputerze
+  delete: Usuń
+  edit_committee: Edycja komisji
+  delete_committee: Usuń komisję
+  confirm_delete: Czy na pewno chcesz usunąć wybrana zasób?
+  number_of_trials: "Liczba prób w systemie: %{trials_count}"
+  summary: Podsumownie prób
+  welcome: Witaj
+  login_required: Wymagane logowanie
+  plese_log_in: Aby kontynować jako członek komisji prosimy o zalogowanie
+  log_in_more_info: w przeciwnym razie potrzebujesz dokładnego linka do swojej komisji.
+  with_any_troubles: W razie problemów prosimy o kontakt
+  all_committees: Wszystkie komisje
+  trials_list: Lista Prób
+  meetings: Spotkania
+  accept: Akceptuj
+  reject: Odrzuć
+  title: Tytuł
+  deadline: Data zakończenia
+  state: Stan
+  more: więcej
+  edit_trial: Edycja próby
+  soon_overdue: Blisko przeterminowania (jeden miesiąc)
+  ongoing: Trwające
+  overdue: Przeterminowane
+  rejected: Odrzucone
+  accepted: Zaakceptowane
+  trial_authentication: Identyfikacja próby
+  authorize: Potwierdź
+  must_be_correct: musi być poprawny
+  register: Rejestracja
+  basic_info: Podstawowe informacje
+  status: "Status:"
+  email: "Email:"
+  phone_number: "Numer telefonu:"
+  supervisor: "Opiekun:"
+  environment: "Środowisko:"
+  private_key_digest: "Klucz dostępu (szyfrowany):"
+  state: "Stan:"
+  created_at: "Utworzono:"
+  updated_at: "Zaktualizowano:"
+  registrations: Rejestracje
+  committee_successfully_created: Komisja została pomyślnie utworzona
+  committee_successfully_updated: Komisja została pomyślnie zaktualizowana
+  committee_successfully_destroyed: Komisja została pomyślnie usunięta
+  trial_successfully_created: Próba została pomyślnie utworzona
+  trial_successfully_updated: Próba została pomyślnie zaktualizowana
+  trial_successfully_destroyed: Próba została pomyślnie usunięta
+  your_trial_was_cleared: Twoja próba została usunięta z tego komputera
+  state_was_successfully_updated: Stan został zaktualizowany
+  state_couldnt_be_updated: Stan nie mógł zostać zaktualizowany
+  you_have_successfully_signed_out: Zostałeś poprawnie wylogowany

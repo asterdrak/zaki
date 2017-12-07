@@ -2,13 +2,17 @@
   - if params[:redirect_url].present?
     = f.hidden_field(:referer, value: params[:redirect_url])
   - if trial.errors.any?
-    #error-explanation
-      %h2
-        = pluralize(trial.errors.count, 'error')
-        prohibited this trial from being saved:
-      %ul
-        - trial.errors.full_messages.each do |msg|
-          %li= msg
+    .container-fluid
+      .col-lg-6.offset-lg-3.col-md-8.offset-md-2
+        .card.card-outline-danger#error-explanation
+          .card-block
+            %h4
+              = t('errors', count: trial.errors.count)
+              = t('error_message', count: trial.errors.count)
+            %ul.list-group
+              - trial.errors.full_messages.each do |msg|
+                %li.list-group-item= msg
+    .ls40
 
   .row
     .col-md-6.col-sm-11
@@ -45,6 +49,6 @@
             = f.label :private_key
             = f.text_field :private_key, class: 'form-control'
         .actions.btn-group.d-block
-          = link_to 'Back', params[:redirect_url] || :back,
+          = link_to t(:back), params[:redirect_url] || :back,
           class: 'btn btn-secondary btn-inline-block col-6 float-left'
-          = f.submit 'Save', class: 'btn btn-success btn-inline-block col-6'
+          = f.submit t(:save), class: 'btn btn-success btn-inline-block col-6'

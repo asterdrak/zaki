@@ -5,39 +5,39 @@
     = link_to formsub_meetings_url,
     class: 'btn btn-success' do
       %i.fa.fa-plus-square-o
-      %span Register
+      %span= t(:register)
     = link_to edit_committee_trial_path(@committee, @trial),
     class: 'btn btn-secondary' do
       %i.fa.fa-edit
-      %span Edit
+      %span= t(:edit)
 
 = render 'shared/alerts'
 .row
   .col-md-6
-    %h4 Basic Info
+    %h4= t(:basic_info)
     %p
-      %b Deadline:
+      %b= t(:deadline)
       = l(@trial.deadline, format: :month_year)
     %p
-      %b Status:
+      %b= t(:status)
       = @trial.status
     %p
-      %b Email:
+      %b= t(:email)
       = @trial.email
     %p
-      %b Phone Number:
+      %b= t(:phone_number)
       = @trial.phone_number
     %p
-      %b Supervisor:
+      %b= t(:supervisor)
       = @trial.supervisor
     %p
-      %b Environment:
+      %b= t(:environment)
       = @trial.environment
     %p
-      %b Private key digest:
+      %b= t(:private_key_digest)
       = @trial.private_key_digest
     %p
-      %b State:
+      %b= t(:state)
       %span.badge.badge-default{ style: style_for_trial_badge(@trial) }
         = @trial.stateman_trial.state.name
     - if current_user.present?
@@ -48,17 +48,17 @@
           @trial, state.id), class: 'btn btn-secondary',
           style: "background-color: ##{state.color}", method: :patch
     %p
-      %b Created at:
+      %b= t(:created_at)
       = l(@trial.created_at, format: :long)
     %p
-      %b Updated at:
+      %b= t(:updated_at)
       = l(@trial.updated_at, format: :long)
     - unless current_user.present?
       %p
-        = link_to 'Clear from this computer',
+        = link_to t(:clear_from_this_computer),
         committee_trial_clear_permitted_path(@committee), method: :delete
   .col-md-6
-    %h4 Registrations
+    %h4= t(:registrations)
     - @trial.formsub_case.registrations.each do |registration|
       %b= registration.title
       = registration.description

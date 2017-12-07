@@ -1,24 +1,24 @@
 .row.second-bar
-  = render template: 'shared/breadcrumbs', locals: { final_title: 'Trials' }
+  = render template: 'shared/breadcrumbs', locals: { final_title: t(:trials) }
 
   = render 'shared/additional_menu' do
     = link_to new_committee_trial_path(@committee),
     class: 'btn btn-success' do
       %i.fa.fa-plus-square-o
-      %span New Trial
+      %span= t(:new_trial)
     - if current_user.present?
       = link_to edit_committee_path(@committee), class: 'btn btn-secondary',
-      title: 'Edit committee', 'data-toggle': 'tooltip',
+      title: t(:edit_committee), 'data-toggle': 'tooltip',
       'data-placement': 'bottom' do
         %i.fa.fa-edit
-        %span.hidden-sm-up Edit
+        %span.hidden-sm-up= t(:edit_committee)
       = link_to @committee,
-      method: :delete, data: { confirm: 'Are you sure?' },
-      class: 'btn btn-danger', title: 'Delete committee',
+      method: :delete, data: { confirm: t(:confirm_delete) },
+      class: 'btn btn-danger', title: t(:delete_committee),
       'data-toggle': 'tooltip', 'data-placement': 'bottom',
       'data-offset': '0 25' do
         %i.fa.fa-trash-o
-        %span.hidden-sm-up Delete
+        %span.hidden-sm-up= t(:delete_committee)
 
 = render 'shared/alerts'
 
@@ -28,21 +28,18 @@
       .col-md-6
         .container
           .jumbotron
-            %h1.display-3 Hello, world!
+            %h1.display-4= @committee.name
             %p.lead
-            This is a simple hero unit, a simple jumbotron-style
-            component for calling extra attention to featured
-            content or information.
+              = t(:commitee_lead_text)
+              = link_to t(:sign_in), '/auth/sso'
             %hr.my-4/
-            %p It uses utility classes for typography and spacing to
-            space content out within the larger container.
             %p.lead
-              = link_to 'New Trial', new_committee_trial_path(@committee),
+              = link_to t(:new_trial), new_committee_trial_path(@committee),
               class: 'btn btn-lg btn-success'
   - else
     .col-md-6
-      %h3 My trials:
-      = link_to 'Clear from this computer',
+      %h3= t(:my_trials)
+      = link_to t(:clear_from_this_computer),
       committee_trial_clear_permitted_path(@committee), method: :delete,
       class: 'btn btn-sm btn-secondary'
       .ls20
@@ -53,10 +50,13 @@
             - unless trial.nil?
               %li.list-group-item= link_to trial.title, [@committee, trial]
   .col-md-6
-    %h2 Number of trials: #{@committee.trials.count}
+    %h2= t(:number_of_trials, trials_count: @committee.trials.count)
     %hr
     %h4 Visible for public!!! Here some info about meetings and so on.
     %hr
-    %h2 Summary:
-    - @state_trial_count.each do |state|
-      %p #{state['name']}: #{state['count']}
+    %h2= t(:summary)
+    .ls20
+    .container-fluid
+      %ul.list-group
+        - @state_trial_count.each do |state|
+          %li.list-group-item #{state['name']}: #{state['count']}
