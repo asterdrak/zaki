@@ -19,7 +19,7 @@
       'data-target': '#navbar-nav', 'data-toggle': 'collapse',
       type: 'button' }
         %span.navbar-toggler-icon
-      %a.navbar-brand Zaki
+      %a.navbar-brand{ href: '/' } Zaki
       .collapse.navbar-collapse#navbar-nav
         %ul.navbar-nav
           - if current_user.present?

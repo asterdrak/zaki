@@ -10,6 +10,7 @@ pl:
         supervisor: Opiekun
         environment: Środowisko
         private_key: Klucz dostępu
+        deadline: Termin zakończenia
     errors:
       models:
         committee:
@@ -66,7 +67,7 @@ pl:
   welcome: Witaj
   login_required: Wymagane logowanie
   plese_log_in: Aby kontynować jako członek komisji prosimy o zalogowanie
-  log_in_more_info: w przeciwnym razie potrzebujesz dokładnego linka do swojej komisji.
+  log_in_more_info: w przeciwnym razie potrzebujesz dokładny link do swojej komisji.
   with_any_troubles: W razie problemów prosimy o kontakt
   all_committees: Wszystkie komisje
   trials_list: Lista Prób
@@ -108,3 +109,4 @@ pl:
   state_was_successfully_updated: Stan został zaktualizowany
   state_couldnt_be_updated: Stan nie mógł zostać zaktualizowany
   you_have_successfully_signed_out: Zostałeś poprawnie wylogowany
+  deadline_in_future: musi być odpowiednio zdefiniowany

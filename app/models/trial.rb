@@ -21,6 +21,7 @@ class Trial < ApplicationRecord
   # validations
   validates :title, presence: true, uniqueness: { scope: :committee }
   validates :committee, :deadline, presence: true
+  validate :deadline_in_future, if: :deadline
   STATUSES = %w(pending accepted rejected).freeze
   validates :status, inclusion: { within: STATUSES, allow_nil: true }
   validates :email, presence: true, format: /@/
@@ -28,6 +29,10 @@ class Trial < ApplicationRecord
   validates :supervisor, :environment, presence: true
   validates :private_key_digest, uniqueness: true, allow_blank: true
   validates :private_key, presence: true, on: :create, unless: :private_key_digest?
+
+  def deadline_in_future
+    errors.add(:deadline, I18n.t(:deadline_in_future)) if deadline < 1.month.from_now
+  end
 
   # relations
   belongs_to :committee
