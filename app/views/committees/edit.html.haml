@@ -1,9 +1,32 @@
 .row.second-bar
   = render template: 'shared/breadcrumbs', locals: { final_title: t(:edit) }
 
+= render 'shared/alerts'
 .row
-  .col-md-4.offset-md-4
+  .col-md-8.offset-md-2.col-xl-6.offset-xl-3
     .ls60
+    %h2= t(:edit_committee)
+    %hr
     = render 'form', committee: @committee
 
     = link_to t(:back), committees_path, class: 'btn btn-secondary'
+
+    .ls60
+    %h2= t(:edit_committee_ranks)
+    %hr
+
+    %ul.list-group
+      - @ranks.each do |rank|
+        %li.list-group-item.show-on-hover-parent
+          .col-10= rank.name
+          .col-1.show-on-hover= link_to t(:delete), [@committee, rank],
+          method: :delete, class: 'btn btn-sm btn-warning'
+
+      %li.list-group-item
+        = form_for [@committee, @rank], html: { class: 'form-inline' } do |f|
+          = f.label :name, class: 'sr-only'
+          .input-group
+            .input-group-addon= t(:add_rank)
+            = f.text_field :name, class: 'form-control'
+            .input-group-addon
+              = f.submit t(:add), class: 'btn btn-sm'

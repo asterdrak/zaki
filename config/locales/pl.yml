@@ -11,6 +11,8 @@ pl:
         environment: Środowisko
         private_key: Klucz dostępu
         deadline: Termin zakończenia
+      rank:
+        name: Nazwa stopnia
     errors:
       models:
         committee:
@@ -34,6 +36,11 @@ pl:
               blank: nie może być puste
             private_key:
               blank: musi być uzupełniony
+        rank:
+          attributes:
+            name:
+              blank:
+                nie może być pusta
 
   date:
     formats:
@@ -45,6 +52,7 @@ pl:
     one: 'uniemożliwia zapisanie formularza:'
     other: 'uniemożliwiają zapisanie formularza:'
   save: Zapisz
+  add: Dodaj
   back: Powrót
   edit: Edycja
   destroy: Usuń
@@ -60,6 +68,7 @@ pl:
   clear_from_this_computer: Wyczyść na tym komputerze
   delete: Usuń
   edit_committee: Edycja komisji
+  edit_committee_ranks: Edycja stopni
   delete_committee: Usuń komisję
   confirm_delete: Czy na pewno chcesz usunąć wybrana zasób?
   number_of_trials: "Liczba prób w systemie: %{trials_count}"
@@ -70,6 +79,9 @@ pl:
   log_in_more_info: w przeciwnym razie potrzebujesz dokładny link do swojej komisji.
   with_any_troubles: W razie problemów prosimy o kontakt
   all_committees: Wszystkie komisje
+  add_rank: Nowy stopień
+  rank_successfully_created: Pomyślnie dodano stopień
+  rank_successfully_destroyed: Pomyślnie usunięto stopień
   trials_list: Lista Prób
   meetings: Spotkania
   accept: Akceptuj

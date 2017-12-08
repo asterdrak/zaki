@@ -13,6 +13,7 @@ class Committee < ApplicationRecord
   # relations
   has_many :trials, dependent: :restrict_with_exception
   has_one :stateman, dependent: :destroy
+  has_many :ranks, dependent: :restrict_with_exception
 
   # callbacks
   after_create :create_stateman_resources

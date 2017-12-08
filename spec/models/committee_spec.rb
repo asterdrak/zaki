@@ -8,6 +8,7 @@ RSpec.describe Committee, type: :model do
 
   it { is_expected.to have_many(:trials) }
   it { is_expected.to have_one(:stateman) }
+  it { is_expected.to have_many(:ranks) }
 
   it 'triggers create_stateman_resources on create' do
     committee = Committee.allocate

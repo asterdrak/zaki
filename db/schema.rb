@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171113104420) do
+ActiveRecord::Schema.define(version: 20171208200010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,14 @@ ActiveRecord::Schema.define(version: 20171113104420) do
     t.datetime "updated_at",           null: false
     t.string   "formsub_committee_id"
     t.index ["name"], name: "index_committees_on_name", unique: true, using: :btree
+  end
+
+  create_table "ranks", force: :cascade do |t|
+    t.string   "name",         null: false
+    t.integer  "committee_id", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["committee_id"], name: "index_ranks_on_committee_id", using: :btree
   end
 
   create_table "statemen", force: :cascade do |t|
@@ -60,6 +68,7 @@ ActiveRecord::Schema.define(version: 20171113104420) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "ranks", "committees"
   add_foreign_key "statemen", "committees"
   add_foreign_key "trials", "committees"
 end

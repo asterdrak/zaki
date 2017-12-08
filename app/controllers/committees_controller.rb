@@ -23,7 +23,10 @@ class CommitteesController < ApplicationController
   end
 
   # GET /committees/1/edit
-  def edit; end
+  def edit
+    @ranks = @committee.ranks
+    @rank = Rank.new
+  end
 
   # POST /committees
   # POST /committees.json
