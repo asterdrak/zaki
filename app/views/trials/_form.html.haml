@@ -21,6 +21,10 @@
           = f.label :title
           = f.text_field :title, class: 'form-control'
         .field.form-group
+          = f.label :rank_id
+          = f.select :rank_id, ranks.collect { |c| [c.name, c.id] },
+          {}, class: 'custom-select form-control'
+        .field.form-group
           = f.label :deadline
           %div= f.date_select :deadline,
           { discard_day: true, with_css_classes: true },
@@ -29,7 +33,8 @@
           - if current_user.present?
             .field.form-group
               = f.label :status
-              = f.select :status, Trial::STATUSES, {}, class: 'form-control'
+              = f.select :status, Trial::STATUSES, {},
+              class: 'custom-select form-control'
         .field.form-group
           = f.label :email
           = f.text_field :email, class: 'form-control'

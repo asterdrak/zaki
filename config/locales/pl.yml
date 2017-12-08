@@ -122,3 +122,5 @@ pl:
   state_couldnt_be_updated: Stan nie mógł zostać zaktualizowany
   you_have_successfully_signed_out: Zostałeś poprawnie wylogowany
   deadline_in_future: musi być odpowiednio zdefiniowany
+  rank_colon: "Stopień:"
+  rank: Stopień

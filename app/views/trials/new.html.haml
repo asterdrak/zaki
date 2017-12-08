@@ -3,4 +3,4 @@
   locals: { final_title: t(:new_trial) }
 
 .row
-  = render 'form', trial: @trial
+  = render 'form', trial: @trial, ranks: @committee.ranks

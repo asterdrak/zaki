@@ -16,6 +16,9 @@
   .col-md-6
     %h4= t(:basic_info)
     %p
+      %b= t(:rank_colon)
+      = @trial.rank.name
+    %p
       %b= t(:deadline)
       = l(@trial.deadline, format: :month_year)
     %p

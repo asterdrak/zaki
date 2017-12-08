@@ -15,6 +15,7 @@ FactoryGirl.define do
     supervisor      'pwd. Marcin Marciniak'
     environment     'Szczep Wichry'
     private_key     'Key'
+    association     :rank
 
     to_create { |instance| instance.save(validate: false) }
   end

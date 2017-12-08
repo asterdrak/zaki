@@ -148,7 +148,8 @@ class TrialsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def trial_params
     params.require(:trial).permit(
-      %w(title deadline status referer email phone_number supervisor environment private_key)
+      %w(title deadline status referer email phone_number supervisor
+         environment private_key rank_id)
     )
   end
 
