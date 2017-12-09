@@ -30,3 +30,24 @@
             = f.text_field :name, class: 'form-control'
             .input-group-addon
               = f.submit t(:add), class: 'btn btn-sm'
+
+    .ls60
+    %h2= t(:edit_committee_environments)
+    %hr
+
+    %ul.list-group
+      - @environments.each do |environment|
+        %li.list-group-item.show-on-hover-parent
+          .col-10= environment.name
+          .col-1.show-on-hover= link_to t(:delete), [@committee, environment],
+          method: :delete, class: 'btn btn-sm btn-warning'
+
+      %li.list-group-item
+        = form_for [@committee, @environment],
+        html: { class: 'form-inline' } do |f|
+          = f.label :name, class: 'sr-only'
+          .input-group
+            .input-group-addon= t(:add_environment)
+            = f.text_field :name, class: 'form-control'
+            .input-group-addon
+              = f.submit t(:add), class: 'btn btn-sm'

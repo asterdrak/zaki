@@ -26,6 +26,8 @@ class CommitteesController < ApplicationController
   def edit
     @ranks = @committee.ranks
     @rank = Rank.new
+    @environments = @committee.environments
+    @environment = Environment.new
   end
 
   # POST /committees
