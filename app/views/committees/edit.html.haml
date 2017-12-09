@@ -18,9 +18,10 @@
     %ul.list-group
       - @ranks.each do |rank|
         %li.list-group-item.show-on-hover-parent
-          .col-10= rank.name
-          .col-1.show-on-hover= link_to t(:delete), [@committee, rank],
-          method: :delete, class: 'btn btn-sm btn-warning'
+          .col-lg-11.col-sm-10
+            .btn-sm= rank.name
+          .col-lg-1.col-sm-2.show-on-hover= link_to t(:delete),
+          [@committee, rank], method: :delete, class: 'btn btn-sm btn-warning'
 
       %li.list-group-item
         = form_for [@committee, @rank], html: { class: 'form-inline' } do |f|
@@ -38,9 +39,15 @@
     %ul.list-group
       - @environments.each do |environment|
         %li.list-group-item.show-on-hover-parent
-          .col-10= environment.name
-          .col-1.show-on-hover= link_to t(:delete), [@committee, environment],
-          method: :delete, class: 'btn btn-sm btn-warning'
+          .col-lg-10.col-md-6.col-sm-8
+            .btn-sm
+              = environment.name
+              (#{environment.supervisor_name || t(:no_supervisor)})
+          .col-lg-1.col-md-3.col-sm-2.show-on-hover= link_to t(:edit), [:edit,
+          @committee, environment], class: 'btn btn-sm btn-secondary'
+          .col-lg-1.col-md-3.col-sm-2.show-on-hover= link_to t(:delete),
+          [@committee, environment], method: :delete,
+          class: 'btn btn-sm btn-warning'
 
       %li.list-group-item
         = form_for [@committee, @environment],

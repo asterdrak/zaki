@@ -48,4 +48,21 @@ RSpec.describe RanksController, type: :controller do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    before(:each) { create(:rank, committee: committee) }
+
+    it 'destroys the requested rank' do
+      expect do
+        delete :destroy, params: { committee_id: committee.to_param,
+                                   id: Rank.last.to_param }, session: valid_session
+      end.to change(Rank, :count).by(-1)
+    end
+
+    it 'redirects to the committees list' do
+      delete :destroy, params: { committee_id: committee.to_param,
+                                 id: Rank.last.to_param }, session: valid_session
+      expect(response).to redirect_to([:edit, committee])
+    end
+  end
 end

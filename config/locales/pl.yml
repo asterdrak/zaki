@@ -15,6 +15,9 @@ pl:
         name: Nazwa stopnia
       environment:
         name: Nazwa hufca
+        supervisor_name: Imię i nazwisko hufcowego
+        supervisor_email: Adres email hufcowego
+        notify_supervisor: Powiadamiaj hufcowego
     errors:
       models:
         committee:
@@ -134,4 +137,7 @@ pl:
   edit_committee_environments: Edycja hufców
   add_environment: Dodaj hufiec
   environment_successfully_created: Hufiec został pomyślnie utworzony
+  environment_successfully_updated: Hufiec został pomyślnie zaktualizowany
   environment_successfully_destroyed: Hufiec został usunięty
+  notify_supervisor: Powiadamiaj hufcowego
+  no_supervisor: Brak hufcowego

@@ -22,7 +22,8 @@ class RanksController < ApplicationController
   # DELETE /ranks/1
   # DELETE /ranks/1.json
   def destroy
-    @rank = @committee.ranks.find(params[:id]).destroy
+    @committee.ranks.find(params[:id]).destroy
+
     respond_to do |format|
       format.html { redirect_to [:edit, @committee], notice: t(:rank_successfully_destroyed) }
       format.json { head :no_content }
