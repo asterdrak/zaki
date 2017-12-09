@@ -1,0 +1,24 @@
+.row.second-bar
+  = render template: 'shared/breadcrumbs', locals: { final_title: t(:edit) }
+
+= render 'shared/alerts'
+.row
+  .col-md-8.offset-md-2.col-xl-6.offset-xl-3
+    = form_for [@committee, @environment] do |f|
+      .field.form-group
+        = f.label :name
+        = f.text_field :name, class: 'form-control'
+      .field.form-group
+        = f.label :supervisor_name
+        = f.text_field :supervisor_name, class: 'form-control'
+      .field.form-group
+        = f.label :supervisor_email
+        = f.text_field :supervisor_email, class: 'form-control'
+      .field.form-group
+        = f.label :notify_supervisor,
+        class: 'custom-control custom-checkbox mb-2 mr-sm-2 mb-sm-0' do
+          = f.check_box :notify_supervisor, class: 'custom-control-input'
+          %span.custom-control-indicator
+          %span.custom-control0desription= t(:notify_supervisor)
+      .actions.d-inline-block.float-right
+        = f.submit t(:save), class: 'btn btn-success'

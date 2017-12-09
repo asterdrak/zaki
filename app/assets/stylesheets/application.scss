@@ -26,6 +26,18 @@
 body {
   padding-bottom: 70px;
   overflow-x: hidden;
+
+  .btn {
+    cursor: pointer;
+  }
+
+  .show-on-hover-parent .show-on-hover {
+    display: none;
+  }
+
+  .show-on-hover-parent:hover .show-on-hover {
+    display: inherit;
+  }
 }
 
 .card {

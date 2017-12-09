@@ -8,6 +8,8 @@ Rails.application.routes.draw do
                                              as: :authorize
       match '', to: 'trials#receive_private_key', via: :post
     end
+    resources :ranks, only: [:create, :destroy]
+    resources :environments, only: [:create, :destroy, :edit, :update]
   end
 
   root 'home#index'

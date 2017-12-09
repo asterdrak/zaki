@@ -67,22 +67,33 @@ RSpec.describe TrialsController, type: :controller do
 
   describe 'POST #create' do
     context 'with valid params' do
+      let(:env_param) { create(:environment).to_param }
+
       it 'creates a new trial' do
         expect do
-          post :create, params: { committee_id: committee.id, trial: attributes_for(:trial) },
+          post :create, params: { committee_id: committee.id,
+                                  trial: attributes_for(:trial,
+                                                        rank_id: create(:rank).to_param,
+                                                        environment_id: env_param) },
                         session: valid_session
         end.to change(Trial, :count).by(1)
       end
 
       it 'assigns a newly created trial as @trial' do
-        post :create, params: { committee_id: committee.id, trial: attributes_for(:trial) },
+        post :create, params: { committee_id: committee.id,
+                                trial: attributes_for(:trial,
+                                                      rank_id: create(:rank).to_param,
+                                                      environment_id: env_param) },
                       session: valid_session
         expect(assigns(:trial)).to be_a(Trial)
         expect(assigns(:trial)).to be_persisted
       end
 
       it 'redirects to the created trial' do
-        post :create, params: { committee_id: committee.id, trial: attributes_for(:trial) },
+        post :create, params: { committee_id: committee.id,
+                                trial: attributes_for(:trial,
+                                                      rank_id: create(:rank).to_param,
+                                                      environment_id: env_param) },
                       session: valid_session
         expect(response).to redirect_to([committee, Trial.last])
       end
