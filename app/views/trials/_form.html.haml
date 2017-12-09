@@ -47,8 +47,10 @@
           = f.label :supervisor
           = f.text_field :supervisor, class: 'form-control'
         .field.form-group
-          = f.label :environment
-          = f.text_field :environment, class: 'form-control'
+          = f.label :environment_id
+          = f.select :environment_id,
+          environments.collect { |c| [c.name, c.id] },
+          {}, class: 'custom-select form-control'
         - if trial.private_key_digest.blank?
           .field.form-group
             = f.label :private_key

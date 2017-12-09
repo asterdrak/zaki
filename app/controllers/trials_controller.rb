@@ -18,7 +18,7 @@ class TrialsController < ApplicationController
   # GET /trials
   # GET /trials.json
   def index
-    @trials = @committee.trials
+    @trials = @committee.trials.includes(:rank, :environment)
     @stateman_trials = @committee.stateman.organization.stateman_trials
   end
 
@@ -149,7 +149,7 @@ class TrialsController < ApplicationController
   def trial_params
     params.require(:trial).permit(
       %w(title deadline status referer email phone_number supervisor
-         environment private_key rank_id)
+         environment_id private_key rank_id)
     )
   end
 

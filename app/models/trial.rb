@@ -39,6 +39,7 @@ class Trial < ApplicationRecord
   # relations
   belongs_to :committee
   belongs_to :rank
+  belongs_to :environment
 
   # callbacks
   after_save     :create_stateman_trial, :create_formsub_case
@@ -76,7 +77,7 @@ class Trial < ApplicationRecord
   end
 
   def formsub_case
-    return if formsub_case_id.nil?
+    create_formsub_case if formsub_case_id.nil?
     FormsubCase.find(formsub_case_id)
   end
 

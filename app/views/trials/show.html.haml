@@ -34,13 +34,13 @@
       %b= t(:supervisor)
       = @trial.supervisor
     %p
-      %b= t(:environment)
-      = @trial.environment
+      %b= t(:environment_colon)
+      = @trial.environment.name
     %p
       %b= t(:private_key_digest)
       = @trial.private_key_digest
     %p
-      %b= t(:state)
+      %b= t(:state_colon)
       %span.badge.badge-default{ style: style_for_trial_badge(@trial) }
         = @trial.stateman_trial.state.name
     - if current_user.present?

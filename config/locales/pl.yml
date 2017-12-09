@@ -115,9 +115,11 @@ pl:
   email: "Email:"
   phone_number: "Numer telefonu:"
   supervisor: "Opiekun:"
-  environment: "Środowisko:"
+  environment_colon: "Środowisko:"
+  environment: Środowisko
   private_key_digest: "Klucz dostępu (szyfrowany):"
-  state: "Stan:"
+  state_colon: "Stan:"
+  state: Stan
   created_at: "Utworzono:"
   updated_at: "Zaktualizowano:"
   registrations: Rejestracje

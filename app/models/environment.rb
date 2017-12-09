@@ -15,4 +15,5 @@ class Environment < ApplicationRecord
 
   # relations
   belongs_to :committee
+  has_many :trials
 end

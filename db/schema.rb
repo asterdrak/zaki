@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171208233325) do
+ActiveRecord::Schema.define(version: 20171209011613) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 20171208233325) do
     t.string   "email"
     t.string   "phone_number"
     t.string   "supervisor"
-    t.string   "environment"
+    t.integer  "environment_id",                           null: false
     t.string   "stateman_trial_id"
     t.string   "private_key_digest"
     t.string   "formsub_case_id"
@@ -85,5 +85,6 @@ ActiveRecord::Schema.define(version: 20171208233325) do
   add_foreign_key "ranks", "committees"
   add_foreign_key "statemen", "committees"
   add_foreign_key "trials", "committees"
+  add_foreign_key "trials", "environments"
   add_foreign_key "trials", "ranks"
 end
