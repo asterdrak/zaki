@@ -6,6 +6,8 @@
         %tr
           %th= t(:title)
           %th= t(:deadline)
+          %th= t(:rank)
+          %th= t(:environment)
           %th= t(:state)
           - unless defined? hide_options
             %th
@@ -15,6 +17,8 @@
           %tr
             %td= link_to trial.title, [committee, trial]
             %td= l(trial.deadline, format: :month_year)
+            %td= trial.rank.name
+            %td= trial.environment.name
             %td
               %span.badge{ style: style_for_trial_badge(trial,
               stateman_trials) }

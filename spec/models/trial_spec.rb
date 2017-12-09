@@ -27,8 +27,11 @@ RSpec.describe Trial, type: :model do
 
   it { is_expected.to validate_presence_of(:supervisor) }
   it { is_expected.to validate_presence_of(:environment) }
+  it { is_expected.to validate_presence_of(:rank) }
 
   it { is_expected.to belong_to(:committee) }
+  it { is_expected.to belong_to(:environment) }
+  it { is_expected.to belong_to(:rank) }
 
   describe 'status scopes and instance methods' do
     describe 'pending' do

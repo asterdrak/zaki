@@ -14,9 +14,11 @@ class Trial < ApplicationRecord
   # t.string   "private_key_digest"
   # t.string   "formsub_case_id"
   # t.string   "formsub_case_keyword"
+  # t.integer  "rank_id",
   # t.index ["committee_id"], name: "index_trials_on_committee_id", using: :btree
   # t.index ["private_key_digest"], name: "index_trials_on_private_key_digest",
   # unique: true, using: :btree
+  # t.index ["rank_id"], name: "index_trials_on_rank_id", using: :btree
 
   # validations
   validates :title, presence: true, uniqueness: { scope: :committee }
@@ -26,7 +28,7 @@ class Trial < ApplicationRecord
   validates :status, inclusion: { within: STATUSES, allow_nil: true }
   validates :email, presence: true, format: /@/
   validates :phone_number, numericality: { only_integer: true }, length: { in: 9..13 }
-  validates :supervisor, :environment, presence: true
+  validates :supervisor, :environment, :rank, presence: true
   validates :private_key_digest, uniqueness: true, allow_blank: true
   validates :private_key, presence: true, on: :create, unless: :private_key_digest?
 
@@ -36,6 +38,8 @@ class Trial < ApplicationRecord
 
   # relations
   belongs_to :committee
+  belongs_to :rank
+  belongs_to :environment
 
   # callbacks
   after_save     :create_stateman_trial, :create_formsub_case
@@ -67,13 +71,13 @@ class Trial < ApplicationRecord
 
   def stateman_trial
     return if stateman_trial_id.nil?
-    StatemanTrial.find(stateman_trial_id, params: {
-                         organization_id: committee.stateman.organization_id
-                       })
+    @stateman_trial ||= StatemanTrial.find(stateman_trial_id, params: {
+                                             organization_id: committee.stateman.organization_id
+                                           })
   end
 
   def formsub_case
-    return if formsub_case_id.nil?
+    create_formsub_case if formsub_case_id.nil?
     FormsubCase.find(formsub_case_id)
   end
 

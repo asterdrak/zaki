@@ -19,6 +19,6 @@ RSpec.describe 'trials/show', type: :view do
     expect(rendered).to match(@trial.email)
     expect(rendered).to match(@trial.phone_number)
     expect(rendered).to match(@trial.supervisor)
-    expect(rendered).to match(@trial.environment)
+    expect(rendered).to match(@trial.environment.name)
   end
 end

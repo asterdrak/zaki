@@ -4,6 +4,10 @@ require 'rails_helper'
 RSpec.describe 'committees/edit', type: :view do
   before(:each) do
     @committee = assign(:committee, create(:committee))
+    @ranks = @committee.ranks
+    @rank = Rank.new
+    @environments = @committee.environments
+    @environment = Environment.new
   end
 
   it 'renders the edit committee form' do
