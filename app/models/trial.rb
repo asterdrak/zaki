@@ -23,7 +23,7 @@ class Trial < ApplicationRecord
   # validations
   validates :title, presence: true, uniqueness: { scope: :committee }
   validates :committee, :deadline, presence: true
-  validate :deadline_in_future, if: :deadline
+  validate :deadline_in_future, if: :deadline, on: :create
   STATUSES = %w(pending accepted rejected).freeze
   validates :status, inclusion: { within: STATUSES, allow_nil: true }
   validates :email, presence: true, format: /@/
