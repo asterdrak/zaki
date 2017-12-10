@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 class Committee < ApplicationRecord
-  # t.string   "name",                 null: false
-  # t.datetime "created_at",           null: false
-  # t.datetime "updated_at",           null: false
+  # t.string   "name",                     null: false
+  # t.datetime "created_at",               null: false
+  # t.datetime "updated_at",               null: false
   # t.string   "formsub_committee_id"
+  # t.integer  "overdue_state_id"
+  # t.integer  "positive_finish_state_id"
+  # t.integer  "negative_finish_state_id"
   # t.index ["name"], name: "index_committees_on_name", unique: true, using: :btree
 
   # validations
@@ -23,6 +26,10 @@ class Committee < ApplicationRecord
   # rest instance methods
   def formsub_committee
     FormsubCommittee.find(formsub_committee_id)
+  end
+
+  def finish_state_ids
+    [positive_finish_state_id, negative_finish_state_id]
   end
 
   private

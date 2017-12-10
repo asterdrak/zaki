@@ -24,10 +24,7 @@ class CommitteesController < ApplicationController
 
   # GET /committees/1/edit
   def edit
-    @ranks = @committee.ranks
-    @rank = Rank.new
-    @environments = @committee.environments
-    @environment = Environment.new
+    set_edit_instance_variables
   end
 
   # POST /committees
@@ -49,6 +46,7 @@ class CommitteesController < ApplicationController
   # PATCH/PUT /committees/1
   # PATCH/PUT /committees/1.json
   def update
+    set_edit_instance_variables
     respond_to do |format|
       if @committee.update(committee_params)
         format.html { redirect_to @committee, notice: t(:committee_successfully_updated) }
@@ -79,6 +77,15 @@ class CommitteesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def committee_params
-    params.require(:committee).permit(:name)
+    params.require(:committee).permit(:name, :overdue_state_id, :positive_finish_state_id,
+                                      :negative_finish_state_id)
+  end
+
+  def set_edit_instance_variables
+    @states = @committee.stateman.organization.stateman_states
+    @ranks = @committee.ranks
+    @rank = Rank.new
+    @environment = Environment.new
+    @environments = @committee.environments
   end
 end

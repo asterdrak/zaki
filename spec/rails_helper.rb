@@ -64,10 +64,12 @@ RSpec.configure do |config|
 
   config.before(:each) do
     allow(StatemanOrganization).to receive(:create).and_return(OpenStruct.new(id: 1, save: 1))
+    allow(StatemanOrganization).to receive(:find).and_return(OpenStruct.new(id: 1))
     allow(StatemanItemType).to receive(:create).and_return(OpenStruct.new(id: 1, save: 1))
     allow(StatemanTrial).to receive(:new).and_return(OpenStruct.new(id: 1, save: 1,
                                                                     prefix_options: nil))
-    allow(StatemanTrial).to receive(:find).and_return(OpenStruct.new(id: 1))
+    allow(StatemanTrial).to receive(:find).and_return(OpenStruct.new(id: 1,
+                                                                     state: OpenStruct.new(id: 1)))
     allow(FormsubCommittee).to receive(:create).and_return(OpenStruct.new(id: 1))
   end
 end

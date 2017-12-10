@@ -7,7 +7,7 @@
     .ls60
     %h2= t(:edit_committee)
     %hr
-    = render 'form', committee: @committee
+    = render 'form', committee: @committee, states: @states
 
     = link_to t(:back), committees_path, class: 'btn btn-secondary'
 

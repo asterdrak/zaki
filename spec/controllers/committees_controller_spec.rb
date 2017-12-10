@@ -32,6 +32,10 @@ RSpec.describe CommitteesController, type: :controller do
   # CommitteesController. Be sure to keep this updated too.
   let(:valid_session) { { user_id: create(:user) } }
 
+  before do
+    allow(committee).to receive_message_chain('stateman.organization.stateman_states') { [] }
+  end
+
   describe 'GET #index' do
     it 'assigns all committees as @committees' do
       get :index, params: {}, session: valid_session
