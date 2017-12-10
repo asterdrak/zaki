@@ -46,13 +46,6 @@ class Trial < ApplicationRecord
   after_save       :create_stateman_trial, :create_formsub_case
   before_destroy   :destroy_stateman_trial, :destroy_formsub_case
   after_create     :send_notification
-  after_initialize :deadline_overdue, if: :deadline
-
-  def deadline_overdue
-    return unless deadline < Time.zone.now && stateman_state_id_cached != committee.overdue_state_id
-    return unless stateman_trial.reachable_states.map(&:id).include? committee.overdue_state_id
-    set_state_id(committee.overdue_state_id)
-  end
 
   # scopes
   STATUSES.each do |status|
@@ -96,6 +89,15 @@ class Trial < ApplicationRecord
 
   def committee
     @committee ||= super
+  end
+
+  def deadline_overdue
+    # this method is responsible for auto changing state to overdue if deadline is passed
+    # currently it is run from controller on show action
+    # best way would be probably to use cron for this
+    return unless deadline < Time.zone.now && stateman_state_id_cached != committee.overdue_state_id
+    return unless stateman_trial.reachable_states.map(&:id).include? committee.overdue_state_id
+    set_state_id(committee.overdue_state_id)
   end
 
   private

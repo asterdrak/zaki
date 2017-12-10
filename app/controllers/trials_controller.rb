@@ -24,7 +24,9 @@ class TrialsController < ApplicationController
 
   # GET /trials/1
   # GET /trials/1.json
-  def show; end
+  def show
+    @trial.deadline_overdue
+  end
 
   # GET /trials/new
   def new
