@@ -1,9 +1,12 @@
 - if trial.pending?
-  = form_for [committee, trial], html: { class: 'float-right' } do |f|
-    = f.hidden_field :status, value: 'accepted'
-    = f.hidden_field :referer, value: committee_trials_path(committee)
-    = f.submit t(:accept), class: 'btn btn-sm btn-success'
-  = form_for [committee, trial], html: { class: 'float-right' } do |f|
-    = f.hidden_field :status, value: 'rejected'
-    = f.hidden_field :referer, value: committee_trials_path(committee)
-    = f.submit t(:reject), class: 'btn btn-sm btn-danger'
+  - committee = trial.committee
+  - if committee.positive_finish_state_id == trial.stateman_state_id_cached
+    = form_for [committee, trial], html: { class: 'float-right' } do |f|
+      = f.hidden_field :status, value: 'accepted'
+      = f.hidden_field :referer, value: committee_trials_path(committee)
+      = f.submit t(:accept), class: 'btn btn-sm btn-success'
+  - if committee.negative_finish_state_id == trial.stateman_state_id_cached
+    = form_for [committee, trial], html: { class: 'float-right' } do |f|
+      = f.hidden_field :status, value: 'rejected'
+      = f.hidden_field :referer, value: committee_trials_path(committee)
+      = f.submit t(:reject), class: 'btn btn-sm btn-danger'

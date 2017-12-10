@@ -11,4 +11,8 @@ module TrialsHelper
       'background-color: #' + stateman_trial(trial, stateman_trials).state.color
     end
   end
+
+  def render_status_options?(trial)
+    trial.committee.finish_state_ids.include? trial.stateman_state_id_cached
+  end
 end

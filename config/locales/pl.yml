@@ -3,6 +3,9 @@ pl:
     attributes:
       committee:
         name: Nazwa
+        overdue_state_id: Stan przeterminowania próby
+        positive_finish_state_id: Stan pozytywnego zakończenia próby
+        negative_finish_state_id: Stan negatywnego zakończenia próby
       trial:
         title: Tytuł
         email: Email

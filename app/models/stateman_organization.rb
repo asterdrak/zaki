@@ -4,4 +4,5 @@ class StatemanOrganization < StatemanResource
 
   has_many :stateman_item_types
   has_many :stateman_trials
+  has_many :stateman_states
 end

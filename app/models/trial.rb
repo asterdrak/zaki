@@ -1,20 +1,21 @@
 # frozen_string_literal: true
 class Trial < ApplicationRecord
-  # t.string   "title",                                 null: false
-  # t.datetime "created_at",                            null: false
-  # t.datetime "updated_at",                            null: false
-  # t.integer  "committee_id",                          null: false
+  # t.string   "title",                                        null: false
+  # t.datetime "created_at",                                   null: false
+  # t.datetime "updated_at",                                   null: false
+  # t.integer  "committee_id",                                 null: false
   # t.date     "deadline"
-  # t.string   "status",            default: "pending", null: false
+  # t.string   "status",                   default: "pending", null: false
   # t.string   "email"
   # t.string   "phone_number"
   # t.string   "supervisor"
-  # t.string   "environment"
+  # t.integer  "environment_id",                               null: false
   # t.string   "stateman_trial_id"
   # t.string   "private_key_digest"
   # t.string   "formsub_case_id"
   # t.string   "formsub_case_keyword"
-  # t.integer  "rank_id",
+  # t.integer  "rank_id",                                      null: false
+  # t.integer  "stateman_state_id_cached"
   # t.index ["committee_id"], name: "index_trials_on_committee_id", using: :btree
   # t.index ["private_key_digest"], name: "index_trials_on_private_key_digest",
   # unique: true, using: :btree
@@ -42,9 +43,16 @@ class Trial < ApplicationRecord
   belongs_to :environment
 
   # callbacks
-  after_save     :create_stateman_trial, :create_formsub_case
-  before_destroy :destroy_stateman_trial, :destroy_formsub_case
-  after_create   :send_notification
+  after_save       :create_stateman_trial, :create_formsub_case
+  before_destroy   :destroy_stateman_trial, :destroy_formsub_case
+  after_create     :send_notification
+  after_initialize :deadline_overdue, if: :deadline
+
+  def deadline_overdue
+    return unless deadline < Time.zone.now && stateman_state_id_cached != committee.overdue_state_id
+    return unless stateman_trial.reachable_states.map(&:id).include? committee.overdue_state_id
+    set_state_id(committee.overdue_state_id)
+  end
 
   # scopes
   STATUSES.each do |status|
@@ -71,14 +79,23 @@ class Trial < ApplicationRecord
 
   def stateman_trial
     return if stateman_trial_id.nil?
-    @stateman_trial ||= StatemanTrial.find(stateman_trial_id, params: {
-                                             organization_id: committee.stateman.organization_id
-                                           })
+    @stateman_trial ||= find_stateman_trial
   end
+
+  # rubocop:disable Style/AccessorMethodName
+  def set_state_id(state_id)
+    stateman_trial.update_attributes(item: { state_id: state_id },
+                                     organization_id: committee.stateman.organization_id)
+  end
+  # rubocop:enable Style/AccessorMethodName
 
   def formsub_case
     create_formsub_case if formsub_case_id.nil?
     FormsubCase.find(formsub_case_id)
+  end
+
+  def committee
+    @committee ||= super
   end
 
   private
@@ -93,6 +110,15 @@ class Trial < ApplicationRecord
 
   def destroy_stateman_trial
     stateman_trial.destroy
+  end
+
+  def find_stateman_trial
+    stateman_trial = StatemanTrial.find(stateman_trial_id, params: {
+                                          organization_id: committee.stateman.organization_id
+                                        })
+    return stateman_trial if stateman_state_id_cached == stateman_trial.state.id
+    update(stateman_state_id_cached: stateman_trial.state.id)
+    stateman_trial
   end
 
   def create_formsub_case

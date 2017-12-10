@@ -8,6 +8,7 @@ RSpec.describe 'committees/edit', type: :view do
     @rank = Rank.new
     @environments = @committee.environments
     @environment = Environment.new
+    @states = []
   end
 
   it 'renders the edit committee form' do

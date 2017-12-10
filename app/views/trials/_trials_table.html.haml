@@ -24,7 +24,9 @@
               stateman_trials) }
                 = stateman_trial(trial, stateman_trials)&.state&.name
             - unless defined? hide_options
-              %td= render 'status_options', trial: trial, committee: committee
+              %td
+                - if render_status_options?(trial)
+                  = render 'status_options', trial: trial, committee: committee
               %td
                 .dropdown
                   %button#tr-options{ type: 'button',

@@ -85,11 +85,8 @@ class TrialsController < ApplicationController
   # PATCH/PUT /trials/1.json
   def set_state
     trial = Trial.find(params[:trial_id])
-    retval = StatemanTrial.find(trial.stateman_trial_id, params: {
-                                  organization_id: @committee.stateman.organization_id
-                                })
-                          .update_attributes(item: { state_id: params[:state_id] },
-                                             organization_id: @committee.stateman.organization_id)
+    retval = trial.set_state_id(params[:state_id])
+
     respond_to do |format|
       if retval
         format.html { redirect_to [@committee, trial], notice: t(:state_was_successfully_updated) }
