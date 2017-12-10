@@ -42,14 +42,19 @@
     %p
       %b= t(:state_colon)
       %span.badge.badge-default{ style: style_for_trial_badge(@trial) }
-        = @trial.stateman_trial.state.name
+        = @trial.stateman_trial&.state&.name || t(:missing_state)
     - if current_user.present?
       %p
         %b Reachable states:
-        - @trial.stateman_trial.reachable_states.each do |state|
-          = link_to state.name, committee_trial_set_state_path(@committee,
-          @trial, state.id), class: 'btn btn-secondary',
-          style: "background-color: ##{state.color}", method: :patch
+        - if @trial.stateman_trial.present?
+          - @trial.stateman_trial.reachable_states.each do |state|
+            = link_to state.name, committee_trial_set_state_path(@committee,
+            @trial, state.id), class: 'btn btn-secondary',
+            style: "background-color: ##{state.color}", method: :patch
+        - else
+          :javascript
+            alert('#{t(:missing_state_try_update)}')
+
     %p
       %b= t(:created_at)
       = l(@trial.created_at, format: :long)

@@ -146,3 +146,5 @@ pl:
   environment_successfully_destroyed: Hufiec został usunięty
   notify_supervisor: Powiadamiaj hufcowego
   no_supervisor: Brak hufcowego
+  missing_state: Brakujący stan
+  missing_state_try_update: Brakujący moduł stanu próby, spróbuj edytować i zapisać próbę. W razie niepowodzenia skontaktuj się z administratorem.

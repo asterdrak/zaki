@@ -42,7 +42,6 @@ class TrialsController < ApplicationController
   def create
     @trial = Trial.new(trial_params)
     @trial.committee = @committee
-
     respond_to do |format|
       if @trial.save
         session['permitted_trials'] = session['permitted_trials'] | [@trial.private_key_digest]
