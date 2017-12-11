@@ -1,0 +1,25 @@
+= form_for [@committee, @trial, @task] do |f|
+  .modal-body
+    .form-group
+      - if action_name == 'edit'
+        .field
+          = f.label :number
+          = f.number_field :number, class: 'form-control', required: true
+      .field
+        = f.label :content
+        = f.text_area :content, class: 'form-control', required: true
+      .field.mt-3
+        = f.label :deadline
+        %div= f.date_select :deadline,
+        { discard_day: true, with_css_classes: true,
+        start_year: Time.zone.today.year },
+        class: 'custom-select form-control mb-3 mr-sm-1 mb-sm-3'
+
+  .modal-footer
+    .actions
+      - if action_name == 'edit'
+        = link_to t(:back), :back, class: 'btn btn-secondary'
+      - else
+        %button.btn.btn-secondary{ 'data-dismiss': 'modal',
+        type: 'button' }= t(:close)
+      = f.submit t(:save), class: 'btn btn-success'

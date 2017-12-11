@@ -12,6 +12,8 @@ pl:
         phone_number: Numer telefonu
         supervisor: Opiekun
         environment: Środowisko
+        rank_id: Stopień
+        environment_id: Środowisko
         private_key: Klucz dostępu
         deadline: Termin zakończenia
       rank:
@@ -21,6 +23,10 @@ pl:
         supervisor_name: Imię i nazwisko hufcowego
         supervisor_email: Adres email hufcowego
         notify_supervisor: Powiadamiaj hufcowego
+      task:
+        content: Treść zadania
+        deadline: Termin wykonania
+        number: Liczba porządkowa
     errors:
       models:
         committee:
@@ -44,6 +50,15 @@ pl:
               blank: nie może być puste
             private_key:
               blank: musi być uzupełniony
+        task:
+          attributes:
+            content:
+              blank: nie może być pusta
+            number:
+              blank: nie może być pusty
+              taken: nie może się powtarzać
+            deadline:
+              blank: nie może być pusty
         rank:
           attributes:
             name:
@@ -56,6 +71,9 @@ pl:
                 nie może być pusta
 
   date:
+    formats:
+      month_year: "%B %Y"
+  time:
     formats:
       month_year: "%B %Y"
   errors:
@@ -84,6 +102,7 @@ pl:
   edit_committee_ranks: Edycja stopni
   delete_committee: Usuń komisję
   confirm_delete: Czy na pewno chcesz usunąć wybrana zasób?
+  confirm_state_update: Czy na pewno chcesz zmienić stan próby na %{state}? Operacja jest nieodwracalna.
   number_of_trials: "Liczba prób w systemie: %{trials_count}"
   summary: Podsumownie prób
   welcome: Witaj
@@ -101,7 +120,11 @@ pl:
   reject: Odrzuć
   title: Tytuł
   deadline: Data zakończenia
+  deadline_short: Termin
   state: Stan
+  state_colon: "Stan:"
+  states_general: Stany
+  reachable_states_colon: "Osiągalne stany:"
   more: więcej
   edit_trial: Edycja próby
   soon_overdue: Blisko przeterminowania (jeden miesiąc)
@@ -121,8 +144,6 @@ pl:
   environment_colon: "Środowisko:"
   environment: Środowisko
   private_key_digest: "Klucz dostępu (szyfrowany):"
-  state_colon: "Stan:"
-  state: Stan
   created_at: "Utworzono:"
   updated_at: "Zaktualizowano:"
   registrations: Rejestracje
@@ -137,7 +158,7 @@ pl:
   state_couldnt_be_updated: Stan nie mógł zostać zaktualizowany
   you_have_successfully_signed_out: Zostałeś poprawnie wylogowany
   deadline_in_future: musi być odpowiednio zdefiniowany
-  rank_colon: "Stopień:"
+  rank_colon: "Stopień zdobywany:"
   rank: Stopień
   edit_committee_environments: Edycja hufców
   add_environment: Dodaj hufiec
@@ -148,3 +169,12 @@ pl:
   no_supervisor: Brak hufcowego
   missing_state: Brakujący stan
   missing_state_try_update: Brakujący moduł stanu próby, spróbuj edytować i zapisać próbę. W razie niepowodzenia skontaktuj się z administratorem.
+  no_registrations: Brak rejestracji
+  new_registration: nowa
+  forget: Zapomnij
+  tasks: Zadania
+  task_content: Treść zadania
+  new_task: Nowe zadanie
+  task_successfully_created: Zadadnie pomyślnie utworzone
+  task_successfully_updated: Zadanie pomyślnie zaktualizowane
+  task_successfully_destroyed: Zadanie zostało usunięte

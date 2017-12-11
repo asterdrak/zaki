@@ -20,9 +20,13 @@
             %td= trial.rank.name
             %td= trial.environment.name
             %td
-              %span.badge{ style: style_for_trial_badge(trial,
-              stateman_trials) }
-                = stateman_trial(trial, stateman_trials)&.state&.name
+              - if stateman_trial(trial, stateman_trials).present?
+                - state = stateman_trial(trial, stateman_trials).state
+                %span.badge.pointer{ style: style_for_trial_badge(trial,
+                stateman_trials), 'data-toggle': 'popover',
+                'data-content': state.description, 'data-placement': 'left',
+                'data-trigger': 'hover click', title: state.name }
+                  = state.name.split.first
             - unless defined? hide_options
               %td
                 - if render_status_options?(trial)

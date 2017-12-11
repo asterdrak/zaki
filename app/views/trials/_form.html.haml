@@ -55,7 +55,7 @@
           .field.form-group
             = f.label :private_key
             = f.text_field :private_key, class: 'form-control'
-        - else
+        - elsif trial.private_key.present?
           = f.hidden_field :private_key, value: trial.private_key[0..-5]
         .actions.btn-group.d-block
           = link_to t(:back), params[:redirect_url] || :back,

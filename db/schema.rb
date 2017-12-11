@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171210004846) do
+ActiveRecord::Schema.define(version: 20171210233633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,16 @@ ActiveRecord::Schema.define(version: 20171210004846) do
     t.index ["committee_id"], name: "index_statemen_on_committee_id", using: :btree
   end
 
+  create_table "tasks", force: :cascade do |t|
+    t.integer  "number",     null: false
+    t.integer  "trial_id",   null: false
+    t.text     "content",    null: false
+    t.datetime "deadline",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["trial_id"], name: "index_tasks_on_trial_id", using: :btree
+  end
+
   create_table "trials", force: :cascade do |t|
     t.string   "title",                                        null: false
     t.datetime "created_at",                                   null: false
@@ -88,6 +98,7 @@ ActiveRecord::Schema.define(version: 20171210004846) do
   add_foreign_key "environments", "committees"
   add_foreign_key "ranks", "committees"
   add_foreign_key "statemen", "committees"
+  add_foreign_key "tasks", "trials"
   add_foreign_key "trials", "committees"
   add_foreign_key "trials", "environments"
   add_foreign_key "trials", "ranks"

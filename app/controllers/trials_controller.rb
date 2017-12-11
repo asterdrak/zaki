@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 # rubocop:disable Metrics/ClassLength
 class TrialsController < ApplicationController
+  include TrialAuthorizer
   before_action :set_trial, only: %w(show edit update destroy receive_private_key_digest
                                      receive_private_key)
   before_action :set_committee
@@ -26,6 +27,8 @@ class TrialsController < ApplicationController
   # GET /trials/1.json
   def show
     @trial.deadline_overdue
+    @tasks = @trial.tasks
+    @task = Task.new
   end
 
   # GET /trials/new
@@ -153,18 +156,6 @@ class TrialsController < ApplicationController
 
   def trial_exists?
     Trial.exists?(private_key_digest: params[:private_key_digest], id: params[:trial_id])
-  end
-
-  def set_session_permitted_trials
-    session['permitted_trials'] = [] if session['permitted_trials'].nil?
-  end
-
-  def trial_authorized?
-    current_user || session['permitted_trials']&.include?(@trial.private_key_digest)
-  end
-
-  def render_private_key_monit
-    render 'private_key_monit'
   end
 end
 # rubocop:enable Metrics/ClassLength

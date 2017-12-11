@@ -32,6 +32,7 @@ RSpec.describe Trial, type: :model do
   it { is_expected.to belong_to(:committee) }
   it { is_expected.to belong_to(:environment) }
   it { is_expected.to belong_to(:rank) }
+  it { is_expected.to have_many(:tasks) }
 
   describe 'status scopes and instance methods' do
     describe 'pending' do

@@ -41,6 +41,7 @@ class Trial < ApplicationRecord
   belongs_to :committee
   belongs_to :rank
   belongs_to :environment
+  has_many   :tasks
 
   # callbacks
   after_save       :create_stateman_trial, :create_formsub_case
