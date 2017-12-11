@@ -1,0 +1,22 @@
+.modal.fade#mark-pending-modal{ 'aria-hidden': 'true',
+'aria-labelledby': 'mark-pending-modal-label',
+role: 'dialog', tabindex: '-1' }
+  .modal-dialog{ role: 'document' }
+    .modal-content
+      .modal-header
+        %h5.modal-title#mark-pending-modal-label
+          = t(:mark_pending_modal_title)
+        %button.close{ 'aria-label': 'Close',
+        'data-dismiss': 'modal', type: 'button' }
+          %span{ 'aria-hidden': 'true' } ×
+      .modal-body
+        .text-justify= t(:mark_pending_modal_text)
+      .modal-footer
+        %button.btn.btn-secondary{ 'data-dismiss': 'modal',
+        type: 'button' }
+          = t(:close)
+        = form_for [committee, trial] do |f|
+          = f.hidden_field :status, value: 'pending'
+          = f.hidden_field :referer, value: committee_trial_path(committee,
+          trial)
+          = f.submit t(:confirm), class: 'btn btn-primary'

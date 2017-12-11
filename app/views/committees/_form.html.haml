@@ -15,6 +15,9 @@
   .field.form-group
     = f.label :name
     = f.text_field :name, class: 'form-control'
+  .field.form-group
+    = f.label :min_trial_tasks_count
+    = f.number_field :min_trial_tasks_count, class: 'form-control'
   - unless action_name == 'new'
     .field.form-group
       = f.label :overdue_state_id

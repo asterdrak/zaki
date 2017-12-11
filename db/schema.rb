@@ -10,19 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171210233633) do
+ActiveRecord::Schema.define(version: 20171211142238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "committees", force: :cascade do |t|
-    t.string   "name",                     null: false
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.string   "name",                                 null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.string   "formsub_committee_id"
     t.integer  "overdue_state_id"
     t.integer  "positive_finish_state_id"
     t.integer  "negative_finish_state_id"
+    t.integer  "min_trial_tasks_count",    default: 5, null: false
     t.index ["name"], name: "index_committees_on_name", unique: true, using: :btree
   end
 
@@ -71,7 +72,7 @@ ActiveRecord::Schema.define(version: 20171210233633) do
     t.datetime "updated_at",                                   null: false
     t.integer  "committee_id",                                 null: false
     t.date     "deadline"
-    t.string   "status",                   default: "pending", null: false
+    t.string   "status",                   default: "created", null: false
     t.string   "email"
     t.string   "phone_number"
     t.string   "supervisor"

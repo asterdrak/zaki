@@ -126,7 +126,11 @@ class TrialsController < ApplicationController
   end
 
   def receive_private_key
-    params['private_key_digest'] = Digest::MD5.hexdigest(trial_params[:private_key])
+    if trial_params[:private_key].length == 32
+      params['private_key_digest'] = trial_params[:private_key]
+    else
+      params['private_key_digest'] = Digest::MD5.hexdigest(trial_params[:private_key])
+    end
     receive_private_key_digest
   end
 

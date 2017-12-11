@@ -13,7 +13,7 @@ class HomeController < ApplicationController
       format.json do
         message = '&alert=' + URI.escape('No trials found.') if session[:permitted_trials].blank?
         redirect_to Rails.application.secrets.formsub_url + '/set_permitted_keywords?keywords=' +
-                    URI.escape(Trial.where(private_key_digest: session[:permitted_trials])
+                    URI.escape(Trial.pending.where(private_key_digest: session[:permitted_trials])
                                     .pluck(:formsub_case_keyword).compact.to_json) + message.to_s
       end
       format.html { head :no_content }

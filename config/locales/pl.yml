@@ -3,6 +3,7 @@ pl:
     attributes:
       committee:
         name: Nazwa
+        min_trial_tasks_count: Minimalna liczba zadań w próbie
         overdue_state_id: Stan przeterminowania próby
         positive_finish_state_id: Stan pozytywnego zakończenia próby
         negative_finish_state_id: Stan negatywnego zakończenia próby
@@ -103,6 +104,10 @@ pl:
   delete_committee: Usuń komisję
   confirm_delete: Czy na pewno chcesz usunąć wybrana zasób?
   confirm_state_update: Czy na pewno chcesz zmienić stan próby na %{state}? Operacja jest nieodwracalna.
+  close: Zamknij
+  confirm: Potwierdź
+  mark_pending_modal_title: Zatwierdzanie próby
+  mark_pending_modal_text: Zatwierdzając próbę składasz ją sekretarzowi do oceny i zobowiązujesz się do zgłoszenia na spotkanie. Sprawdź czy uzupełniłeś wszystkie dane i dodałeś odpowienie zadania do próby. Pamiętaj też, że próba na tym etapie musi być zatwierdzona przez opiekuna.
   number_of_trials: "Liczba prób w systemie: %{trials_count}"
   summary: Podsumownie prób
   welcome: Witaj
@@ -125,17 +130,21 @@ pl:
   state_colon: "Stan:"
   states_general: Stany
   reachable_states_colon: "Osiągalne stany:"
+  more_functionalities_available_after_confirm: Więcej opcji dostępnych jest po zatwierdzeniu próby. Pamiętaj, że wszystkie elementy próby muszą być ostatecznie zapisane w systemie i skonsultowane z odpowiednimi osobami (hufcowy, opiekun próby) przed zatwierdzeniem.
+  more_functionalities_available_after_confirm2: W szczególności próba musi mieć dodaną odpowiednią liczbę zadań.
   more: więcej
   edit_trial: Edycja próby
   soon_overdue: Blisko przeterminowania (jeden miesiąc)
   ongoing: Trwające
   overdue: Przeterminowane
   rejected: Odrzucone
+  created: Nowo utworzone
   accepted: Zaakceptowane
   trial_authentication: Identyfikacja próby
   authorize: Potwierdź
   must_be_correct: musi być poprawny
   register: Rejestracja
+  mark_pending: Zatwierdź
   basic_info: Podstawowe informacje
   status: "Status:"
   email: "Email:"
@@ -172,6 +181,7 @@ pl:
   no_registrations: Brak rejestracji
   new_registration: nowa
   forget: Zapomnij
+  confirm_forget_trials: Czy na pewno chcesz usunąć wszystkie próby z tego komputera? Aby ponownie otworzyć próbę konieczne będzie podanie klucza lub otworzenie linka przysłanego w mailu przy zakładaniu próby.
   tasks: Zadania
   task_content: Treść zadania
   new_task: Nowe zadanie

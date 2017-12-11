@@ -36,7 +36,7 @@ RSpec.describe Trial, type: :model do
 
   describe 'status scopes and instance methods' do
     describe 'pending' do
-      let(:trial) { create(:trial) } # default pending
+      let(:trial) { create(:trial, status: 'pending') }
 
       it 'new trial is in pending scope' do
         expect(Trial.pending).to include(trial)
@@ -73,9 +73,9 @@ RSpec.describe Trial, type: :model do
   end
 
   describe 'pending trials' do
-    let(:ongoing_trial) { create(:trial, deadline: 1.year.from_now) }
-    let(:overdue_soon_trial) { create(:trial, deadline: 2.weeks.from_now) }
-    let(:overdue_trial) { create(:trial, deadline: 2.weeks.ago) }
+    let(:ongoing_trial) { create(:trial, deadline: 1.year.from_now, status: 'pending') }
+    let(:overdue_soon_trial) { create(:trial, deadline: 2.weeks.from_now, status: 'pending') }
+    let(:overdue_trial) { create(:trial, deadline: 2.weeks.ago, status: 'pending') }
 
     it 'ongoing trial' do
       expect(Trial.ongoing).to include(ongoing_trial)

@@ -15,6 +15,9 @@
     = render 'trials_table', trials: @trials.overdue, committee: @committee,
     header: t(:overdue), stateman_trials: @stateman_trials
 
+    = render 'trials_table', trials: @trials.created, committee: @committee,
+    header: t(:created), stateman_trials: @stateman_trials
+
     = render 'trials_table', trials: @trials.rejected, committee: @committee,
     header: t(:rejected), stateman_trials: @stateman_trials
 
