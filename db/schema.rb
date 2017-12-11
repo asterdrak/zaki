@@ -10,19 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171210004846) do
+ActiveRecord::Schema.define(version: 20171211142238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "committees", force: :cascade do |t|
-    t.string   "name",                     null: false
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.string   "name",                                 null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.string   "formsub_committee_id"
     t.integer  "overdue_state_id"
     t.integer  "positive_finish_state_id"
     t.integer  "negative_finish_state_id"
+    t.integer  "min_trial_tasks_count",    default: 5, null: false
     t.index ["name"], name: "index_committees_on_name", unique: true, using: :btree
   end
 
@@ -55,13 +56,23 @@ ActiveRecord::Schema.define(version: 20171210004846) do
     t.index ["committee_id"], name: "index_statemen_on_committee_id", using: :btree
   end
 
+  create_table "tasks", force: :cascade do |t|
+    t.integer  "number",     null: false
+    t.integer  "trial_id",   null: false
+    t.text     "content",    null: false
+    t.datetime "deadline",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["trial_id"], name: "index_tasks_on_trial_id", using: :btree
+  end
+
   create_table "trials", force: :cascade do |t|
     t.string   "title",                                        null: false
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
     t.integer  "committee_id",                                 null: false
     t.date     "deadline"
-    t.string   "status",                   default: "pending", null: false
+    t.string   "status",                   default: "created", null: false
     t.string   "email"
     t.string   "phone_number"
     t.string   "supervisor"
@@ -88,6 +99,7 @@ ActiveRecord::Schema.define(version: 20171210004846) do
   add_foreign_key "environments", "committees"
   add_foreign_key "ranks", "committees"
   add_foreign_key "statemen", "committees"
+  add_foreign_key "tasks", "trials"
   add_foreign_key "trials", "committees"
   add_foreign_key "trials", "environments"
   add_foreign_key "trials", "ranks"

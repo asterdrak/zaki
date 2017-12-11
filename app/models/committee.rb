@@ -1,17 +1,19 @@
 # frozen_string_literal: true
 class Committee < ApplicationRecord
-  # t.string   "name",                     null: false
-  # t.datetime "created_at",               null: false
-  # t.datetime "updated_at",               null: false
+  # t.string   "name",                                 null: false
+  # t.datetime "created_at",                           null: false
+  # t.datetime "updated_at",                           null: false
   # t.string   "formsub_committee_id"
   # t.integer  "overdue_state_id"
   # t.integer  "positive_finish_state_id"
   # t.integer  "negative_finish_state_id"
+  # t.integer  "min_trial_tasks_count",    default: 5, null: false
   # t.index ["name"], name: "index_committees_on_name", unique: true, using: :btree
 
   # validations
   validates :name, presence: true, uniqueness: true
   # validates :stateman, presence: true
+  validates :min_trial_tasks_count, presence: true
 
   # relations
   has_many :trials, dependent: :restrict_with_exception

@@ -2,74 +2,160 @@
   = render template: 'shared/breadcrumbs'
 
   = render 'shared/additional_menu' do
-    = link_to formsub_meetings_url,
-    class: 'btn btn-success' do
-      %i.fa.fa-plus-square-o
-      %span= t(:register)
+    - if @trial.created?
+      - if @trial.can_become_pending? && !current_user.present?
+        %button.btn.btn-primary{ 'data-target': '#mark-pending-modal',
+        'data-toggle': 'modal', type: 'button' }
+          %i.fa.fa-check
+          %span= t(:mark_pending)
+    - elsif !current_user.present?
+      = link_to formsub_meetings_url,
+      class: 'btn btn-success' do
+        %i.fa.fa-plus-square-o
+        %span= t(:register)
+    - unless current_user.present?
+      = link_to committee_trial_clear_permitted_path(@committee),
+      method: :delete, class: 'btn btn-warning', 'data-toggle': 'tooltip',
+      'data-placement': 'bottom', title: t(:clear_from_this_computer),
+      data: { confirm: t(:confirm_forget_trials) } do
+        %i.fa.fa-ban
+        = t(:forget)
     = link_to edit_committee_trial_path(@committee, @trial),
-    class: 'btn btn-secondary' do
+    class: 'btn btn-secondary', 'data-toggle': 'tooltip',
+    'data-placement': 'bottom', title: t(:edit_trial) do
       %i.fa.fa-edit
-      %span= t(:edit)
+      %span.hidden-sm-up= t(:edit)
 
 = render 'shared/alerts'
-.row
+%hr.hidden-sm-up
+.row.full-page-row
   .col-md-6
-    %h4= t(:basic_info)
-    %p
-      %b= t(:rank_colon)
-      = @trial.rank.name
-    %p
-      %b= t(:deadline)
-      = l(@trial.deadline, format: :month_year)
-    %p
-      %b= t(:status)
-      = @trial.status
-    %p
-      %b= t(:email)
-      = @trial.email
-    %p
-      %b= t(:phone_number)
-      = @trial.phone_number
-    %p
-      %b= t(:supervisor)
-      = @trial.supervisor
-    %p
-      %b= t(:environment_colon)
-      = @trial.environment.name
-    %p
-      %b= t(:private_key_digest)
-      = @trial.private_key_digest
-    %p
-      %b= t(:state_colon)
-      %span.badge.badge-default{ style: style_for_trial_badge(@trial) }
-        = @trial.stateman_trial.state.name
-    - if current_user.present?
-      %p
-        %b Reachable states:
-        - @trial.stateman_trial.reachable_states.each do |state|
-          = link_to state.name, committee_trial_set_state_path(@committee,
-          @trial, state.id), class: 'btn btn-secondary',
-          style: "background-color: ##{state.color}", method: :patch
-    %p
-      %b= t(:created_at)
-      = l(@trial.created_at, format: :long)
-    %p
-      %b= t(:updated_at)
-      = l(@trial.updated_at, format: :long)
-    - unless current_user.present?
-      %p
-        = link_to t(:clear_from_this_computer),
-        committee_trial_clear_permitted_path(@committee), method: :delete
-  .col-md-6
-    %h4= t(:registrations)
-    - @trial.formsub_case.registrations.each do |registration|
-      %b= registration.title
-      = registration.description
-      %br
-      = registration.meeting.name
-      (
-      = l(registration.meeting.time_start.to_datetime, format: :short)
-      \-
-      = l(registration.meeting.time_end.to_datetime, format: :short)
-      )
+    .px-lg-5
+      %ul.list-group
+        %li.list-group-item.list-group-item-info
+          %h4= @trial.title
+        %li.list-group-item
+          %b= t(:deadline)
+          = l(@trial.deadline, format: :month_year)
+        %li.list-group-item
+          %b= t(:email)
+          = @trial.email
+        %li.list-group-item
+          %b= t(:phone_number)
+          = @trial.phone_number
+        %li.list-group-item
+          %b= t(:environment_colon)
+          = @trial.environment.name
+        %li.list-group-item
+          %b= t(:rank_colon)
+          = @trial.rank.name
+        %li.list-group-item
+          %b= t(:supervisor)
+          = @trial.supervisor
+        %li.list-group-item
+          %b= t(:status)
+          = @trial.status
+        %li.list-group-item
+          %b= t(:private_key_digest)
+          = @trial.private_key_digest
+        %li.list-group-item
+          %b= t(:created_at)
+          = l(@trial.created_at, format: :long)
+        %li.list-group-item
+          %b= t(:updated_at)
+          = l(@trial.updated_at, format: :long)
+  - if @trial.created? && !current_user.present?
+    .col-md-5
+      .ls40
+      %h4= [t(:states_general), t(:registrations)].to_sentence
       %hr
+      %p.text-justify= t(:more_functionalities_available_after_confirm)
+      %p.text-justify
+        %b= t(:more_functionalities_available_after_confirm2)
+      %hr
+  - else
+    .col-md-6
+      .hidden-md-up.ls40
+      .px-lg-5
+        %ul.list-group
+          %li.list-group-item.list-group-item-info
+            %h4= t(:states_general)
+          %li.list-group-item
+            %b= t(:state_colon)
+            - if @trial.stateman_trial.present?
+              - current_state = @trial.stateman_trial.state
+              %span.badge.badge-default.pointer{ title: current_state.name,
+              'data-toggle': 'popover', style: style_for_trial_badge(@trial),
+              'data-content': current_state.description,
+              'data-trigger': 'hover click', 'data-placement': 'top' }
+                = current_state.name.split.first
+            - else
+              = t(:missing_state)
+          %li.list-group-item
+            %b= t(:reachable_states_colon)
+            - if @trial.stateman_trial.present?
+              - if current_user.present?
+                - @trial.stateman_trial.reachable_states.each do |state|
+                  = link_to state.name.split.first,
+                  committee_trial_set_state_path(@committee, @trial, state.id),
+                  data: { confirm: t(:confirm_state_update,
+                  state: state.name) }, class: 'btn btn-secondary',
+                  method: :patch, title: state.name,
+                  'data-toggle': 'popover', 'data-trigger': 'hover',
+                  'data-content': state.description, 'data-placement': 'bottom',
+                  style: "background-color: ##{state.color}"
+              - else
+                = @trial.stateman_trial.reachable_states.map(&:name).to_sentence
+            - else
+              :javascript
+                alert('#{t(:missing_state_try_update)}')
+      .ls40
+      %h4= t(:registrations)
+      %hr
+      - if @trial.formsub_case.registrations.empty?
+        = t(:no_registrations)
+        \ -
+        = link_to t(:new_registration), formsub_meetings_url
+        %hr
+      - else
+        - @trial.formsub_case.registrations.each do |registration|
+          %b= registration.title
+          = registration.meeting.name
+          (
+          = l(registration.meeting.time_start.to_datetime, format: :short)
+          \-
+          = l(registration.meeting.time_end.to_datetime, format: :short)
+          )
+          %p= registration.description
+          %hr
+.ls40
+.row.full-page-row
+  .col-lg-8.offset-lg-2
+    %nav.navbar.navbar-inverse.bg-info.mb-0
+      .navbar-brand= t(:tasks)
+    .table-responsive
+      %table.table.table-bordered
+        %thead
+          %tr
+            %th #
+            %th= t(:task_content)
+            %th= t(:deadline_short)
+            %th.bg-success.td-square.pointer{ 'data-toggle': 'modal',
+            'data-target': '#new-task-modal' }
+              .btn.btn-sm
+                %i.fa.fa-plus-square-o
+        - @tasks.each do |task|
+          %tr.show-on-hover-parent
+            %td= task.number
+            %td= task.content
+            %td= l(task.deadline, format: :month_year)
+            %td.td-square
+              .show-on-hover
+                = link_to [:edit, @committee, @trial, task], title: t(:edit),
+                class: 'btn btn-sm btn-secondary', 'data-toggle': 'tooltip',
+                'data-placement': 'bottom' do
+                  %i.fa.fa-edit
+                  %span.hidden-sm-up= t(:edit)
+
+= render 'tasks/new'
+= render 'mark_pending_modal', committee: @committee, trial: @trial

@@ -25,7 +25,7 @@ class Trial < ApplicationRecord
   validates :title, presence: true, uniqueness: { scope: :committee }
   validates :committee, :deadline, presence: true
   validate :deadline_in_future, if: :deadline, on: :create
-  STATUSES = %w(pending accepted rejected).freeze
+  STATUSES = %w(created pending accepted rejected).freeze
   validates :status, inclusion: { within: STATUSES, allow_nil: true }
   validates :email, presence: true, format: /@/
   validates :phone_number, numericality: { only_integer: true }, length: { in: 9..13 }
@@ -41,6 +41,7 @@ class Trial < ApplicationRecord
   belongs_to :committee
   belongs_to :rank
   belongs_to :environment
+  has_many   :tasks
 
   # callbacks
   after_save       :create_stateman_trial, :create_formsub_case
@@ -63,6 +64,10 @@ class Trial < ApplicationRecord
   end
 
   attr_accessor :referer, :private_key
+
+  def can_become_pending?
+    created? && tasks.present? && committee.min_trial_tasks_count < tasks.count
+  end
 
   def private_key=(value)
     return if value.blank?

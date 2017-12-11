@@ -78,7 +78,7 @@ class CommitteesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def committee_params
     params.require(:committee).permit(:name, :overdue_state_id, :positive_finish_state_id,
-                                      :negative_finish_state_id)
+                                      :negative_finish_state_id, :min_trial_tasks_count)
   end
 
   def set_edit_instance_variables

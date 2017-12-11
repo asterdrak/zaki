@@ -6,9 +6,9 @@ module TrialsHelper
 
   def style_for_trial_badge(trial, stateman_trials = nil)
     if stateman_trials.nil?
-      'background-color: #' + trial.stateman_trial.state.color
+      "background-color: ##{trial.stateman_trial&.state&.color}"
     else
-      'background-color: #' + stateman_trial(trial, stateman_trials).state.color
+      "background-color: ##{stateman_trial(trial, stateman_trials)&.state&.color || 'red'}"
     end
   end
 

@@ -5,7 +5,10 @@ RSpec.describe 'trials/show', type: :view do
   before(:each) do
     @trial = assign(:trial, create(:trial))
     @committee = @trial.committee
-    allow(@trial).to receive_message_chain('stateman_trial.state.name')
+    @tasks = []
+    @task = Task.new
+    allow(@trial).to receive_message_chain('stateman_trial.state.name') { 'name' }
+    allow(@trial).to receive_message_chain('stateman_trial.state.description')
     allow(@trial).to receive_message_chain('stateman_trial.reachable_states') { [] }
     allow(@trial).to receive_message_chain('formsub_case.registrations') { [] }
 
