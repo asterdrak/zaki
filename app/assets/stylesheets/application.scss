@@ -11,6 +11,10 @@
   min-height: calc(100vh - 250px);
 }
 
+.no-min-height {
+    overflow: initial;
+}
+
 .ls20 {
   height: 20px;
 }
