@@ -22,7 +22,7 @@ class UserSessionsController < ApplicationController
     # Currently storing all the info
     session[:user_id] = omniauth
 
-    flash[:notice] = 'Successfully logged in'
+    flash[:notice] = t(:successfully_logged_in)
     redirect_to root_path
   end
 
@@ -36,7 +36,7 @@ class UserSessionsController < ApplicationController
   def destroy
     session[:user_id] = nil
 
-    flash[:notice] = t(:you_have_successfully_signed_out)
+    flash[:notice] = t(:successfully_logged_out)
     redirect_to "#{CUSTOM_PROVIDER_URL}/users/sign_out"
   end
 end

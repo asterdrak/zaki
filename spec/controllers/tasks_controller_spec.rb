@@ -32,7 +32,7 @@ RSpec.describe TasksController, type: :controller do
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # TasksController. Be sure to keep this updated too.
-  let(:valid_session) { { user_id: create(:user) } }
+  let(:valid_session) { { user_id: { 'uid' => create(:user).uid, 'extra' => {} } } }
 
   describe 'GET #edit' do
     it 'assigns the requested task as @task' do

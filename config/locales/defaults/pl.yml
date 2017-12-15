@@ -261,3 +261,5 @@ pl:
     one: 'uniemożliwia zapisanie formularza:'
     other: 'uniemożliwiają zapisanie formularza:'
   missing_answers_error: 'Wystąpił wewnętrzy błąd, proszę odpowiedzieć jeszcze raz'
+  successfully_logged_in: Zostałeś pomyślnie zalogowany
+  successfully_logged_out: Zostałeś wylogowany
