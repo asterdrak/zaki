@@ -16,6 +16,7 @@ class Trial < ApplicationRecord
   # t.string   "formsub_case_keyword"
   # t.integer  "rank_id",                                      null: false
   # t.integer  "stateman_state_id_cached"
+  # t.string   "drive_folder"
   # t.index ["committee_id"], name: "index_trials_on_committee_id", using: :btree
   # t.index ["private_key_digest"], name: "index_trials_on_private_key_digest",
   # unique: true, using: :btree
@@ -47,6 +48,7 @@ class Trial < ApplicationRecord
   after_save       :create_stateman_trial, :create_formsub_case
   before_destroy   :destroy_stateman_trial, :destroy_formsub_case
   after_create     :send_notification
+  after_create     :create_drive_folder
 
   # scopes
   STATUSES.each do |status|
@@ -105,6 +107,11 @@ class Trial < ApplicationRecord
     set_state_id(committee.overdue_state_id)
   end
 
+  def drive_files
+    create_drive_folder if drive_folder.blank?
+    committee.drive.authorized.find_in_folder(drive_folder).files
+  end
+
   private
 
   def create_stateman_trial
@@ -138,6 +145,11 @@ class Trial < ApplicationRecord
 
   def destroy_formsub_case
     formsub_case.destroy if formsub_case_id?
+  end
+
+  def create_drive_folder
+    folder = committee.drive.authorized.create_folder(title)
+    update(drive_folder: folder.id)
   end
 
   def send_notification

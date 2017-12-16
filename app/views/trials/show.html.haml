@@ -79,7 +79,7 @@
       .px-lg-5
         %ul.list-group
           %li.list-group-item.list-group-item-info
-            %h4= t(:states_general)
+            %h4= [t(:states_general), t(:files_general)].to_sentence
           %li.list-group-item
             %b= t(:state_colon)
             - if @trial.stateman_trial.present?
@@ -99,7 +99,7 @@
                   = link_to state.name.split.first,
                   committee_trial_set_state_path(@committee, @trial, state.id),
                   data: { confirm: t(:confirm_state_update,
-                  state: state.name) }, class: 'btn btn-secondary',
+                  state: state.name) }, class: 'btn btn-secondary btn-state',
                   method: :patch, title: state.name,
                   'data-toggle': 'popover', 'data-trigger': 'hover',
                   'data-content': state.description, 'data-placement': 'bottom',
@@ -109,6 +109,29 @@
             - else
               :javascript
                 alert('#{t(:missing_state_try_update)}')
+          - if @trial.drive_folder.present?
+            %li.list-group-item
+              .btn-group
+                = link_to t(:open_folder), drive_folder_url(@trial),
+                class: 'btn btn-info', target: '_blank'
+                %button.btn.btn-success{ 'data-target': '#add-file-modal',
+                'data-toggle': 'modal', type: 'button' }
+                  = t(:add_file)
+                - if current_user.present?
+                  = form_for([@committee, @trial]) do |f|
+                    = f.hidden_field :drive_folder, value: ''
+                    = f.submit t(:clear_drive), class: 'btn btn-warning',
+                    title: t(:clear_drive_tooltip), 'data-toggle': 'tooltip'
+              - if @trial.drive_files.present?
+                %li.list-group-item
+                  = t(:files_saved, count: @trial.drive_files.count)
+                  \:
+                  = @trial.drive_files.map(&:name).to_sentence
+          - else
+            %li.list-group-item
+              = t(:no_folder_added)
+              / this line is responsible for adding drive folder on refresh
+              - @trial.drive_files
       .ls40
       %h4= t(:registrations)
       %hr
@@ -159,3 +182,4 @@
 
 = render 'tasks/new'
 = render 'mark_pending_modal', committee: @committee, trial: @trial
+= render 'add_file_modal', committee: @committee, trial: @trial

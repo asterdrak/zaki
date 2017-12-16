@@ -9,6 +9,8 @@ RSpec.describe 'committees/edit', type: :view do
     @environments = @committee.environments
     @environment = Environment.new
     @states = []
+    @drive = OpenStruct.new(authorization_url: '/')
+    allow(view).to receive_message_chain('current_user.admin?')
   end
 
   it 'renders the edit committee form' do

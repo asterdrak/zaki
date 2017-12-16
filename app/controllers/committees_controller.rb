@@ -25,6 +25,7 @@ class CommitteesController < ApplicationController
   # GET /committees/1/edit
   def edit
     set_edit_instance_variables
+    @drive = GoogleDrive.new(@committee)
   end
 
   # POST /committees
@@ -78,7 +79,8 @@ class CommitteesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def committee_params
     params.require(:committee).permit(:name, :overdue_state_id, :positive_finish_state_id,
-                                      :negative_finish_state_id, :min_trial_tasks_count)
+                                      :negative_finish_state_id, :min_trial_tasks_count,
+                                      :drive_token_raw, :drive_root)
   end
 
   def set_edit_instance_variables
