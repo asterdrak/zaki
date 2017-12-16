@@ -58,3 +58,50 @@
             = f.text_field :name, class: 'form-control'
             .input-group-addon
               = f.submit t(:add), class: 'btn btn-sm'
+
+    .ls60
+    %h2
+      %a#edit-committee-drive= t(:edit_committee_drive)
+    %hr
+
+    - if @committee.drive_token?
+      = form_for @committee do |f|
+        = f.hidden_field :drive_token_raw, value: ''
+        = f.hidden_field :drive_root, value: ''
+        = f.submit t(:delete_drive), class: 'btn btn-danger float-right'
+      %p= t(:drive_configured)
+      - if @committee.drive_root?
+        %p= t(:drive_root_configured)
+      .ls40
+      - unless @committee.drive_root?
+        - if params[:drive_root].present?
+          = form_for @committee do |f|
+            %h5= f.label :drive_root
+            .input-group
+              = f.select :drive_root, folders, {},
+              class: 'form-control custom-select'
+              .btn-group
+                = f.submit t(:save), class: 'btn btn-primary'
+                = link_to t(:back), edit_committee_path(@committee,
+                anchor: 'edit-committee-drive'), class: 'btn btn-secondary'
+        - else
+          %form
+            %h5= label_tag :drive_root, t(:drive_root)
+            .input-group
+              = text_field_tag :drive_root, '', class: 'form-control'
+              = submit_tag t(:search), class: 'btn btn-primary'
+    - else
+      .hidden#add-drive-input
+        = form_for @committee do |f|
+          .input-group
+            = f.text_field :drive_token_raw, placeholder: t(:put_token_here),
+            class: 'form-control'
+            = f.submit t(:save), class: 'btn btn-primary'
+      = link_to t(:add_drive), @drive.authorization_url, target: '_blank',
+      class: 'btn btn-primary', id: 'add-drive-button'
+
+      :javascript
+        $('#add-drive-button').click(function(e) {
+          $(this).css('display', 'none');
+          $('#add-drive-input').css('display', 'initial');
+        });

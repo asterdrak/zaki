@@ -8,6 +8,8 @@ class Committee < ApplicationRecord
   # t.integer  "positive_finish_state_id"
   # t.integer  "negative_finish_state_id"
   # t.integer  "min_trial_tasks_count",    default: 5, null: false
+  # t.string   "drive_token"
+  # t.string   "drive_root"
   # t.index ["name"], name: "index_committees_on_name", unique: true, using: :btree
 
   # validations
@@ -26,12 +28,24 @@ class Committee < ApplicationRecord
   after_save :create_formsub_resource, unless: :formsub_committee_id?
 
   # rest instance methods
+  attr_reader :drive_token_raw
+
   def formsub_committee
     FormsubCommittee.find(formsub_committee_id)
   end
 
   def finish_state_ids
     [positive_finish_state_id, negative_finish_state_id]
+  end
+
+  def drive_token_raw=(token_raw)
+    update(drive_token: nil, drive_root: nil) && return if token_raw.empty?
+    drive = GoogleDrive.new(self)
+    drive.authorize(token_raw)
+  end
+
+  def drive
+    @drive ||= GoogleDrive.new(self)
   end
 
   private

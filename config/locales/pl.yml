@@ -4,6 +4,8 @@ pl:
       committee:
         name: Nazwa
         min_trial_tasks_count: Minimalna liczba zadań w próbie
+        drive_token: Token Dysku Google
+        drive_root: Nadrzędny folder prób
         overdue_state_id: Stan przeterminowania próby
         positive_finish_state_id: Stan pozytywnego zakończenia próby
         negative_finish_state_id: Stan negatywnego zakończenia próby
@@ -188,3 +190,11 @@ pl:
   task_successfully_created: Zadadnie pomyślnie utworzone
   task_successfully_updated: Zadanie pomyślnie zaktualizowane
   task_successfully_destroyed: Zadanie zostało usunięte
+  edit_committee_drive: Konfiguracja dysku google
+  add_drive: Dodaj dysk
+  put_token_here: Tutaj wpisz token otrzymany po wybraniu konta jednostki
+  drive_configured: Dysk został skonfigurowany
+  delete_drive: Usuń połączenie
+  drive_root_configured: Folder nadrzędny został skonfigurowany
+  drive_root: Nadrzędny folder prób
+  search: Szukaj

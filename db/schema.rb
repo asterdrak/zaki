@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171211142238) do
+ActiveRecord::Schema.define(version: 20171215203409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(version: 20171211142238) do
     t.integer  "positive_finish_state_id"
     t.integer  "negative_finish_state_id"
     t.integer  "min_trial_tasks_count",    default: 5, null: false
+    t.string   "drive_token"
+    t.string   "drive_root"
     t.index ["name"], name: "index_committees_on_name", unique: true, using: :btree
   end
 
