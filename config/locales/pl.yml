@@ -208,3 +208,4 @@ pl:
   files_saved: Pliki na dysku (%{count})
   clear_drive: Zapomnij folder
   clear_drive_tooltip: Usuwa folder z systemu, dalej będzie dostępny z google drive'a
+  edit_states: Edycja stanów

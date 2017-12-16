@@ -7,6 +7,11 @@
     .ls60
     %h2= t(:edit_committee)
     %hr
+    - if current_user.admin?
+      .col-md-6.offset-md-3
+        = link_to t(:edit_states), stateman_url(@committee),
+        target: '_blank', class: 'btn btn-primary btn-block'
+      %hr
     = render 'form', committee: @committee, states: @states
 
     = link_to t(:back), committees_path, class: 'btn btn-secondary'
