@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 # rubocop:disable Metrics/ClassLength
+
+require 'google_drive'
+
 class TrialsController < ApplicationController
   include TrialAuthorizer
   before_action :set_trial, only: %w(show edit update destroy upload receive_private_key_digest

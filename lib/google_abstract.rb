@@ -3,6 +3,8 @@ require 'google/apis/drive_v3'
 require 'googleauth'
 require 'googleauth/stores/file_token_store'
 
+require 'db_token_store'
+
 class GoogleAbstract
   OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'
   APPLICATION_NAME = 'ModOrg - ZakiApp'
