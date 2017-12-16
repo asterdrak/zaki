@@ -2,7 +2,7 @@
 # rubocop:disable Metrics/ClassLength
 class TrialsController < ApplicationController
   include TrialAuthorizer
-  before_action :set_trial, only: %w(show edit update destroy receive_private_key_digest
+  before_action :set_trial, only: %w(show edit update destroy upload receive_private_key_digest
                                      receive_private_key)
   before_action :set_committee
   skip_before_action :login_required, only: %w(new create show edit update
@@ -140,15 +140,14 @@ class TrialsController < ApplicationController
   end
 
   def upload
-    trial = @committee.trials.find(params[:trial_id])
     path = 'tmp/' + trial_params[:attachment].original_filename
     File.open(path, 'wb') do |file|
       file.write(trial_params[:attachment].read)
     end
-    @committee.drive.authorized.upload_file(folder_id: trial.drive_folder, upload_source: path,
+    @committee.drive.authorized.upload_file(folder_id: @trial.drive_folder, upload_source: path,
                                             file_name: Time.zone.now.strftime('%Y%d%m%H%M%S') +
       " - #{trial_params[:name]} - " + trial_params[:attachment].original_filename)
-    redirect_to [@committee, trial], notice: t(:file_sent)
+    redirect_to [@committee, @trial], notice: t(:file_sent)
   end
 
   private

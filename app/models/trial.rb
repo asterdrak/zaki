@@ -108,7 +108,7 @@ class Trial < ApplicationRecord
   end
 
   def drive_files
-    create_drive_folder if drive_folder&.empty?
+    create_drive_folder if drive_folder.blank?
     committee.drive.authorized.find_in_folder(drive_folder).files
   end
 
