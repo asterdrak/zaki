@@ -19,6 +19,8 @@ pl:
         environment_id: Środowisko
         private_key: Klucz dostępu
         deadline: Termin zakończenia
+        name: Nazwa
+        attachment: Plik
       rank:
         name: Nazwa stopnia
       environment:
@@ -131,6 +133,7 @@ pl:
   state: Stan
   state_colon: "Stan:"
   states_general: Stany
+  files_general: pliki
   reachable_states_colon: "Osiągalne stany:"
   more_functionalities_available_after_confirm: Więcej opcji dostępnych jest po zatwierdzeniu próby. Pamiętaj, że wszystkie elementy próby muszą być ostatecznie zapisane w systemie i skonsultowane z odpowiednimi osobami (hufcowy, opiekun próby) przed zatwierdzeniem.
   more_functionalities_available_after_confirm2: W szczególności próba musi mieć dodaną odpowiednią liczbę zadań.
@@ -198,3 +201,10 @@ pl:
   drive_root_configured: Folder nadrzędny został skonfigurowany
   drive_root: Nadrzędny folder prób
   search: Szukaj
+  open_folder: Otwórz folder próby
+  file_sent: Plik został wysłany
+  add_file: Dodaj załącznik
+  add_file_title: Dodawanie załącznika
+  files_saved: Pliki na dysku (%{count})
+  clear_drive: Zapomnij folder
+  clear_drive_tooltip: Usuwa folder z systemu, dalej będzie dostępny z google drive'a

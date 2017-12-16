@@ -15,4 +15,8 @@ module TrialsHelper
   def render_status_options?(trial)
     trial.committee.finish_state_ids.include? trial.stateman_state_id_cached
   end
+
+  def drive_folder_url(trial)
+    'https://drive.google.com/drive/u/0/folders/' + trial.drive_folder
+  end
 end

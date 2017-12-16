@@ -35,6 +35,7 @@ RSpec.describe TasksController, type: :controller do
   let(:valid_session) { { user_id: { 'uid' => create(:user).uid, 'extra' => {} } } }
 
   describe 'GET #edit' do
+    before { Trial.skip_callback(:create, :after, :create_drive_folder) }
     it 'assigns the requested task as @task' do
       get :edit, params: { committee_id: committee.id, trial_id: trial.id,
                            id: task.to_param }, session: valid_session

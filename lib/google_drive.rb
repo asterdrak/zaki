@@ -18,7 +18,28 @@ class GoogleDrive < GoogleAbstract
     service.list_files(q: "name contains '#{name}' and mimeType contains 'folder'")
   end
 
-  private
+  def find_in_folder(name)
+    service.list_files(q: "parents in '#{name}'")
+  end
+
+  def upload_file(folder_id:, upload_source:, file_name:)
+    file_metadata = {
+      name: file_name,
+      parents: [folder_id]
+    }
+    service.create_file(file_metadata, fields: 'id', upload_source: upload_source)
+  end
+
+  def create_folder(name)
+    file_metadata = {
+      name: name,
+      parents: [committee.drive_root],
+      mime_type: 'application/vnd.google-apps.folder'
+    }
+    service.create_file(file_metadata, fields: 'id')
+  end
+
+  # private
 
   def service
     @service ||= Google::Apis::DriveV3::DriveService.new

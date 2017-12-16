@@ -6,7 +6,8 @@ require 'googleauth/stores/file_token_store'
 class GoogleAbstract
   OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'
   APPLICATION_NAME = 'ModOrg - ZakiApp'
-  SCOPE = Google::Apis::DriveV3::AUTH_DRIVE_METADATA_READONLY
+  SCOPE = [Google::Apis::DriveV3::AUTH_DRIVE_METADATA_READONLY,
+           Google::Apis::DriveV3::AUTH_DRIVE_FILE].freeze
 
   attr_accessor :committee
 
@@ -25,6 +26,10 @@ class GoogleAbstract
   def authorization_url
     authorizer.get_authorization_url(base_url: OOB_URI)
   end
+
+  protected
+
+  attr_reader :committee
 
   private
 

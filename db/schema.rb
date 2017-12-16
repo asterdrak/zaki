@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171215203409) do
+ActiveRecord::Schema.define(version: 20171216110903) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 20171215203409) do
     t.string   "formsub_case_keyword"
     t.integer  "rank_id",                                      null: false
     t.integer  "stateman_state_id_cached"
+    t.string   "drive_folder"
     t.index ["committee_id"], name: "index_trials_on_committee_id", using: :btree
     t.index ["private_key_digest"], name: "index_trials_on_private_key_digest", unique: true, using: :btree
     t.index ["rank_id"], name: "index_trials_on_rank_id", using: :btree

@@ -7,13 +7,13 @@ class TrialsController < ApplicationController
   before_action :set_committee
   skip_before_action :login_required, only: %w(new create show edit update
                                                receive_private_key_digest receive_private_key
-                                               clear_permitted_trials)
+                                               clear_permitted_trials upload)
 
   # for private key based authentication on trial show
   before_action :set_session_permitted_trials, only: %w(receive_private_key
                                                         receive_private_key_digest
                                                         create)
-  before_action :render_private_key_monit, only: [:show, :edit, :update],
+  before_action :render_private_key_monit, only: [:show, :edit, :update, :upload],
                                            unless: :trial_authorized?
 
   # GET /trials
@@ -139,6 +139,18 @@ class TrialsController < ApplicationController
     redirect_to @committee, notice: t(:your_trial_was_cleared)
   end
 
+  def upload
+    trial = @committee.trials.find(params[:trial_id])
+    path = 'tmp/' + trial_params[:attachment].original_filename
+    File.open(path, 'wb') do |file|
+      file.write(trial_params[:attachment].read)
+    end
+    @committee.drive.authorized.upload_file(folder_id: trial.drive_folder, upload_source: path,
+                                            file_name: Time.zone.now.strftime('%Y%d%m%H%M%S') +
+      " - #{trial_params[:name]} - " + trial_params[:attachment].original_filename)
+    redirect_to [@committee, trial], notice: t(:file_sent)
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -154,7 +166,7 @@ class TrialsController < ApplicationController
   def trial_params
     params.require(:trial).permit(
       %w(title deadline status referer email phone_number supervisor
-         environment_id private_key rank_id)
+         environment_id private_key rank_id attachment name drive_folder)
     )
   end
 
