@@ -209,3 +209,4 @@ pl:
   clear_drive: Zapomnij folder
   clear_drive_tooltip: Usuwa folder z systemu, dalej będzie dostępny z google drive'a
   edit_states: Edycja stanów
+  no_trials_found: Nie odnaleziono prób, dodaj nową lub otwórz link z wiadomości email.
