@@ -35,7 +35,12 @@ prawn_document do |pdf|
   pdf.move_down 20
   pdf.text t(:tasks)
   pdf.move_down 20
-  pdf.table @tasks.map { |p| ["#{p.number}.", p.content, l(p.deadline, format: :month_year)] }
+
+  if @tasks.any?
+    pdf.table @tasks.map { |p| ["#{p.number}.", p.content, l(p.deadline, format: :month_year)] }
+  else
+    pdf.text t(:no_tasks_yet)
+  end
 
   pdf.text_box t(:generated_at) + ' ' + Time.zone.now.to_s, size: 8, align: :right, at: [0, 8]
 end
