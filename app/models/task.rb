@@ -20,11 +20,20 @@ class Task < ApplicationRecord
 
   # callbacks
   before_validation :set_initial_number, on: :create
+  after_save      :pending_changes_set!, unless: :trial_newly_created?
 
   # other instance methods
-  has_paper_trail unless: proc { |task| task.trial.created? }
+  has_paper_trail unless: :trial_newly_created?
 
   private
+
+  def trial_newly_created?
+    trial.created?
+  end
+
+  def pending_changes_set!
+    trial.pending_changes_set!
+  end
 
   def set_initial_number
     self.number ||= 1 + (trial&.tasks&.second_to_last&.number || 0)

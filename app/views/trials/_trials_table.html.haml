@@ -14,7 +14,9 @@
             %th
       %tbody
         - trials.each do |trial|
-          %tr
+          %tr{ class: trial.pending_changes? ? 'table-danger' : nil,
+          title: trial.pending_changes? ? t(:trial_contain_pendings) : nil,
+          'data-toggle': 'tooltip' }
             %td= link_to trial.title, [committee, trial]
             %td= l(trial.deadline, format: :month_year)
             %td= trial.rank.name
@@ -42,4 +44,7 @@
                     trial), class: 'dropdown-item'
                     = link_to t(:delete), [committee, trial], method: :delete,
                     data: { confirm: t(:confirm_delete) },
+                    class: 'dropdown-item'
+                    = link_to t(:versions).capitalize,
+                    committee_trial_versions_path(committee, trial),
                     class: 'dropdown-item'

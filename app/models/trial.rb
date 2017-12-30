@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class Trial < ApplicationRecord
+class Trial < ApplicationRecord # rubocop:disable Metrics/ClassLength
   # t.string   "title",                                        null: false
   # t.datetime "created_at",                                   null: false
   # t.datetime "updated_at",                                   null: false
@@ -17,6 +17,7 @@ class Trial < ApplicationRecord
   # t.integer  "rank_id",                                      null: false
   # t.integer  "stateman_state_id_cached"
   # t.string   "drive_folder"
+  # t.boolean  "pending_changes",          default: false,     null: false
   # t.index ["committee_id"], name: "index_trials_on_committee_id", using: :btree
   # t.index ["private_key_digest"], name: "index_trials_on_private_key_digest",
   # unique: true, using: :btree
@@ -66,7 +67,15 @@ class Trial < ApplicationRecord
   end
 
   attr_accessor :referer, :private_key
-  has_paper_trail unless: :created?
+  has_paper_trail unless: :created?, ignore: %w(stateman_state_id_cached drive_folder
+                                                pending_changes),
+                  skip: %w(pending_changes_set! pending_changes_reset!)
+
+  def update_safe(attributes)
+    return update(attributes) if created?
+    pending_changes_set!
+    update(attributes)
+  end
 
   def can_become_pending?
     created? && tasks.present? && committee.min_trial_tasks_count < tasks.count
@@ -111,6 +120,14 @@ class Trial < ApplicationRecord
   def drive_files
     create_drive_folder if drive_folder.blank?
     committee.drive.authorized.find_in_folder(drive_folder).files
+  end
+
+  def pending_changes_set!
+    update(pending_changes: true)
+  end
+
+  def pending_changes_reset!
+    update(pending_changes: false)
   end
 
   private

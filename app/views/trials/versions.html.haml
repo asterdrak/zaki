@@ -1,0 +1,12 @@
+.row.second-bar
+  = render template: 'shared/breadcrumbs', locals: { final_title: t(:versions) }
+
+  = render 'shared/additional_menu' do
+    = link_to committee_trial_path(@committee, @trial),
+    class: 'btn btn-secondary' do
+      %i.fa.fa-arrow-left
+      %span= t(:trial)
+
+- @trial.versions.each do |version|
+  = version.changeset
+  %br

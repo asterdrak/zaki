@@ -75,6 +75,14 @@
       %hr
   - else
     .col-md-6
+      - if @trial.pending_changes?
+        .alert.alert-warning{ role: 'alert' }
+          = t(:pending_changes_alert)
+          - if current_user.present?
+            = link_to committee_trial_versions_path(@committee, @trial),
+            class: 'btn btn-sm btn-secondary float-right' do
+              = t(:trial_changes)
+        .ls20
       .hidden-md-up.ls40
       .px-lg-5
         %ul.list-group

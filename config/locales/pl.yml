@@ -210,6 +210,7 @@ pl:
   clear_drive: Zapomnij folder
   clear_drive_tooltip: Usuwa folder z systemu, dalej będzie dostępny z google drive'a
   edit_states: Edycja stanów
+  trial: Próba
   no_trials_found: Nie odnaleziono prób, dodaj nową lub otwórz link z wiadomości email.
   no_tasks_yet: Nie ma jeszcze żadnych zadań - dodaj jakieś!
   zhr: Związek Harcerstwa Rzeczypospolitej
@@ -218,3 +219,7 @@ pl:
   trial_as_pdf: Otwórz pdf próby
   trial_download_pdf: Pobierz pdf próby
   login_error: Nastąpił błąd sesji, proszę zalogować się ponownie.
+  pending_changes_alert: Uwaga! Ostatnie zmiany nie są zatwierdzone przez komisję.
+  trial_changes: zobacz poprzednie wersje
+  versions: wersje
+  trial_contain_pendings: Próba zawiera niezatwierdzone zmiany.

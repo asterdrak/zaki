@@ -6,7 +6,7 @@ require 'google_drive'
 class TrialsController < ApplicationController
   include TrialAuthorizer
   before_action :set_trial, only: %w(show edit update destroy upload receive_private_key_digest
-                                     receive_private_key)
+                                     receive_private_key versions)
   before_action :set_committee
   skip_before_action :login_required, only: %w(new create show edit update
                                                receive_private_key_digest receive_private_key
@@ -82,7 +82,7 @@ class TrialsController < ApplicationController
   # PATCH/PUT /trials/1.json
   def update
     respond_to do |format|
-      if @trial.update(trial_params)
+      if @trial.update_safe(trial_params)
         format.html do
           redirect_to @trial.referer || [@committee, @trial],
                       notice: t(:trial_successfully_updated)
@@ -159,6 +159,8 @@ class TrialsController < ApplicationController
       " - #{trial_params[:name]} - " + trial_params[:attachment].original_filename)
     redirect_to [@committee, @trial], notice: t(:file_sent)
   end
+
+  def versions; end
 
   private
 
