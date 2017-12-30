@@ -217,3 +217,4 @@ pl:
   generated_at: "wygenerowano:"
   trial_as_pdf: Otwórz pdf próby
   trial_download_pdf: Pobierz pdf próby
+  login_error: Nastąpił błąd sesji, proszę zalogować się ponownie.

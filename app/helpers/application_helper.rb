@@ -34,7 +34,13 @@ module ApplicationHelper
 
     access_token = OAuth2::AccessToken.new(oauth_client, access_token, refresh_token: refresh_token)
 
-    token_refreshed = access_token.refresh!
+    begin
+      token_refreshed = access_token.refresh!
+    rescue OAuth2::Error
+      session[:user_id] = nil
+      redirect_to root_path, alert: t(:login_error)
+    end
+
     session[:user_id]['credentials'].update(expires_at: token_refreshed.expires_at,
                                             refresh_token: token_refreshed.refresh_token)
   end
