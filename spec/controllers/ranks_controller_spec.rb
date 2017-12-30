@@ -10,7 +10,10 @@ RSpec.describe RanksController, type: :controller do
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # CommitteesController. Be sure to keep this updated too.
-  let(:valid_session) { { user_id: { 'uid' => create(:user).uid, 'extra' => {} } } }
+  let(:valid_session) do
+    { user_id: { 'uid' => create(:user).uid, 'extra' => {},
+                 'credentials' => { 'expires_at' => 1.hour.from_now.to_i } } }
+  end
 
   describe 'POST #create' do
     context 'with valid params' do

@@ -33,7 +33,10 @@ RSpec.describe TrialsController, type: :controller do
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # TrialsController. Be sure to keep this updated too.
-  let(:valid_session) { { user_id: { 'uid' => create(:user).uid, 'extra' => {} } } }
+  let(:valid_session) do
+    { user_id: { 'uid' => create(:user).uid, 'extra' => {},
+                 'credentials' => { 'expires_at' => 1.hour.from_now.to_i } } }
+  end
 
   describe 'GET #index' do
     before { allow(StatemanOrganization).to receive(:find) { OpenStruct.new(stateman_trials: []) } }
