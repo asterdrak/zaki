@@ -132,6 +132,13 @@
               = t(:no_folder_added)
               / this line is responsible for adding drive folder on refresh
               - @trial.drive_files
+          %li.list-group-item
+            .btn-group
+              = link_to t(:trial_as_pdf), committee_trial_path(@committee,
+              @trial, format: 'pdf'), class: 'btn btn-secondary',
+              target: '_blank'
+              = link_to t(:trial_download_pdf), committee_trial_path(@committee,
+              @trial, download: true, format: 'pdf'), class: 'btn btn-secondary'
       .ls40
       %h4= t(:registrations)
       %hr

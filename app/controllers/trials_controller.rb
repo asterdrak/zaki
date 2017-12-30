@@ -33,7 +33,11 @@ class TrialsController < ApplicationController
     @tasks = @trial.tasks
     @task = Task.new
     respond_to do |format|
-      format.pdf { @filename = "#{@trial.title}.pdf" }
+      format.pdf do
+        response.set_header('Content-type', 'application/octet-stream') if params[:download]
+        @filename = "#{@trial.title}.pdf"
+      end
+      format.html
     end
   end
 
