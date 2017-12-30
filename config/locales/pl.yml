@@ -191,7 +191,7 @@ pl:
   tasks: Zadania
   task_content: Treść zadania
   new_task: Nowe zadanie
-  task_successfully_created: Zadadnie pomyślnie utworzone
+  task_successfully_created: Zadanie pomyślnie utworzone
   task_successfully_updated: Zadanie pomyślnie zaktualizowane
   task_successfully_destroyed: Zadanie zostało usunięte
   edit_committee_drive: Konfiguracja dysku google

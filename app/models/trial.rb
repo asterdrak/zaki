@@ -66,6 +66,7 @@ class Trial < ApplicationRecord
   end
 
   attr_accessor :referer, :private_key
+  has_paper_trail unless: :created?
 
   def can_become_pending?
     created? && tasks.present? && committee.min_trial_tasks_count < tasks.count

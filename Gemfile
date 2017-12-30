@@ -26,6 +26,7 @@ source 'https://rails-assets.org' do
 end
 gem 'font-awesome-rails'
 gem 'haml-rails', '~> 0.9'
+gem 'paper_trail'
 gem 'prawn-rails'
 
 # Use jquery as the JavaScript library

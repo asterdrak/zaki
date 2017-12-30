@@ -21,6 +21,9 @@ class Task < ApplicationRecord
   # callbacks
   before_validation :set_initial_number, on: :create
 
+  # other instance methods
+  has_paper_trail unless: proc { |task| task.trial.created? }
+
   private
 
   def set_initial_number
