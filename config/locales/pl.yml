@@ -129,6 +129,7 @@ pl:
   reject: Odrzuć
   title: Tytuł
   deadline: Data zakończenia
+  deadline_colon: 'Data zakończenia:'
   deadline_short: Termin
   state: Stan
   state_colon: "Stan:"
@@ -210,3 +211,9 @@ pl:
   clear_drive_tooltip: Usuwa folder z systemu, dalej będzie dostępny z google drive'a
   edit_states: Edycja stanów
   no_trials_found: Nie odnaleziono prób, dodaj nową lub otwórz link z wiadomości email.
+  no_tasks_yet: Nie ma jeszcze żadnych zadań - dodaj jakieś!
+  zhr: Związek Harcerstwa Rzeczypospolitej
+  info: Informacje
+  generated_at: "wygenerowano:"
+  trial_as_pdf: Otwórz pdf próby
+  trial_download_pdf: Pobierz pdf próby

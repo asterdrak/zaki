@@ -48,6 +48,10 @@ RSpec.describe TrialsController, type: :controller do
   end
 
   describe 'GET #show' do
+    before do
+      allow(subject).to receive(:respond_to) { nil }
+    end
+
     it 'assigns the requested trial as @trial' do
       get :show, params: { committee_id: committee.id, id: trial.to_param }, session: valid_session
       expect(assigns(:trial)).to eq(trial)

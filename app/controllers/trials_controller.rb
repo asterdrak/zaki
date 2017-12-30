@@ -32,6 +32,13 @@ class TrialsController < ApplicationController
     @trial.deadline_overdue
     @tasks = @trial.tasks
     @task = Task.new
+    respond_to do |format|
+      format.pdf do
+        response.set_header('Content-type', 'application/octet-stream') if params[:download]
+        @filename = "#{@trial.title}.pdf"
+      end
+      format.html
+    end
   end
 
   # GET /trials/new
