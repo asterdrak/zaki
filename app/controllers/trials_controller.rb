@@ -2,11 +2,12 @@
 # rubocop:disable Metrics/ClassLength
 
 require 'google_drive'
+require 'differ/string'
 
 class TrialsController < ApplicationController
   include TrialAuthorizer
   before_action :set_trial, only: %w(show edit update destroy upload receive_private_key_digest
-                                     receive_private_key versions)
+                                     receive_private_key versions delete_versions)
   before_action :set_committee
   skip_before_action :login_required, only: %w(new create show edit update
                                                receive_private_key_digest receive_private_key
@@ -160,7 +161,16 @@ class TrialsController < ApplicationController
     redirect_to [@committee, @trial], notice: t(:file_sent)
   end
 
-  def versions; end
+  def versions
+    Differ.format = :html
+  end
+
+  def delete_versions
+    @trial.versions.each(&:delete)
+    @trial.tasks.each { |task| task.versions.each(&:delete) }
+    @trial.pending_changes_reset!
+    redirect_to [@committee, @trial], notice: t(:changes_accepted)
+  end
 
   private
 

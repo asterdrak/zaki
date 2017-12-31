@@ -1,0 +1,17 @@
+.card
+  .card-block
+    %h5.card-title
+      - if version.whodunnit.nil?
+        = t(:candidate_change_at, at: l(version.created_at, format: :short))
+      - else
+        #{User.find(version.whodunnit.to_i)&.email || t(:ki)},
+        = l(version.created_at, format: :short)
+      %hr
+    .card-text
+      - version.changeset.each do |k, change|
+        %p
+          = k + ': '
+          -# rubocop:disable Rails/OutputSafety
+          = raw Differ.diff_by_char(change.last.to_s, change.first.to_s)
+          -# rubocop:enable Rails/OutputSafety
+.ls20

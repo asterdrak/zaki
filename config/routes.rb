@@ -8,6 +8,7 @@ Rails.application.routes.draw do
                                              as: :authorize
       match '', to: 'trials#receive_private_key', via: :post
       match 'versions', to: 'trials#versions', via: :get
+      match 'versions', to: 'trials#delete_versions', via: :delete
       resources :tasks, only: [:create, :update, :destroy, :edit]
       post 'upload', to: 'trials#upload'
     end
