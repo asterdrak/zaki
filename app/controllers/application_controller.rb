@@ -9,6 +9,11 @@ class ApplicationController < ActionController::Base
     redirect_to(:back, alert: exception.message)
   end
 
+  rescue_from OAuth2::Error do |_exception|
+    session[:user_id] = nil
+    redirect_to root_path, alert: I18n.t(:login_error)
+  end
+
   def login_required
     return if current_user
     respond_to do |format|
