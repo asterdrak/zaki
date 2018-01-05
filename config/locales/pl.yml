@@ -228,3 +228,10 @@ pl:
   changes_accepted: Zmiany zostały zaakceptowane
   accept_all_changes: Akceptuj wszystko
   confirm_versions_delete: Czy na pewno chcesz zatwierdzić wszystkie zmiany w podstawowych informacja o próbie i w zadaniach? Ta operacja jest nieodwracalna.
+  candidate: Kandydat
+  commented: skomentował
+  comments: Komentarze
+  add_comment: Dodaj komentarz
+  adding_comment_failed: Nie udało się dodać komentarza
+  private: widoczne tylko dla komisji
+  public: widoczne dla wszystkich

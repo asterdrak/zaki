@@ -7,18 +7,19 @@ require 'differ/string'
 class TrialsController < ApplicationController
   include TrialAuthorizer
   before_action :set_trial, only: %w(show edit update destroy upload receive_private_key_digest
-                                     receive_private_key versions delete_versions)
+                                     receive_private_key versions delete_versions comment)
   before_action :set_committee
   skip_before_action :login_required, only: %w(new create show edit update
                                                receive_private_key_digest receive_private_key
-                                               clear_permitted_trials upload)
+                                               clear_permitted_trials upload comment)
 
   # for private key based authentication on trial show
   before_action :set_session_permitted_trials, only: %w(receive_private_key
                                                         receive_private_key_digest
                                                         create)
-  before_action :render_private_key_monit, only: [:show, :edit, :update, :upload],
+  before_action :render_private_key_monit, only: [:show, :edit, :update, :upload, :comment],
                                            unless: :trial_authorized?
+  before_action :set_comments, only: :show
 
   # GET /trials
   # GET /trials.json
@@ -172,6 +173,15 @@ class TrialsController < ApplicationController
     redirect_to [@committee, @trial], notice: t(:changes_accepted)
   end
 
+  def comment
+    comment = comments.create(comment: comment_params[:body], title: 'comment', user: current_user)
+    if comment.save
+      redirect_to committee_trial_path(@committee, @trial, anchor: 'comments')
+    else
+      redirect_to [@committee, @trial], alert: t(:adding_comment_failed)
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -191,8 +201,28 @@ class TrialsController < ApplicationController
     )
   end
 
+  def comment_params
+    params.require(:trial_comment).permit(:body, :role)
+  end
+
   def trial_exists?
     Trial.exists?(private_key_digest: params[:private_key_digest], id: params[:trial_id])
+  end
+
+  def set_comments
+    @comments = if current_user.present?
+                  @trial.comments
+                else
+                  @trial.public_comments
+                end
+  end
+
+  def comments
+    if current_user.present? && comment_params[:role] != 'public'
+      @trial.private_comments
+    else
+      @trial.public_comments
+    end
   end
 end
 # rubocop:enable Metrics/ClassLength

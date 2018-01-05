@@ -166,6 +166,7 @@
           )
           %p= registration.description
           %hr
+%hr#tasks
 .ls40
 .row.full-page-row
   .col-lg-8.offset-lg-2
@@ -194,6 +195,24 @@
                 'data-placement': 'bottom' do
                   %i.fa.fa-edit
                   %span.hidden-sm-up= t(:edit)
+.ls40
+%hr#comments
+.ls40
+.row.full-page-row
+  .col-lg-8.offset-lg-2
+    %nav.navbar.navbar-inverse.bg-info.mb-0
+      .navbar-brand= t(:comments)
+    .ls20
+    - @comments.each do |comment|
+      .comment
+        - unless comment.title.blank?
+          = comment.user&.email || t(:candidate)
+          = t(:commented)
+          = l(comment.created_at, format: :short)
+          %i= t(comment.role) if current_user.present?
+        %p= comment.comment
+      %hr
+    = render 'comment_form', trial: @trial
 
 = render 'tasks/new'
 = render 'mark_pending_modal', committee: @committee, trial: @trial

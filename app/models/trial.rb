@@ -70,6 +70,8 @@ class Trial < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_paper_trail unless: :created?, ignore: %w(stateman_state_id_cached drive_folder
                                                 pending_changes),
                   skip: %w(pending_changes_set! pending_changes_reset!)
+  acts_as_commentable :public, :private
+  acts_as_commentable
 
   def update_safe(attributes)
     return update(attributes) if created?

@@ -1,0 +1,13 @@
+= form_for :trial_comment, url: committee_trial_comment_path(@committee,
+trial) do |f|
+  .field.form-group
+    = f.text_area :body, class: 'form-control'
+  .field.form-group.float-left{ 'data-toggle': 'buttons' }
+    - if current_user.present?
+      = f.label :role, class: 'btn btn-outline-primary' do
+        = f.radio_button('role', 'public')
+        = t(:public)
+      = f.label :role, class: 'btn btn-outline-primary active' do
+        = f.radio_button('role', 'private', checked: 'checked')
+        = t(:private)
+  = f.submit t(:add_comment), class: 'btn btn-success float-right'
