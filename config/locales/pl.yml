@@ -191,7 +191,7 @@ pl:
   tasks: Zadania
   task_content: Treść zadania
   new_task: Nowe zadanie
-  task_successfully_created: Zadadnie pomyślnie utworzone
+  task_successfully_created: Zadanie pomyślnie utworzone
   task_successfully_updated: Zadanie pomyślnie zaktualizowane
   task_successfully_destroyed: Zadanie zostało usunięte
   edit_committee_drive: Konfiguracja dysku google
@@ -210,6 +210,7 @@ pl:
   clear_drive: Zapomnij folder
   clear_drive_tooltip: Usuwa folder z systemu, dalej będzie dostępny z google drive'a
   edit_states: Edycja stanów
+  trial: Próba
   no_trials_found: Nie odnaleziono prób, dodaj nową lub otwórz link z wiadomości email.
   no_tasks_yet: Nie ma jeszcze żadnych zadań - dodaj jakieś!
   zhr: Związek Harcerstwa Rzeczypospolitej
@@ -218,3 +219,27 @@ pl:
   trial_as_pdf: Otwórz pdf próby
   trial_download_pdf: Pobierz pdf próby
   login_error: Nastąpił błąd sesji, proszę zalogować się ponownie.
+  pending_changes_alert: Uwaga! Ostatnie zmiany nie są zatwierdzone przez komisję.
+  trial_changes: zobacz poprzednie wersje
+  versions: wersje
+  trial_contain_pendings: Próba zawiera niezatwierdzone zmiany.
+  no_changes: Brak zmian
+  candidate_change_at: Zmiana kandydata, %{at}
+  changes_accepted: Zmiany zostały zaakceptowane
+  accept_all_changes: Akceptuj wszystko
+  confirm_versions_delete: Czy na pewno chcesz zatwierdzić wszystkie zmiany w podstawowych informacja o próbie i w zadaniach? Ta operacja jest nieodwracalna.
+  candidate: Kandydat
+  commented: skomentował
+  comments: Komentarze
+  add_comment: Dodaj komentarz
+  adding_comment_failed: Nie udało się dodać komentarza
+  private: widoczne tylko dla komisji
+  public: widoczne dla wszystkich
+  history:
+    state_changed: '%{who} zmienił stan próby z "%{from}" na "%{to}".'
+    trial_edited: "%{who} edytował parametry próby."
+    file_uploaded: '%{who} dodał załącznik "%{title}".'
+    versions_dismissed: "%{who} zaakceptował aktualną wersję próby i zadań."
+    task_created: '%{who} dodał zadanie "%{task}".'
+    task_updated: '%{who} zmienił zadanie na "%{task}".'
+    task_destroyed: '%{who} usunął zadanie "%{task}".'

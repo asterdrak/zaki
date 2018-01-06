@@ -75,6 +75,14 @@
       %hr
   - else
     .col-md-6
+      - if @trial.pending_changes?
+        .alert.alert-warning{ role: 'alert' }
+          = t(:pending_changes_alert)
+          - if current_user.present?
+            = link_to committee_trial_versions_path(@committee, @trial),
+            class: 'btn btn-sm btn-secondary float-right' do
+              = t(:trial_changes)
+        .ls20
       .hidden-md-up.ls40
       .px-lg-5
         %ul.list-group
@@ -158,6 +166,7 @@
           )
           %p= registration.description
           %hr
+%hr#tasks
 .ls40
 .row.full-page-row
   .col-lg-8.offset-lg-2
@@ -186,6 +195,26 @@
                 'data-placement': 'bottom' do
                   %i.fa.fa-edit
                   %span.hidden-sm-up= t(:edit)
+.ls40
+%hr#comments
+.ls40
+.row.full-page-row
+  .col-lg-8.offset-lg-2
+    %nav.navbar.navbar-inverse.bg-info.mb-0
+      .navbar-brand= t(:comments)
+    .ls20
+    - @comments.each do |comment|
+      .comment
+        - unless comment.title == 'history'
+          = comment.user&.email || t(:candidate)
+          = t(:commented)
+          = l(comment.created_at, format: :short)
+          %i= t(comment.role) if current_user.present?
+        %p
+          = l(comment.created_at, format: :short) if comment.title == 'history'
+          = comment.comment
+      %hr
+    = render 'comment_form', trial: @trial
 
 = render 'tasks/new'
 = render 'mark_pending_modal', committee: @committee, trial: @trial

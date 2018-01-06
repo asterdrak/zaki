@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171216110903) do
+ActiveRecord::Schema.define(version: 20171231012019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.string   "title",            limit: 50, default: ""
+    t.text     "comment"
+    t.string   "commentable_type"
+    t.integer  "commentable_id"
+    t.integer  "user_id"
+    t.string   "role",                        default: "comments"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["commentable_id"], name: "index_comments_on_commentable_id", using: :btree
+    t.index ["commentable_type"], name: "index_comments_on_commentable_type", using: :btree
+    t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
+  end
 
   create_table "committees", force: :cascade do |t|
     t.string   "name",                                 null: false
@@ -86,6 +100,7 @@ ActiveRecord::Schema.define(version: 20171216110903) do
     t.integer  "rank_id",                                      null: false
     t.integer  "stateman_state_id_cached"
     t.string   "drive_folder"
+    t.boolean  "pending_changes",          default: false,     null: false
     t.index ["committee_id"], name: "index_trials_on_committee_id", using: :btree
     t.index ["private_key_digest"], name: "index_trials_on_private_key_digest", unique: true, using: :btree
     t.index ["rank_id"], name: "index_trials_on_rank_id", using: :btree
@@ -97,6 +112,17 @@ ActiveRecord::Schema.define(version: 20171216110903) do
     t.string   "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "versions", force: :cascade do |t|
+    t.string   "item_type",      null: false
+    t.integer  "item_id",        null: false
+    t.string   "event",          null: false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+    t.text     "object_changes"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   end
 
   add_foreign_key "environments", "committees"

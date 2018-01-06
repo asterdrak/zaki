@@ -7,6 +7,7 @@ RSpec.describe 'trials/show', type: :view do
     @committee = @trial.committee
     @tasks = []
     @task = Task.new
+    @comments = []
     allow(@trial).to receive_message_chain('stateman_trial.state.name') { 'name' }
     allow(@trial).to receive_message_chain('stateman_trial.state.description')
     allow(@trial).to receive_message_chain('stateman_trial.reachable_states') { [] }

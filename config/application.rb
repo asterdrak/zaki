@@ -28,6 +28,8 @@ module Zaki
 
     config.autoload_paths += %W(#{config.root}/lib)
 
+    config.time_zone = Time.find_zone(1)
+
     # Smtp gmail mailing config
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {

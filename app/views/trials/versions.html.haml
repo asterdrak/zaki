@@ -1,0 +1,30 @@
+.row.second-bar
+  = render template: 'shared/breadcrumbs', locals: { final_title: t(:versions) }
+
+  = render 'shared/additional_menu' do
+    = link_to committee_trial_path(@committee, @trial),
+    class: 'btn btn-secondary' do
+      %i.fa.fa-arrow-left
+      %span= t(:trial)
+    = link_to committee_trial_versions_path(@committee, @trial),
+    method: :delete, data: { confirm: t(:confirm_versions_delete) },
+    class: 'btn btn-success' do
+      %i.fa.fa-check
+      %span= t(:accept_all_changes)
+.ls40.hidden-sm-up
+
+.container
+  .row
+    .col-lg-8.offset-lg-2
+      %h2= t(:basic_info)
+      %hr
+      - @trial.versions.each do |version|
+        = render 'change_card', version: version
+      - if @trial.versions.empty?
+        %p= t(:no_changes)
+
+      .ls20
+      %h2= t(:tasks)
+      - @trial.tasks.each do |task|
+        - task.versions.each do |version|
+          = render 'change_card', version: version

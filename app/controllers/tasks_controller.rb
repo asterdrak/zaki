@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class TasksController < ApplicationController
-  include TrialAuthorizer
+  include TrialAuthorizer, TrialCommentizer
   before_action :set_task, only: [:update, :destroy, :edit]
   before_action :set_committee, :set_trial
 
@@ -15,6 +15,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
+        comment_task_create_action
         format.html { redirect_to [@committee, @trial], notice: t(:task_successfully_created) }
       else
         format.html do
@@ -33,6 +34,7 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
+        comment_task_update_action
         format.html { redirect_to [@committee, @trial], notice: t(:task_successfully_updated) }
       else
         format.html do
@@ -48,6 +50,7 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     respond_to do |format|
+      comment_task_destroy_action
       format.html { redirect_to [@committee, @trial], notice: t(:task_successfully_destroyed) }
       format.json { head :no_content }
     end

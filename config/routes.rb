@@ -7,6 +7,9 @@ Rails.application.routes.draw do
       match 'authorize/:private_key_digest', to: 'trials#receive_private_key_digest', via: :get,
                                              as: :authorize
       match '', to: 'trials#receive_private_key', via: :post
+      match 'versions', to: 'trials#versions', via: :get
+      match 'versions', to: 'trials#delete_versions', via: :delete
+      match 'comment', to: 'trials#comment', via: :post
       resources :tasks, only: [:create, :update, :destroy, :edit]
       post 'upload', to: 'trials#upload'
     end
