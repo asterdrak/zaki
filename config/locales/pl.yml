@@ -240,3 +240,6 @@ pl:
     trial_edited: "%{who} edytował parametry próby."
     file_uploaded: '%{who} dodał załącznik "%{title}".'
     versions_dismissed: "%{who} zaakceptował aktualną wersję próby i zadań."
+    task_created: '%{who} dodał zadanie "%{task}".'
+    task_updated: '%{who} zmienił zadanie na "%{task}".'
+    task_destroyed: '%{who} usunął zadanie "%{task}".'

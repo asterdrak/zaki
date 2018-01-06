@@ -225,13 +225,5 @@ class TrialsController < ApplicationController
                   @trial.public_comments
                 end
   end
-
-  def comments
-    if current_user.present? && @role != 'public'
-      @trial.private_comments
-    else
-      @trial.public_comments
-    end
-  end
 end
 # rubocop:enable Metrics/ClassLength
