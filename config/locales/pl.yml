@@ -235,3 +235,8 @@ pl:
   adding_comment_failed: Nie udało się dodać komentarza
   private: widoczne tylko dla komisji
   public: widoczne dla wszystkich
+  history:
+    state_changed: '%{who} zmienił stan próby z "%{from}" na "%{to}".'
+    trial_edited: "%{who} edytował parametry próby."
+    file_uploaded: '%{who} dodał załącznik "%{title}".'
+    versions_dismissed: "%{who} zaakceptował aktualną wersję próby i zadań."

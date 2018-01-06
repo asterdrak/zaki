@@ -5,7 +5,7 @@ require 'google_drive'
 require 'differ/string'
 
 class TrialsController < ApplicationController
-  include TrialAuthorizer
+  include TrialAuthorizer, TrialCommentizer
   before_action :set_trial, only: %w(show edit update destroy upload receive_private_key_digest
                                      receive_private_key versions delete_versions comment)
   before_action :set_committee
@@ -85,6 +85,8 @@ class TrialsController < ApplicationController
   def update
     respond_to do |format|
       if @trial.update_safe(trial_params)
+        comment_update_action
+
         format.html do
           redirect_to @trial.referer || [@committee, @trial],
                       notice: t(:trial_successfully_updated)
@@ -100,15 +102,17 @@ class TrialsController < ApplicationController
   # PATCH/PUT /trials/1
   # PATCH/PUT /trials/1.json
   def set_state
-    trial = Trial.find(params[:trial_id])
-    retval = trial.set_state_id(params[:state_id])
+    @trial = Trial.find(params[:trial_id])
+    @old_state_name = @trial.stateman_trial.state.name
 
     respond_to do |format|
-      if retval
-        format.html { redirect_to [@committee, trial], notice: t(:state_was_successfully_updated) }
+      if @trial.set_state_id(params[:state_id])
+        comment_set_state_action
+
+        format.html { redirect_to [@committee, @trial], notice: t(:state_was_successfully_updated) }
         format.json { head :ok }
       else
-        format.html { redirect_to [@committee, trial], notice: t(:state_couldnt_be_updated) }
+        format.html { redirect_to [@committee, @trial], notice: t(:state_couldnt_be_updated) }
         format.json { head :unprocessable_entity }
       end
     end
@@ -159,6 +163,8 @@ class TrialsController < ApplicationController
     @committee.drive.authorized.upload_file(folder_id: @trial.drive_folder, upload_source: path,
                                             file_name: Time.zone.now.strftime('%Y%d%m%H%M%S') +
       " - #{trial_params[:name]} - " + trial_params[:attachment].original_filename)
+    comment_upload_action
+
     redirect_to [@committee, @trial], notice: t(:file_sent)
   end
 
@@ -170,10 +176,13 @@ class TrialsController < ApplicationController
     @trial.versions.each(&:delete)
     @trial.tasks.each { |task| task.versions.each(&:delete) }
     @trial.pending_changes_reset!
+    comment_delete_versions_action
+
     redirect_to [@committee, @trial], notice: t(:changes_accepted)
   end
 
   def comment
+    @role = comment_params[:role]
     comment = comments.create(comment: comment_params[:body], title: 'comment', user: current_user)
     if comment.save
       redirect_to committee_trial_path(@committee, @trial, anchor: 'comments')
@@ -218,7 +227,7 @@ class TrialsController < ApplicationController
   end
 
   def comments
-    if current_user.present? && comment_params[:role] != 'public'
+    if current_user.present? && @role != 'public'
       @trial.private_comments
     else
       @trial.public_comments

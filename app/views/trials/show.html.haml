@@ -205,12 +205,14 @@
     .ls20
     - @comments.each do |comment|
       .comment
-        - unless comment.title.blank?
+        - unless comment.title == 'history'
           = comment.user&.email || t(:candidate)
           = t(:commented)
           = l(comment.created_at, format: :short)
           %i= t(comment.role) if current_user.present?
-        %p= comment.comment
+        %p
+          = l(comment.created_at, format: :short) if comment.title == 'history'
+          = comment.comment
       %hr
     = render 'comment_form', trial: @trial
 
