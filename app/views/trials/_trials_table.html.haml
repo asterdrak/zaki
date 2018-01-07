@@ -42,9 +42,6 @@
                   .dropdown-menu{ 'aria-labelledby': 'tr-options' }
                     = link_to t(:edit), edit_committee_trial_path(committee,
                     trial), class: 'dropdown-item'
-                    -# = link_to t(:delete), [committee, trial], method: :delete,
-                    -# data: { confirm: t(:confirm_delete) },
-                    -# class: 'dropdown-item'
                     = link_to t(:versions).capitalize,
                     committee_trial_versions_path(committee, trial),
                     class: 'dropdown-item'
