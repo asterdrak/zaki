@@ -1,0 +1,26 @@
+.modal.fade#formal-conditions-modal{ 'aria-hidden': 'true',
+'aria-labelledby': 'formal-conditions-modal-label',
+role: 'dialog', tabindex: '-1' }
+  .modal-dialog{ role: 'document' }
+    .modal-content
+      .modal-header
+        %h5.modal-title#formal-conditions-modal-label
+          = t(:formal_conditions)
+        %button.close{ 'aria-label': 'Close',
+        'data-dismiss': 'modal', type: 'button' }
+          %span{ 'aria-hidden': 'true' } ×
+      .modal-body
+        %ol
+          - @committee.formal_conditions.split("\n").each do |condition|
+            %li= condition
+      .modal-footer
+        %button.btn.btn-secondary{ 'data-dismiss': 'modal',
+        type: 'button' }
+          = t(:close)
+        %button.btn.btn-primary{ 'data-dismiss': 'modal',
+        type: 'button' }
+          = t(:confirm)
+
+- if @committee.formal_conditions.present?
+  :javascript
+    $('#formal-conditions-modal').modal('toggle')

@@ -33,5 +33,10 @@
       = f.select :negative_finish_state_id,
       states.collect { |s| [s.name, s.id] },
       { include_blank: true }, class: 'custom-select form-control'
+    .field.form-group
+      = f.label :formal_conditions
+      = f.text_area :formal_conditions, class: 'form-control'
+      %small.form-text.text-muted
+        = t('committee_form.formal_conditions.description')
   .actions.d-inline-block.float-right
     = f.submit t(:save), class: 'btn btn-success'

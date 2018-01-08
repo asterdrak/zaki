@@ -16,6 +16,7 @@ FactoryGirl.define do
     private_key     'Key'
     association     :rank
     association     :environment
+    formal_conditions true
 
     to_create { |instance| instance.save(validate: false) }
   end

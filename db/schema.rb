@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171231012019) do
+ActiveRecord::Schema.define(version: 20180108112304) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20171231012019) do
     t.integer  "min_trial_tasks_count",    default: 5, null: false
     t.string   "drive_token"
     t.string   "drive_root"
+    t.text     "formal_conditions"
     t.index ["name"], name: "index_committees_on_name", unique: true, using: :btree
   end
 
@@ -101,6 +102,7 @@ ActiveRecord::Schema.define(version: 20171231012019) do
     t.integer  "stateman_state_id_cached"
     t.string   "drive_folder"
     t.boolean  "pending_changes",          default: false,     null: false
+    t.boolean  "formal_conditions",        default: false,     null: false
     t.index ["committee_id"], name: "index_trials_on_committee_id", using: :btree
     t.index ["private_key_digest"], name: "index_trials_on_private_key_digest", unique: true, using: :btree
     t.index ["rank_id"], name: "index_trials_on_rank_id", using: :btree

@@ -18,6 +18,7 @@ class Trial < ApplicationRecord # rubocop:disable Metrics/ClassLength
   # t.integer  "stateman_state_id_cached"
   # t.string   "drive_folder"
   # t.boolean  "pending_changes",          default: false,     null: false
+  # t.boolean  "formal_conditions",        default: false,     null: false
   # t.index ["committee_id"], name: "index_trials_on_committee_id", using: :btree
   # t.index ["private_key_digest"], name: "index_trials_on_private_key_digest",
   # unique: true, using: :btree
@@ -34,6 +35,7 @@ class Trial < ApplicationRecord # rubocop:disable Metrics/ClassLength
   validates :supervisor, :environment, :rank, presence: true
   validates :private_key_digest, uniqueness: true, allow_blank: true
   validates :private_key, presence: true, on: :create, unless: :private_key_digest?
+  validates :formal_conditions, acceptance: true
 
   def deadline_in_future
     errors.add(:deadline, I18n.t(:deadline_in_future)) if deadline < 1.month.from_now
