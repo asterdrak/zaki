@@ -9,25 +9,27 @@ pl:
         overdue_state_id: Stan przeterminowania próby
         positive_finish_state_id: Stan pozytywnego zakończenia próby
         negative_finish_state_id: Stan negatywnego zakończenia próby
+        formal_conditions: Warunki formalne
       trial:
         title: Tytuł
         email: Email
         phone_number: Numer telefonu
         supervisor: Opiekun
         environment: Środowisko
-        rank_id: Stopień
+        rank_id: Stopień zdobywany
         environment_id: Środowisko
         private_key: Klucz dostępu
         deadline: Termin zakończenia
         name: Nazwa
         attachment: Plik
+        formal_conditions: Warunki formalne
       rank:
         name: Nazwa stopnia
       environment:
-        name: Nazwa hufca
-        supervisor_name: Imię i nazwisko hufcowego
-        supervisor_email: Adres email hufcowego
-        notify_supervisor: Powiadamiaj hufcowego
+        name: Nazwa środowiska
+        supervisor_name: Imię i nazwisko przełożonego jednostki
+        supervisor_email: Adres email przełożonego jednostki
+        notify_supervisor: Powiadamiaj przełożonego jednostki
       task:
         content: Treść zadania
         deadline: Termin wykonania
@@ -55,6 +57,8 @@ pl:
               blank: nie może być puste
             private_key:
               blank: musi być uzupełniony
+            formal_conditions:
+              accepted: muszą być spełnione
         task:
           attributes:
             content:
@@ -136,7 +140,7 @@ pl:
   states_general: Stany
   files_general: pliki
   reachable_states_colon: "Osiągalne stany:"
-  more_functionalities_available_after_confirm: Więcej opcji dostępnych jest po zatwierdzeniu próby. Pamiętaj, że wszystkie elementy próby muszą być ostatecznie zapisane w systemie i skonsultowane z odpowiednimi osobami (hufcowy, opiekun próby) przed zatwierdzeniem.
+  more_functionalities_available_after_confirm: Więcej opcji dostępnych jest po zatwierdzeniu próby. Pamiętaj, że wszystkie elementy próby muszą być ostatecznie zapisane w systemie i skonsultowane z odpowiednimi osobami (hufcowy/szczepowy, opiekun próby) przed zatwierdzeniem.
   more_functionalities_available_after_confirm2: W szczególności próba musi mieć dodaną odpowiednią liczbę zadań.
   more: więcej
   edit_trial: Edycja próby
@@ -175,13 +179,13 @@ pl:
   deadline_in_future: musi być odpowiednio zdefiniowany
   rank_colon: "Stopień zdobywany:"
   rank: Stopień
-  edit_committee_environments: Edycja hufców
-  add_environment: Dodaj hufiec
-  environment_successfully_created: Hufiec został pomyślnie utworzony
-  environment_successfully_updated: Hufiec został pomyślnie zaktualizowany
-  environment_successfully_destroyed: Hufiec został usunięty
-  notify_supervisor: Powiadamiaj hufcowego
-  no_supervisor: Brak hufcowego
+  edit_committee_environments: Edycja środowisk
+  add_environment: Dodaj środowisko
+  environment_successfully_created: Środowisko zostało pomyślnie utworzone
+  environment_successfully_updated: Środowisko zostało pomyślnie zaktualizowane
+  environment_successfully_destroyed: Środowisko zostało usunięte
+  notify_supervisor: Powiadamiaj przełożonego jednostki
+  no_supervisor: Brak przełożonego jednostki
   missing_state: Brakujący stan
   missing_state_try_update: Brakujący moduł stanu próby, spróbuj edytować i zapisać próbę. W razie niepowodzenia skontaktuj się z administratorem.
   no_registrations: Brak rejestracji
@@ -243,3 +247,31 @@ pl:
     task_created: '%{who} dodał zadanie "%{task}".'
     task_updated: '%{who} zmienił zadanie na "%{task}".'
     task_destroyed: '%{who} usunął zadanie "%{task}".'
+  trial_form:
+    title:
+      placeholder: ćw. Jan Kowalski próba na stopień phm.
+      description: Krótki tekst opisujący próbę, musi zawierać Twoje imię, nazwisko oraz zdobywany stopień.
+    rank:
+      description: Stopień o zdobycie którego chcesz się starać.
+    deadline:
+      description: Termin w którym podejmujesz się wykonać wszystkie zadania i stawić się na komisję w celu zamknięcia stopnia.
+    email:
+      placeholder: jan.kowalski123@zhr.pl
+      description: Twój kontaktowy adres email.
+    phone_number:
+      placeholder: '+48000000000'
+      description: Twój kontaktowy numer telefonu.
+    supervisor:
+      placeholder: hm. Adam Nowak
+      description: Stopień, imię i nazwisko Twojego opiekuna (musi spełniać wymogi formalne!).
+    environment:
+      description: Twoje środowisko (szczep lub hufiec).
+    private_key:
+      placeholder: phmkowal
+      description: Łatwy klucz, który zostanie użyty do generowania hasła dostępu do Twojej próby.
+  committee_form:
+    formal_conditions:
+      description: Warunki formalne otwarcia stopnia, jeden warunek w jednej linii.
+  formal_condition_acceptance: Oświadczam, że spełniam warunki formalne, wymagane przy otwarciu stopnia.
+  formal_conditions: Warunki formalne
+  confirmation: Potwierdzenie

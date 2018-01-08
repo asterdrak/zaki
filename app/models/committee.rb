@@ -10,6 +10,7 @@ class Committee < ApplicationRecord
   # t.integer  "min_trial_tasks_count",    default: 5, null: false
   # t.string   "drive_token"
   # t.string   "drive_root"
+  # t.text     "formal_conditions"
   # t.index ["name"], name: "index_committees_on_name", unique: true, using: :btree
 
   # validations

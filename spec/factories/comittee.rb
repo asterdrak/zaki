@@ -7,5 +7,6 @@ FactoryGirl.define do
     sequence :name do |n|
       "committee name#{n}"
     end
+    formal_conditions ''
   end
 end

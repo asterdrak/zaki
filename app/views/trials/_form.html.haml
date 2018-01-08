@@ -17,18 +17,23 @@
   .row
     .col-md-6.col-sm-11
       .container
+        %h3= t(:trial)
         .field.form-group
           = f.label :title
-          = f.text_field :title, class: 'form-control'
+          = f.text_field :title, class: 'form-control',
+          placeholder: t('trial_form.title.placeholder')
+          %small.form-text.text-muted= t('trial_form.title.description')
         .field.form-group
           = f.label :rank_id
           = f.select :rank_id, ranks.collect { |c| [c.name, c.id] },
           {}, class: 'custom-select form-control'
+          %small.form-text.text-muted= t('trial_form.rank.description')
         .field.form-group
           = f.label :deadline
           %div= f.date_select :deadline,
           { discard_day: true, with_css_classes: true },
-          class: 'custom-select form-control mb-3 mr-sm-1 mb-sm-3'
+          class: 'custom-select form-control mb-2 mr-sm-1 mb-sm-2'
+          %small.form-text.text-muted= t('trial_form.deadline.description')
         - unless action_name == 'new'
           - if current_user.present?
             .field.form-group
@@ -36,27 +41,53 @@
               = f.select :status, Trial::STATUSES, {},
               class: 'custom-select form-control'
         .field.form-group
-          = f.label :email
-          = f.text_field :email, class: 'form-control'
-        .field.form-group
-          = f.label :phone_number
-          = f.text_field :phone_number, class: 'form-control'
+          = f.label :supervisor
+          = f.text_field :supervisor, class: 'form-control',
+          placeholder: t('trial_form.supervisor.placeholder')
+          %small.form-text.text-muted= t('trial_form.supervisor.description')
     .col-md-6.col-sm-11
       .container
+        %h3= t(:candidate)
         .field.form-group
-          = f.label :supervisor
-          = f.text_field :supervisor, class: 'form-control'
+          = f.label :email
+          = f.text_field :email, class: 'form-control',
+          placeholder: t('trial_form.email.placeholder')
+          %small.form-text.text-muted= t('trial_form.email.description')
+        .field.form-group
+          = f.label :phone_number
+          = f.text_field :phone_number, class: 'form-control',
+          placeholder: t('trial_form.phone_number.placeholder')
+          %small.form-text.text-muted= t('trial_form.phone_number.description')
         .field.form-group
           = f.label :environment_id
           = f.select :environment_id,
           environments.collect { |c| [c.name, c.id] },
           {}, class: 'custom-select form-control'
+          %small.form-text.text-muted= t('trial_form.environment.description')
         - if trial.private_key_digest.blank?
           .field.form-group
             = f.label :private_key
-            = f.text_field :private_key, class: 'form-control'
+            = f.text_field :private_key, class: 'form-control',
+            placeholder: t('trial_form.private_key.placeholder')
+            %small.form-text.text-muted= t('trial_form.private_key.description')
         - elsif trial.private_key.present?
           = f.hidden_field :private_key, value: trial.private_key[0..-5]
+        - if action_name == 'new' || !@trial.formal_conditions?
+          - if @committee.formal_conditions.present?
+            .field.form-group
+              %h3= t(:confirmation)
+              %label
+                = t(:formal_conditions)
+                %span.badge.badge-default.pointer{ type: 'button',
+                'data-target': '#formal-conditions-modal',
+                'data-toggle': 'modal' } ?
+              %br
+              = f.label :formal_conditions, class: 'form-check-label' do
+                = f.check_box :formal_conditions, class: 'form-check-input'
+                = t(:formal_condition_acceptance)
+        - else
+          .hidden
+            = f.check_box :formal_conditions
         .actions.btn-group.d-block
           = link_to t(:back), params[:redirect_url] || :back,
           class: 'btn btn-secondary btn-inline-block col-6 float-left'
