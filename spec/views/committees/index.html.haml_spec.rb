@@ -6,6 +6,7 @@ RSpec.describe 'committees/index', type: :view do
 
   before(:each) do
     assign(:committees, committee_list)
+    allow(view).to receive(:current_user) { create(:user) }
   end
 
   it 'renders a list of committees' do

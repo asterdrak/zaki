@@ -12,13 +12,14 @@
       'data-placement': 'bottom' do
         %i.fa.fa-edit
         %span.hidden-sm-up= t(:edit_committee)
-      = link_to @committee,
-      method: :delete, data: { confirm: t(:confirm_delete) },
-      class: 'btn btn-danger', title: t(:delete_committee),
-      'data-toggle': 'tooltip', 'data-placement': 'bottom',
-      'data-offset': '0 25' do
-        %i.fa.fa-trash-o
-        %span.hidden-sm-up= t(:delete_committee)
+      - if current_user.admin?
+        = link_to @committee,
+        method: :delete, data: { confirm: t(:confirm_delete) },
+        class: 'btn btn-danger', title: t(:delete_committee),
+        'data-toggle': 'tooltip', 'data-placement': 'bottom',
+        'data-offset': '0 25' do
+          %i.fa.fa-trash-o
+          %span.hidden-sm-up= t(:delete_committee)
 
 = render 'shared/alerts'
 

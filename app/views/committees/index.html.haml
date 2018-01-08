@@ -3,10 +3,11 @@
   locals: { final_title: t(:listing_committees) }
 
   = render 'shared/additional_menu' do
-    = link_to new_committee_path,
-    class: 'nav-link btn btn-success' do
-      %i.fa.fa-plus-square-o
-      %span= t(:new_committee)
+    - if current_user.admin?
+      = link_to new_committee_path,
+      class: 'nav-link btn btn-success' do
+        %i.fa.fa-plus-square-o
+        %span= t(:new_committee)
 
 = render 'shared/alerts'
 
@@ -25,5 +26,6 @@
             .btn-group
               = link_to t(:edit), edit_committee_path(committee),
               class: 'btn btn-secondary'
-              = link_to t(:destroy), committee, class: 'btn btn-warning',
-              method: :delete, data: { confirm: t(:confirm_delete) }
+              - if current_user.admin?
+                = link_to t(:destroy), committee, class: 'btn btn-warning',
+                method: :delete, data: { confirm: t(:confirm_delete) }
