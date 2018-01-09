@@ -40,9 +40,7 @@ class GoogleAbstract
   end
 
   def client_id
-    @client_id ||= Google::Auth::ClientId.from_hash(
-      MultiJson.load(Rails.application.secrets.google_client_id)
-    )
+    @client_id ||= Google::Auth::ClientId.from_hash(Rails.application.secrets.google_client_id)
   end
 
   def token_store
