@@ -15,7 +15,7 @@ set :rails_env, "production"
 set :deploy_via, :copy
 
 set :rvm1_map_bins, %w{rake gem bundle ruby}
-set :rvm_type, :system
+set :rvm_type, :user
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh

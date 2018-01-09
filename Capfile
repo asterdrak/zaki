@@ -7,7 +7,7 @@ require "capistrano/deploy"
 # Require everything (bundler, rails/assets and rails/migrations)
 require 'capistrano/rails'
 
-# require 'capistrano/rvm'
+require 'capistrano/rvm'
 
 # Load the SCM plugin appropriate to your project:
 #
