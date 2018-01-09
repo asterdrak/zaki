@@ -30,6 +30,7 @@ AllCops:
     - vendor/**/*
     - config/boot.rb
     - config.ru
+    - config/deploy.rb
   CacheRootDirectory: tmp/
   TargetRubyVersion: 2.3
 
