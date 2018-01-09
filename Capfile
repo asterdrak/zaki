@@ -8,6 +8,7 @@ require "capistrano/deploy"
 require 'capistrano/rails'
 
 require 'capistrano/rvm'
+require 'capistrano/figaro_yml'
 
 # Load the SCM plugin appropriate to your project:
 #
