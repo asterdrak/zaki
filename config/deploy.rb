@@ -1,20 +1,21 @@
+# frozen_string_literal: true
 # config valid for current version and patch releases of Capistrano
-lock "~> 3.10.1"
+lock '~> 3.10.1'
 
-set :application, "zaki"
-set :repo_url, "git@gitlab.com:modorg/zaki.git"
+set :application, 'zaki'
+set :repo_url, 'git@gitlab.com:modorg/zaki.git'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, "/home/rails/zaki"
+set :deploy_to, '/home/rails/zaki'
 
-set :user, "rails"
-set :rails_env, "production"
+set :user, 'rails'
+set :rails_env, 'production'
 set :deploy_via, :copy
 
-set :rvm1_map_bins, %w{rake gem bundle ruby}
+set :rvm1_map_bins, %w(rake gem bundle ruby)
 set :rvm_type, :user
 
 # Default value for :format is :airbrussh.
@@ -22,7 +23,8 @@ set :rvm_type, :user
 
 # You can configure the Airbrussh format using :format_options.
 # These are the defaults.
-# set :format_options, command_output: true, log_file: "log/capistrano.log", color: :auto, truncate: :auto
+# set :format_options, command_output: true, log_file: "log/capistrano.log",
+# color: :auto, truncate: :auto
 
 # Default value for :pty is false
 # set :pty, true
