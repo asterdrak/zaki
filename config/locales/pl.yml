@@ -91,6 +91,11 @@ pl:
   error_message:
     one: 'uniemożliwia zapisanie formularza:'
     other: 'uniemożliwiają zapisanie formularza:'
+  mailer:
+    title: Powiadomienie o nowej próbie
+    greeting: Dziękujemy za utworzenie próby
+    link_info: 'Możesz uzyskać dostęp do swojej próby pod tym linkiem:'
+    key_info: 'Twój klucz prywatny (potrzebny aby uzyskać dostęp do próby w przyszłości):'
   save: Zapisz
   add: Dodaj
   back: Powrót

@@ -7,13 +7,13 @@ RSpec.describe TrialNotificationMailer, type: :mailer do
     let(:mail) { TrialNotificationMailer.created(trial, 'private_key') }
 
     it 'renders the headers' do
-      expect(mail.subject).to eq('New trial notification')
+      expect(mail.subject).to eq('Powiadomienie o nowej próbie')
       expect(mail.to).to eq([trial.email])
       expect(mail.from).to eq(['from@example.com'])
     end
 
     it 'renders the body' do
-      expect(mail.body.encoded).to match('Thanks')
+      expect(mail.body.encoded).to match('Powiadomienie')
     end
   end
 end

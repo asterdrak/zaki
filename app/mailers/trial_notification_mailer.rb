@@ -6,10 +6,10 @@ class TrialNotificationMailer < ApplicationMailer
   #   en.trial_notification_mailer.new.subject
   #
   def created(trial, private_key)
-    @title = 'New trial notification'
-    @greeting = 'Thanks for creating trial.'
-    @link_info = 'You can access your trial with this link:'
-    @key_info = 'Your private key:'
+    @title = t('mailer.title')
+    @greeting = t('mailer.greeting')
+    @link_info = t('mailer.link_info')
+    @key_info = t('mailer.key_info')
     @trial = trial
     @private_key = private_key
 

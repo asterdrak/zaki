@@ -47,13 +47,12 @@
       .container
         %ul.list-group
           - session['permitted_trials'].each do |private_key_digest|
-            - trial = Trial.find_by(private_key_digest: private_key_digest)
+            - trial = Trial.find_by(private_key_digest: private_key_digest,
+            committee: @committee)
             - unless trial.nil?
               %li.list-group-item= link_to trial.title, [@committee, trial]
   .col-md-6
     %h2= t(:number_of_trials, trials_count: @committee.trials.count)
-    %hr
-    %h4 Visible for public!!! Here some info about meetings and so on.
     %hr
     %h2= t(:summary)
     .ls20
