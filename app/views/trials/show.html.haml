@@ -72,6 +72,7 @@
       %p.text-justify= t(:more_functionalities_available_after_confirm)
       %p.text-justify
         %b= t(:more_functionalities_available_after_confirm2)
+      = link_to t(:tasks), '#tasks', class: 'btn btn-primary'
       %hr
   - else
     .col-md-6
@@ -219,3 +220,17 @@
 = render 'tasks/new'
 = render 'mark_pending_modal', committee: @committee, trial: @trial
 = render 'add_file_modal', committee: @committee, trial: @trial
+
+- if @tasks.count.zero?
+  :javascript
+    $("[href='#tasks']").click(function(event) {
+      event.preventDefault();
+      $('html, body').animate({
+        scrollTop: $("#tasks").offset().top
+      }, 500);
+    });
+
+    $('[data-target="#new-task-modal"] .btn').attr({
+    title: '#{t(:click_to_add_task)}',
+    'data-toggle': 'tooltip'}).tooltip({ placement: 'left',
+    html: true, offset: '-15 15', container: 'body' }).tooltip('show')
