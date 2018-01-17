@@ -53,11 +53,11 @@ staging_deploy:
     - master
 production_deploy:
   stage: deploy
-  variables:
-    HEROKU_API_KEY: $HEROKU_PRODUCTION_API_KEY
   script:
-  - gem install dpl
-  - dpl --provider=heroku --app=$HEROKU_PRODUCTION_APP --api-key=$HEROKU_PRODUCTION_API_KEY
-  - heroku run rails db:migrate --exit-code --app $HEROKU_PRODUCTION_APP
+  - which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
+  - eval $(ssh-agent -s)
+  - ssh-add <(echo -e “$SSH_PRIVATE_KEY”)
+  - gem install capistrano
+  - cap staging deploy
   only:
   - tags
