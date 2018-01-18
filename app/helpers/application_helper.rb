@@ -18,6 +18,10 @@ module ApplicationHelper
   end
   # rubocop:enable LineLength
 
+  def any_permitted_trials_created?
+    Trial.where(private_key_digest: session[:permitted_trials], status: 'created').any?
+  end
+
   private
 
   def session_expired?

@@ -12,6 +12,7 @@ class HomeController < ApplicationController
     respond_to do |format|
       format.json do
         message = '&alert=' + URI.escape(t(:no_trials_found)) if session[:permitted_trials].blank?
+        message = '&alert=' + URI.escape(t(:trial_created_error)) if any_permitted_trials_created?
         redirect_to Rails.application.secrets.formsub_url + '/set_permitted_keywords?keywords=' +
                     URI.escape(Trial.pending.where(private_key_digest: session[:permitted_trials])
                                     .pluck(:formsub_case_keyword).compact.to_json) + message.to_s

@@ -1,5 +1,5 @@
 = form_for [@committee, trial] do |f|
-  - if params[:redirect_url].present?
+  - if params[:redirect_url].present? || trial.referer.present?
     = f.hidden_field(:referer, value: params[:redirect_url])
   - if trial.errors.any?
     .container-fluid

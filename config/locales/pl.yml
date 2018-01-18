@@ -221,6 +221,7 @@ pl:
   edit_states: Edycja stanów
   trial: Próba
   no_trials_found: Nie odnaleziono prób, dodaj nową lub otwórz link z wiadomości email.
+  trial_created_error: Twoja próba nie została zatwierdzona - przejdź do swojej próby, dodaj zadania i zatwierdź próbę.
   no_tasks_yet: Nie ma jeszcze żadnych zadań - dodaj jakieś!
   zhr: Związek Harcerstwa Rzeczypospolitej
   info: Informacje
@@ -281,3 +282,4 @@ pl:
   formal_conditions: Warunki formalne
   confirmation: Potwierdzenie
   click_to_add_task: Kliknij tutaj <br> aby dodać swoje <br> pierwsze zadanie
+  registration_deleted: Rejestracja została usunięta

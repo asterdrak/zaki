@@ -159,12 +159,13 @@
       - else
         - @trial.formsub_case.registrations.each do |registration|
           %b= registration.title
-          = registration.meeting.name
-          (
-          = l(registration.meeting.time_start.to_datetime, format: :short)
-          \-
-          = l(registration.meeting.time_end.to_datetime, format: :short)
-          )
+          = registration.meeting&.name || t(:registration_deleted)
+          - if registration.meeting.present?
+            (
+            = l(registration.meeting.time_start.to_datetime, format: :short)
+            \-
+            = l(registration.meeting.time_end.to_datetime, format: :short)
+            )
           %p= registration.description
           %hr
 %hr#tasks
@@ -221,15 +222,16 @@
 = render 'mark_pending_modal', committee: @committee, trial: @trial
 = render 'add_file_modal', committee: @committee, trial: @trial
 
+:javascript
+  $("[href='#tasks']").click(function(event) {
+    event.preventDefault();
+    $('html, body').animate({
+      scrollTop: $("#tasks").offset().top
+    }, 500);
+  });
+
 - if @tasks.count.zero?
   :javascript
-    $("[href='#tasks']").click(function(event) {
-      event.preventDefault();
-      $('html, body').animate({
-        scrollTop: $("#tasks").offset().top
-      }, 500);
-    });
-
     $('[data-target="#new-task-modal"] .btn').attr({
     title: '#{t(:click_to_add_task)}',
     'data-toggle': 'tooltip'}).tooltip({ placement: 'left',
