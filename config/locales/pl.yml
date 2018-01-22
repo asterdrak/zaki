@@ -121,7 +121,7 @@ pl:
   confirm: Potwierdź
   mark_pending_modal_title: Zatwierdzanie próby
   mark_pending_modal_text: Zatwierdzając próbę składasz ją sekretarzowi do oceny i zobowiązujesz się do zgłoszenia na spotkanie. Sprawdź czy uzupełniłeś wszystkie dane i dodałeś odpowienie zadania do próby. Pamiętaj też, że próba na tym etapie musi być zatwierdzona przez opiekuna.
-  number_of_trials: "Liczba prób w systemie: %{trials_count}"
+  number_of_trials: "Liczba prób w systemie: %{trials_count} (%{pending_count} w trakcie)"
   summary: Podsumownie prób
   welcome: Witaj
   login_required: Wymagane logowanie

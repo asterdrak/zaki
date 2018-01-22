@@ -6,9 +6,9 @@ require 'differ/string'
 
 class TrialsController < ApplicationController
   include TrialAuthorizer, TrialCommentizer
+  before_action :set_committee
   before_action :set_trial, only: %w(show edit update destroy upload receive_private_key_digest
                                      receive_private_key versions delete_versions comment)
-  before_action :set_committee
   skip_before_action :login_required, only: %w(new create show edit update
                                                receive_private_key_digest receive_private_key
                                                clear_permitted_trials upload comment)
@@ -195,7 +195,7 @@ class TrialsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_trial
-    @trial = Trial.find(params[:id] || params[:trial_id])
+    @trial = @committee.trials.find(params[:id] || params[:trial_id])
   end
 
   def set_committee
