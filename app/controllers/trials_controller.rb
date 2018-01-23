@@ -183,7 +183,8 @@ class TrialsController < ApplicationController
 
   def comment
     @role = comment_params[:role]
-    comment = comments.create(comment: comment_params[:body], title: 'comment', user: current_user)
+    comment = comments.create(comment: comment_params[:body], title: 'comment', user: current_user,
+                              committee: @committee)
     if comment.save
       redirect_to committee_trial_path(@committee, @trial, anchor: 'comments')
     else

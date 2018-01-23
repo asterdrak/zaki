@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180108112304) do
+ActiveRecord::Schema.define(version: 20180122214450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20180108112304) do
     t.string   "role",                        default: "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "committee_id"
     t.index ["commentable_id"], name: "index_comments_on_commentable_id", using: :btree
     t.index ["commentable_type"], name: "index_comments_on_commentable_type", using: :btree
     t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
@@ -127,6 +128,7 @@ ActiveRecord::Schema.define(version: 20180108112304) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   end
 
+  add_foreign_key "comments", "committees"
   add_foreign_key "environments", "committees"
   add_foreign_key "ranks", "committees"
   add_foreign_key "statemen", "committees"

@@ -75,3 +75,16 @@
           #{l(Time.zone.parse(meeting.time_start), format: :time)}
           -
           #{l(Time.zone.parse(meeting.time_end), format: :time)}
+  - if current_user.present?
+    .col-md-6.col-lg-4
+      %h2= t(:recent_activity)
+      - @committee.comments.last(5).each do |comment|
+        :plain
+          #{l(comment.created_at, format: :long)}
+          #{comment.user&.email || t(:candidate) + ':' unless \
+          comment.title == 'history'}
+          #{comment.comment.truncate(150)}
+          (#{comment.commentable.title})
+        %i= link_to t(:open_braces), committee_trial_path(@committee,
+        comment.commentable, anchor: 'comments')
+        %hr
