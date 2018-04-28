@@ -35,7 +35,7 @@ class Trial < ApplicationRecord # rubocop:disable Metrics/ClassLength
   validates :supervisor, :environment, :rank, presence: true
   validates :private_key_digest, uniqueness: true, allow_blank: true
   validates :private_key, presence: true, on: :create, unless: :private_key_digest?
-  validates :formal_conditions, acceptance: true
+  validates :formal_conditions, acceptance: true, if: proc { committee&.formal_conditions.present? }
 
   def deadline_in_future
     errors.add(:deadline, I18n.t(:deadline_in_future)) if deadline < 1.month.from_now

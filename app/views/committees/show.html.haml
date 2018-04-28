@@ -66,17 +66,28 @@
     .ls40.hidden-md-up
     %h2= t(:meetings).capitalize
     %ul.list-group
-    - @committee.formsub_committee.meetings.each do |meeting|
-      %li.list-group-item
-        %b= meeting.name
-        :plain
-          :
-          #{l(Time.zone.parse(meeting.time_start), format: :day_month)}
-          #{l(Time.zone.parse(meeting.time_start), format: :time)}
-          -
-          #{l(Time.zone.parse(meeting.time_end), format: :time)}
+      - @committee.formsub_committee.meetings.each do |meeting|
+        %li.list-group-item
+          %b= meeting.name
+          :plain
+            :
+            #{l(Time.zone.parse(meeting.time_start), format: :day_month)}
+            #{l(Time.zone.parse(meeting.time_start), format: :time)}
+            -
+            #{l(Time.zone.parse(meeting.time_end), format: :time)}
+      - if @committee.formsub_committee.meetings.blank?
+        = t(:no_committee_meeting)
+    .ls20
+    - if @committee.info.present?
+      %h2= t(:committee_info)
+      .ls20
+      -# rubocop:disable Rails/OutputSafety
+      = raw sanitize @committee.info, attributes: %w(id class href),
+      tags: %w(strong em a br ul ol li del h1 pre div)
+      -# rubocop:enable Rails/OutputSafety
   - if current_user.present?
     .col-md-6.col-lg-4
+      .ls40.hidden-md-up
       %h2= t(:recent_activity)
       - @committee.comments.last(5).each do |comment|
         :plain

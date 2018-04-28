@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180122214450) do
+ActiveRecord::Schema.define(version: 20180427134430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20180122214450) do
     t.string   "drive_token"
     t.string   "drive_root"
     t.text     "formal_conditions"
+    t.text     "info"
     t.index ["name"], name: "index_committees_on_name", unique: true, using: :btree
   end
 

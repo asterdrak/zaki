@@ -10,6 +10,7 @@ pl:
         positive_finish_state_id: Stan pozytywnego zakończenia próby
         negative_finish_state_id: Stan negatywnego zakończenia próby
         formal_conditions: Warunki formalne
+        info: Informacje o komisji
       trial:
         title: Tytuł
         email: Email
@@ -103,6 +104,8 @@ pl:
   destroy: Usuń
   listing_committees: Wszystkie komisje
   new_committee: Nowa komisja
+  no_committee_meeting: Brak aktywnych spotkań
+  committee_info: Dodatkowe informacje
   name: Nazwa
   trials: Próby
   commitee_lead_text: Jeśli jesteś kandydatem na stopień możesz utowrzyć swoją próbę za pomocą przycisku na dole, jeśli jesteś członkiem komisji 
@@ -278,6 +281,8 @@ pl:
   committee_form:
     formal_conditions:
       description: Warunki formalne otwarcia stopnia, jeden warunek w jednej linii.
+    info:
+      description: 'Informacje o komisji: przewodniczący, sekretarz, skład, kontakt, miejsca spotkań itp...'
   formal_condition_acceptance: Oświadczam, że spełniam warunki formalne, wymagane przy otwarciu stopnia.
   formal_conditions: Warunki formalne
   confirmation: Potwierdzenie

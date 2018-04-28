@@ -83,7 +83,7 @@ class CommitteesController < ApplicationController
   def committee_params
     params.require(:committee).permit(:name, :overdue_state_id, :positive_finish_state_id,
                                       :negative_finish_state_id, :min_trial_tasks_count,
-                                      :drive_token_raw, :drive_root, :formal_conditions)
+                                      :drive_token_raw, :drive_root, :formal_conditions, :info)
   end
 
   def set_edit_instance_variables

@@ -46,6 +46,9 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+# Basecamp Trix editor wrapper for rails
+gem 'trix'
+
 # Use Capistrano for deployment
 group :development do
   gem 'capistrano',            require: false

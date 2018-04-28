@@ -18,5 +18,6 @@
 //= require_tree .
 //= require Chart.bundle
 //= require chartkick
+//= require trix
 // require jquery-ui
 // do not inlcude jquery-ui tooltip
