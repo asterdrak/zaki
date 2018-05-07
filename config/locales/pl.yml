@@ -24,6 +24,9 @@ pl:
         name: Nazwa
         attachment: Plik
         formal_conditions: Warunki formalne
+        supervisor_phone_number: Numer telefonu opiekuna
+        supervisor_email: Email opiekuna
+        troop: Drużyna
       rank:
         name: Nazwa stopnia
       environment:
@@ -60,6 +63,14 @@ pl:
               blank: musi być uzupełniony
             formal_conditions:
               accepted: muszą być spełnione
+            supervisor_phone_number:
+              not_a_number: musi mieć poprawny format
+              too_short: jest za krótki
+            supervisor_email:
+              blank: nie może być pusty
+              invalid: jest nieprawidłowy
+            troop:
+              blank: musi być uzupełniona
         task:
           attributes:
             content:
@@ -278,6 +289,12 @@ pl:
     private_key:
       placeholder: phmkowal
       description: Łatwy klucz, który zostanie użyty do generowania hasła dostępu do Twojej próby.
+    supervisor_phone_number:
+      placeholder: '+48000000000'
+    supervisor_email:
+      placeholder: jan.kowalski123@zhr.pl
+    troop:
+      placeholder: 1 KDH Drużyna
   committee_form:
     formal_conditions:
       description: Warunki formalne otwarcia stopnia, jeden warunek w jednej linii.

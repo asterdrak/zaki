@@ -19,6 +19,9 @@ class Trial < ApplicationRecord # rubocop:disable Metrics/ClassLength
   # t.string   "drive_folder"
   # t.boolean  "pending_changes",          default: false,     null: false
   # t.boolean  "formal_conditions",        default: false,     null: false
+  # t.string   "supervisor_phone_number"
+  # t.string   "supervisor_email"
+  # t.string   "troop"
   # t.index ["committee_id"], name: "index_trials_on_committee_id", using: :btree
   # t.index ["private_key_digest"], name: "index_trials_on_private_key_digest",
   # unique: true, using: :btree
@@ -30,9 +33,10 @@ class Trial < ApplicationRecord # rubocop:disable Metrics/ClassLength
   validate :deadline_in_future, if: :deadline, on: :create
   STATUSES = %w(created pending accepted rejected).freeze
   validates :status, inclusion: { within: STATUSES, allow_nil: true }
-  validates :email, presence: true, format: /@/
-  validates :phone_number, numericality: { only_integer: true }, length: { in: 9..13 }
-  validates :supervisor, :environment, :rank, presence: true
+  validates :email, :supervisor_email, presence: true, format: /@/
+  validates :phone_number, :supervisor_phone_number, numericality: { only_integer: true },
+                                                     length: { in: 9..13 }
+  validates :supervisor, :environment, :rank, :troop, presence: true
   validates :private_key_digest, uniqueness: true, allow_blank: true
   validates :private_key, presence: true, on: :create, unless: :private_key_digest?
   validates :formal_conditions, acceptance: true, if: proc { committee&.formal_conditions.present? }

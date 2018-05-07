@@ -207,7 +207,8 @@ class TrialsController < ApplicationController
   def trial_params
     params.require(:trial).permit(
       %w(title deadline status referer email phone_number supervisor environment_id
-         private_key rank_id attachment name drive_folder formal_conditions)
+         private_key rank_id attachment name drive_folder formal_conditions supervisor_phone_number
+         supervisor_email troop)
     )
   end
 
