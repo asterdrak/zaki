@@ -10,6 +10,7 @@ pl:
         positive_finish_state_id: Stan pozytywnego zakończenia próby
         negative_finish_state_id: Stan negatywnego zakończenia próby
         formal_conditions: Warunki formalne
+        info: Informacje o komisji
       trial:
         title: Tytuł
         email: Email
@@ -23,6 +24,9 @@ pl:
         name: Nazwa
         attachment: Plik
         formal_conditions: Warunki formalne
+        supervisor_phone_number: Numer telefonu opiekuna
+        supervisor_email: Email opiekuna
+        troop: Drużyna
       rank:
         name: Nazwa stopnia
       environment:
@@ -59,6 +63,14 @@ pl:
               blank: musi być uzupełniony
             formal_conditions:
               accepted: muszą być spełnione
+            supervisor_phone_number:
+              not_a_number: musi mieć poprawny format
+              too_short: jest za krótki
+            supervisor_email:
+              blank: nie może być pusty
+              invalid: jest nieprawidłowy
+            troop:
+              blank: musi być uzupełniona
         task:
           attributes:
             content:
@@ -103,6 +115,8 @@ pl:
   destroy: Usuń
   listing_committees: Wszystkie komisje
   new_committee: Nowa komisja
+  no_committee_meeting: Brak aktywnych spotkań
+  committee_info: Dodatkowe informacje
   name: Nazwa
   trials: Próby
   commitee_lead_text: Jeśli jesteś kandydatem na stopień możesz utowrzyć swoją próbę za pomocą przycisku na dole, jeśli jesteś członkiem komisji 
@@ -121,7 +135,7 @@ pl:
   confirm: Potwierdź
   mark_pending_modal_title: Zatwierdzanie próby
   mark_pending_modal_text: Zatwierdzając próbę składasz ją sekretarzowi do oceny i zobowiązujesz się do zgłoszenia na spotkanie. Sprawdź czy uzupełniłeś wszystkie dane i dodałeś odpowienie zadania do próby. Pamiętaj też, że próba na tym etapie musi być zatwierdzona przez opiekuna.
-  number_of_trials: "Liczba prób w systemie: %{trials_count}"
+  number_of_trials: "Liczba prób w systemie: %{trials_count} (%{pending_count} w trakcie)"
   summary: Podsumownie prób
   welcome: Witaj
   login_required: Wymagane logowanie
@@ -275,11 +289,21 @@ pl:
     private_key:
       placeholder: phmkowal
       description: Łatwy klucz, który zostanie użyty do generowania hasła dostępu do Twojej próby.
+    supervisor_phone_number:
+      placeholder: '+48000000000'
+    supervisor_email:
+      placeholder: jan.kowalski123@zhr.pl
+    troop:
+      placeholder: 1 KDH Drużyna
   committee_form:
     formal_conditions:
       description: Warunki formalne otwarcia stopnia, jeden warunek w jednej linii.
+    info:
+      description: 'Informacje o komisji: przewodniczący, sekretarz, skład, kontakt, miejsca spotkań itp...'
   formal_condition_acceptance: Oświadczam, że spełniam warunki formalne, wymagane przy otwarciu stopnia.
   formal_conditions: Warunki formalne
   confirmation: Potwierdzenie
   click_to_add_task: Kliknij tutaj <br> aby dodać swoje <br> pierwsze zadanie
   registration_deleted: Rejestracja została usunięta
+  recent_activity: Ostatnia aktywność
+  open_braces: (otwórz)

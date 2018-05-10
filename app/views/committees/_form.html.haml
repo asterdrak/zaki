@@ -38,5 +38,12 @@
       = f.text_area :formal_conditions, class: 'form-control'
       %small.form-text.text-muted
         = t('committee_form.formal_conditions.description')
+    .field.form-group
+      = f.label :info
+      %hr
+      = f.trix_editor :info
+      %small.form-text.text-muted
+        = t('committee_form.info.description')
+      %hr
   .actions.d-inline-block.float-right
     = f.submit t(:save), class: 'btn btn-success'

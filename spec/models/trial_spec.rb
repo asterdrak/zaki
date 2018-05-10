@@ -7,6 +7,7 @@ RSpec.describe Trial, type: :model do
   it { is_expected.to validate_presence_of(:title) }
   it { is_expected.to validate_presence_of(:committee) }
   it { is_expected.to validate_presence_of(:deadline) }
+  it { is_expected.to validate_presence_of(:supervisor) }
   it { is_expected.to validate_inclusion_of(:status).in_array(Trial::STATUSES) }
 
   # it { is_expected.to validate_uniqueness_of(:title) }
@@ -17,12 +18,26 @@ RSpec.describe Trial, type: :model do
     it { is_expected.not_to allow_value('xa.b').for(:email) }
   end
 
+  describe 'supervisor_email' do
+    it { is_expected.to validate_presence_of(:supervisor_email) }
+    it { is_expected.to allow_value('x@a.b').for(:supervisor_email) }
+    it { is_expected.not_to allow_value('xa.b').for(:supervisor_email) }
+  end
+
   describe 'phone_number' do
     it { is_expected.to allow_value('112554478').for(:phone_number) }
     it { is_expected.to allow_value('+48112554478').for(:phone_number) }
     it { is_expected.to allow_value('+481112554478').for(:phone_number) }
     it { is_expected.not_to allow_value('66587994').for(:phone_number) }
     it { is_expected.not_to allow_value('+4811244558771').for(:phone_number) }
+  end
+
+  describe 'supervisor_phone_number' do
+    it { is_expected.to allow_value('112554478').for(:supervisor_phone_number) }
+    it { is_expected.to allow_value('+48112554478').for(:supervisor_phone_number) }
+    it { is_expected.to allow_value('+481112554478').for(:supervisor_phone_number) }
+    it { is_expected.not_to allow_value('66587994').for(:supervisor_phone_number) }
+    it { is_expected.not_to allow_value('+4811244558771').for(:supervisor_phone_number) }
   end
 
   it { is_expected.to validate_presence_of(:supervisor) }

@@ -6,9 +6,9 @@ require 'differ/string'
 
 class TrialsController < ApplicationController
   include TrialAuthorizer, TrialCommentizer
+  before_action :set_committee
   before_action :set_trial, only: %w(show edit update destroy upload receive_private_key_digest
                                      receive_private_key versions delete_versions comment)
-  before_action :set_committee
   skip_before_action :login_required, only: %w(new create show edit update
                                                receive_private_key_digest receive_private_key
                                                clear_permitted_trials upload comment)
@@ -183,7 +183,8 @@ class TrialsController < ApplicationController
 
   def comment
     @role = comment_params[:role]
-    comment = comments.create(comment: comment_params[:body], title: 'comment', user: current_user)
+    comment = comments.create(comment: comment_params[:body], title: 'comment', user: current_user,
+                              committee: @committee)
     if comment.save
       redirect_to committee_trial_path(@committee, @trial, anchor: 'comments')
     else
@@ -195,7 +196,7 @@ class TrialsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_trial
-    @trial = Trial.find(params[:id] || params[:trial_id])
+    @trial = @committee.trials.find(params[:id] || params[:trial_id])
   end
 
   def set_committee
@@ -206,7 +207,8 @@ class TrialsController < ApplicationController
   def trial_params
     params.require(:trial).permit(
       %w(title deadline status referer email phone_number supervisor environment_id
-         private_key rank_id attachment name drive_folder formal_conditions)
+         private_key rank_id attachment name drive_folder formal_conditions supervisor_phone_number
+         supervisor_email troop)
     )
   end
 

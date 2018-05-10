@@ -6,4 +6,4 @@
   = render 'form', trial: @trial, ranks: @committee.ranks,
   environments: @committee.environments
 
-= render 'formal_conditions_modal'
+= render 'formal_conditions_modal' if @committee.formal_conditions.present?

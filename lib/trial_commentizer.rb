@@ -4,27 +4,29 @@ module TrialCommentizer
     return if @trial.created?
     @role = 'public'
     comments.create(comment: t('history.trial_edited',
-                               who: current_user&.email || t(:candidate)), title: 'history')
+                               who: current_user&.email || t(:candidate)), title: 'history',
+                    committee: @committee)
   end
 
   def comment_set_state_action
     @role = 'public'
     comments.create(comment: t('history.state_changed',
                                who: current_user.email, from: @old_state_name,
-                               to: @trial.stateman_trial.state.name), title: 'history')
+                               to: @trial.stateman_trial.state.name), title: 'history',
+                    committee: @committee)
   end
 
   def comment_upload_action
     @role = 'public'
     comments.create(comment: t('history.file_uploaded', title: trial_params[:name],
                                                         who: current_user&.email || t(:candidate)),
-                    title: 'history')
+                    title: 'history', committee: @committee)
   end
 
   def comment_delete_versions_action
     @role = 'public'
     comments.create(comment: t('history.versions_dismissed', who: current_user&.email),
-                    title: 'history')
+                    title: 'history', committee: @committee)
   end
 
   def comment_task_create_action
@@ -32,21 +34,21 @@ module TrialCommentizer
     @role = 'public'
     comments.create(comment: t('history.task_created', task: @task.content,
                                                        who: current_user&.email || t(:candidate)),
-                    title: 'history')
+                    title: 'history', committee: @committee)
   end
 
   def comment_task_update_action
     return if @trial.created?
     comments.create(comment: t('history.task_updated', task: @task.content,
                                                        who: current_user&.email || t(:candidate)),
-                    title: 'history')
+                    title: 'history', committee: @committee)
   end
 
   def comment_task_destroy_action
     return if @trial.created?
     comments.create(comment: t('history.task_destroyed', task: @task.content,
                                                          who: current_user&.email || t(:candidate)),
-                    title: 'history')
+                    title: 'history', committee: @committee)
   end
 
   protected

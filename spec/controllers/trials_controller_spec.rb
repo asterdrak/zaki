@@ -28,8 +28,6 @@ RSpec.describe TrialsController, type: :controller do
 
   let(:invalid_attributes) { attributes_for(:trial, title: nil) }
 
-  let(:trial) { create(:trial) }
-
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # TrialsController. Be sure to keep this updated too.
@@ -165,13 +163,14 @@ RSpec.describe TrialsController, type: :controller do
 
     it 'destroys the requested trial' do
       expect do
-        delete :destroy, params: { committee_id: committee.id, id: Trial.last.to_param },
+        delete :destroy, params: { committee_id: Trial.last.committee_id, id: Trial.last.to_param },
                          session: valid_session
       end.to change(Trial, :count).by(-1)
     end
 
     it 'redirects to the trials list' do
-      delete :destroy, params: { committee_id: committee.id, id: Trial.last.to_param },
+      committee = Trial.last.committee
+      delete :destroy, params: { committee_id: Trial.last.committee_id, id: Trial.last.to_param },
                        session: valid_session
       expect(response).to redirect_to(committee_trials_url(committee))
     end

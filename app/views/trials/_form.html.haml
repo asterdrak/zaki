@@ -30,9 +30,10 @@
           %small.form-text.text-muted= t('trial_form.rank.description')
         .field.form-group
           = f.label :deadline
-          %div= f.date_select :deadline,
-          { discard_day: true, with_css_classes: true },
-          class: 'custom-select form-control mb-2 mr-sm-1 mb-sm-2'
+          .container
+            .row= f.date_select :deadline,
+            { discard_day: true, with_css_classes: true },
+            class: 'custom-select mb-2 mb-sm-2 col-sm-6'
           %small.form-text.text-muted= t('trial_form.deadline.description')
         - unless action_name == 'new'
           - if current_user.present?
@@ -45,25 +46,41 @@
           = f.text_field :supervisor, class: 'form-control',
           placeholder: t('trial_form.supervisor.placeholder')
           %small.form-text.text-muted= t('trial_form.supervisor.description')
+        .row
+          .field.form-group.col-lg-6
+            = f.label :supervisor_phone_number
+            = f.text_field :supervisor_phone_number, class: 'form-control',
+            placeholder: t('trial_form.supervisor_phone_number.placeholder')
+          .field.form-group.col-lg-6
+            = f.label :supervisor_email
+            = f.text_field :supervisor_email, class: 'form-control',
+            placeholder: t('trial_form.supervisor_email.placeholder')
     .col-md-6.col-sm-11
       .container
         %h3= t(:candidate)
-        .field.form-group
-          = f.label :email
-          = f.text_field :email, class: 'form-control',
-          placeholder: t('trial_form.email.placeholder')
-          %small.form-text.text-muted= t('trial_form.email.description')
-        .field.form-group
-          = f.label :phone_number
-          = f.text_field :phone_number, class: 'form-control',
-          placeholder: t('trial_form.phone_number.placeholder')
-          %small.form-text.text-muted= t('trial_form.phone_number.description')
-        .field.form-group
-          = f.label :environment_id
-          = f.select :environment_id,
-          environments.collect { |c| [c.name, c.id] },
-          {}, class: 'custom-select form-control'
-          %small.form-text.text-muted= t('trial_form.environment.description')
+        .row
+          .field.form-group.col-lg-6
+            = f.label :email
+            = f.text_field :email, class: 'form-control',
+            placeholder: t('trial_form.email.placeholder')
+            %small.form-text.text-muted= t('trial_form.email.description')
+          .field.form-group.col-lg-6
+            = f.label :phone_number
+            = f.text_field :phone_number, class: 'form-control',
+            placeholder: t('trial_form.phone_number.placeholder')
+            %small.form-text.text-muted
+              = t('trial_form.phone_number.description')
+        .row
+          .field.form-group.col-lg-6
+            = f.label :environment_id
+            = f.select :environment_id,
+            environments.collect { |c| [c.name, c.id] },
+            {}, class: 'custom-select form-control'
+            %small.form-text.text-muted= t('trial_form.environment.description')
+          .field.form-group.col-lg-6
+            = f.label :troop
+            = f.text_field :troop, class: 'form-control',
+            placeholder: t('trial_form.troop.placeholder')
         - if trial.private_key_digest.blank?
           .field.form-group
             = f.label :private_key

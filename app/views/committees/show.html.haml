@@ -26,7 +26,8 @@
 .row
   - if session['permitted_trials'].blank?
     - unless current_user.present?
-      .col-md-6
+      .col-md-6.col-lg-4
+        .ls20.hidden-md-up
         .container
           .jumbotron
             %h1.display-4= @committee.name
@@ -38,7 +39,8 @@
               = link_to t(:new_trial), new_committee_trial_path(@committee),
               class: 'btn btn-lg btn-success'
   - else
-    .col-md-6
+    .col-md-6.col-lg-4
+      .ls20.hidden-md-up
       %h3= t(:my_trials)
       = link_to t(:clear_from_this_computer),
       committee_trial_clear_permitted_path(@committee), method: :delete,
@@ -51,12 +53,49 @@
             committee: @committee)
             - unless trial.nil?
               %li.list-group-item= link_to trial.title, [@committee, trial]
-  .col-md-6
-    %h2= t(:number_of_trials, trials_count: @committee.trials.count)
-    %hr
+  .col-md-6.col-lg-4
+    .ls40.hidden-md-up
     %h2= t(:summary)
+    %hr
+    %h4= t(:number_of_trials, trials_count: @committee.trials.count,
+    pending_count: @committee.trials.pending.count)
     .ls20
-    .container-fluid
-      %ul.list-group
-        - @state_trial_count.each do |state|
-          %li.list-group-item #{state['name']}: #{state['count']}
+    = pie_chart @state_trial_count.map { |s| [s['name'], s['count']] }.to_h,
+    colors: @state_trial_count.map { |s| "##{s['color']}" }
+  .col-md-6.col-lg-4
+    .ls40.hidden-md-up
+    %h2= t(:meetings).capitalize
+    %ul.list-group
+      - @committee.formsub_committee.meetings.each do |meeting|
+        %li.list-group-item
+          %b= meeting.name
+          :plain
+            :
+            #{l(Time.zone.parse(meeting.time_start), format: :day_month)}
+            #{l(Time.zone.parse(meeting.time_start), format: :time)}
+            -
+            #{l(Time.zone.parse(meeting.time_end), format: :time)}
+      - if @committee.formsub_committee.meetings.blank?
+        = t(:no_committee_meeting)
+    .ls20
+    - if @committee.info.present?
+      %h2= t(:committee_info)
+      .ls20
+      -# rubocop:disable Rails/OutputSafety
+      = raw sanitize @committee.info, attributes: %w(id class href),
+      tags: %w(strong em a br ul ol li del h1 pre div)
+      -# rubocop:enable Rails/OutputSafety
+  - if current_user.present?
+    .col-md-6.col-lg-4
+      .ls40.hidden-md-up
+      %h2= t(:recent_activity)
+      - @committee.comments.last(5).each do |comment|
+        :plain
+          #{l(comment.created_at, format: :long)}
+          #{comment.user&.email || t(:candidate) + ':' unless \
+          comment.title == 'history'}
+          #{comment.comment.truncate(150)}
+          (#{comment.commentable.title})
+        %i= link_to t(:open_braces), committee_trial_path(@committee,
+        comment.commentable, anchor: 'comments')
+        %hr

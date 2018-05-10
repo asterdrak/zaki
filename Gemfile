@@ -27,6 +27,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.3.3'
 end
 gem 'acts_as_commentable'
+gem 'chartkick'
 gem 'differ'
 gem 'font-awesome-rails'
 gem 'haml-rails', '~> 0.9'
@@ -44,6 +45,9 @@ gem 'jbuilder', '~> 2.5'
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+
+# Basecamp Trix editor wrapper for rails
+gem 'trix'
 
 # Use Capistrano for deployment
 group :development do

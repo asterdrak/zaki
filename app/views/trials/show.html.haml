@@ -46,12 +46,19 @@
         %li.list-group-item
           %b= t(:environment_colon)
           = @trial.environment.name
+          ,
+          = @trial.troop
         %li.list-group-item
           %b= t(:rank_colon)
           = @trial.rank.name
         %li.list-group-item
           %b= t(:supervisor)
           = @trial.supervisor
+          (
+          = @trial.supervisor_phone_number
+          \/
+          = mail_to @trial.supervisor_email
+          )
         %li.list-group-item
           %b= t(:status)
           = @trial.status
