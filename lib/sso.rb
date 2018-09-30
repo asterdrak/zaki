@@ -21,6 +21,7 @@ module OmniAuth
 
       extra do
         {
+          permissions: raw_info['permissions'],
           is_admin: raw_info['is_admin'],
           first_name: raw_info['extra']['first_name'],
           last_name: raw_info['extra']['last_name']
