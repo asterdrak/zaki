@@ -12,6 +12,7 @@ before_script:
   - apt-get update -qq && apt-get install -y -qq postgresql postgresql-contrib libpq-dev cmake
   - apt-get install apt-transport-https
   - apt-get update
+  - apt-get install -y nodejs
   - gem install bundler --no-ri --no-rdoc
   - bundle install --path /cache
 
