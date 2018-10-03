@@ -11,10 +11,7 @@ variables:
 before_script:
   - apt-get update -qq && apt-get install -y -qq postgresql postgresql-contrib libpq-dev cmake
   - apt-get install apt-transport-https
-  - echo "deb https://cli-assets.heroku.com/branches/stable/apt ./" > /etc/apt/sources.list.d/heroku.list
-  - wget -O- https://cli-assets.heroku.com/apt/release.key | apt-key add -
   - apt-get update
-  - apt-get install -y nodejs
   - gem install bundler --no-ri --no-rdoc
   - bundle install --path /cache
 
@@ -27,19 +24,27 @@ ruby_lint:
   stage: lint_test
   script:
     - bundle exec rubocop
+  except:
+    - tags
 haml_lint:
   stage: lint_test
   script:
     - bundle exec haml-lint
+  except:
+    - tags
 coffe_lint:
   stage: lint_test
   script:
     - bundle exec rake coffeelint
+  except:
+    - tags
 specs:
   stage: rspec_test
   script:
     - bundle exec rake db:create RAILS_ENV=test
     - bundle exec rspec
+  except:
+    - tags
 staging_deploy:
   stage: deploy
   variables:
