@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'concerns/user_permission_concern'
 
 class ApplicationPolicy

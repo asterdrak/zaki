@@ -34,6 +34,6 @@ class ApplicationController < ActionController::Base
   private
 
   def user_not_authorized
-    redirect_to(request.referrer || root_path, alert: t(:not_authorized_alert))
+    redirect_to(request.referer || root_path, alert: t(:not_authorized_alert))
   end
 end
