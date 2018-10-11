@@ -48,6 +48,8 @@ gem 'jbuilder', '~> 2.5'
 
 # Basecamp Trix editor wrapper for rails
 gem 'trix'
+# Gem for resource authorization
+gem 'pundit'
 
 # Use Capistrano for deployment
 group :development do

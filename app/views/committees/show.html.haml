@@ -6,7 +6,7 @@
     class: 'btn btn-success' do
       %i.fa.fa-plus-square-o
       %span= t(:new_trial)
-    - if current_user.present?
+    - if policy(@committee).edit?
       = link_to edit_committee_path(@committee), class: 'btn btn-secondary',
       title: t(:edit_committee), 'data-toggle': 'tooltip',
       'data-placement': 'bottom' do

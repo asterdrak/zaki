@@ -307,3 +307,4 @@ pl:
   registration_deleted: Rejestracja została usunięta
   recent_activity: Ostatnia aktywność
   open_braces: (otwórz)
+  not_authorized_alert: Nie masz uprawnien do tej czynności.

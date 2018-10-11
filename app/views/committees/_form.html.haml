@@ -18,7 +18,7 @@
   .field.form-group
     = f.label :min_trial_tasks_count
     = f.number_field :min_trial_tasks_count, class: 'form-control'
-  - unless action_name == 'new'
+  - unless action_name == 'new' || action_name == 'create'
     .field.form-group
       = f.label :overdue_state_id
       = f.select :overdue_state_id, states.collect { |s| [s.name, s.id] },

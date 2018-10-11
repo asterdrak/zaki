@@ -4,12 +4,13 @@ require 'google_drive'
 
 class CommitteesController < ApplicationController
   before_action :set_committee, only: [:show, :edit, :update, :destroy]
+  before_action proc { authorize Committee }, only: [:index, :new, :create]
   skip_before_action :login_required, only: :show
 
   # GET /committees
   # GET /committees.json
   def index
-    @committees = Committee.all
+    @committees = policy_scope(Committee)
   end
 
   # GET /committees/1
@@ -76,7 +77,7 @@ class CommitteesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_committee
-    @committee = Committee.find(params[:id])
+    authorize @committee = Committee.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

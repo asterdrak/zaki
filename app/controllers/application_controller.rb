@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class ApplicationController < ActionController::Base
   include ApplicationHelper
+  include Pundit
 
   protect_from_forgery with: :exception
   before_action :login_required
@@ -16,6 +17,8 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, alert: I18n.t(:login_error)
   end
 
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   def login_required
     return if current_user
     respond_to do |format|
@@ -26,5 +29,11 @@ class ApplicationController < ActionController::Base
         render json: { 'error' => 'Access Denied' }.to_json
       end
     end
+  end
+
+  private
+
+  def user_not_authorized
+    redirect_to(request.referrer || root_path, alert: t(:not_authorized_alert))
   end
 end
