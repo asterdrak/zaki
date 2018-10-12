@@ -9,7 +9,7 @@ class CommitteePolicy < ApplicationPolicy
   end
 
   def create?
-    user.admin?
+    user&.admin?
   end
 
   def destroy?
@@ -17,12 +17,12 @@ class CommitteePolicy < ApplicationPolicy
   end
 
   def update?
-    user.admin? || permitted_committee_ids.include?(committee.id)
+    user&.admin? || permitted_committee_ids.include?(committee.id)
   end
 
   class Scope < Scope
     def resolve
-      if user.admin?
+      if user&.admin?
         scope.all
       else
         scope.where(id: permitted_committee_ids)
