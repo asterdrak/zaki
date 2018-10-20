@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 class EnvironmentsController < ApplicationController
-  before_action :set_committee
   before_action :set_environment, only: [:edit, :update, :destroy]
 
   # GET /environments/1/edit
@@ -59,10 +58,6 @@ class EnvironmentsController < ApplicationController
   end
 
   private
-
-  def set_committee
-    @committee = Committee.find(params[:committee_id])
-  end
 
   def set_environment
     @environment = @committee.environments.find(params[:id])

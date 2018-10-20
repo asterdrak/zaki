@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 class RanksController < ApplicationController
-  before_action :set_committee
   # POST /ranks
   # POST /ranks.json
   def create
@@ -31,10 +30,6 @@ class RanksController < ApplicationController
   end
 
   private
-
-  def set_committee
-    @committee = Committee.find(params[:committee_id])
-  end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def rank_params

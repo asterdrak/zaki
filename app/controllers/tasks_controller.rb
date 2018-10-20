@@ -2,7 +2,7 @@
 class TasksController < ApplicationController
   include TrialAuthorizer, TrialCommentizer
   before_action :set_task, only: [:update, :destroy, :edit]
-  before_action :set_committee, :set_trial
+  before_action :set_trial
 
   skip_before_action :login_required, except: [:destroy]
   before_action :render_private_key_monit, except: [:destroy],
@@ -61,10 +61,6 @@ class TasksController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_task
     @task = Task.find(params[:id])
-  end
-
-  def set_committee
-    @committee = Committee.find(params[:committee_id])
   end
 
   def set_trial
