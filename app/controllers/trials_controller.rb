@@ -5,17 +5,22 @@ require 'google_drive'
 require 'differ/string'
 
 class TrialsController < ApplicationController
+  # Below actions are automatically un-authorized for blank users by TrialAuthorizer
+  # Method skip_auth_actions is required for TrialAuthorizer access
+  SKIP_AUTH_ACTIONS = %w(new create show edit update receive_private_key receive_private_key_digest
+                         clear_permitted_trials upload comment).freeze
+
   include TrialAuthorizer, TrialCommentizer
   before_action :set_trial, only: %w(show edit update destroy upload receive_private_key_digest
                                      receive_private_key versions delete_versions comment)
-  skip_before_action :login_required, only: %w(new create show edit update
-                                               receive_private_key_digest receive_private_key
-                                               clear_permitted_trials upload comment)
+
+  skip_before_action :login_required, only: SKIP_AUTH_ACTIONS
 
   # for private key based authentication on trial show
   before_action :set_session_permitted_trials, only: %w(receive_private_key
                                                         receive_private_key_digest
                                                         create)
+
   before_action :render_private_key_monit, only: [:show, :edit, :update, :upload, :comment],
                                            unless: :trial_authorized?
   before_action :set_comments, only: :show
@@ -221,6 +226,10 @@ class TrialsController < ApplicationController
                 else
                   @trial.public_comments
                 end
+  end
+
+  def skip_auth_actions
+    SKIP_AUTH_ACTIONS
   end
 end
 # rubocop:enable Metrics/ClassLength

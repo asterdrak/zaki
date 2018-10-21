@@ -6,8 +6,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :login_required
 
-  before_action :set_committee, :authorize_committee
-  after_action :verify_authorized
+  before_action :set_committee
+  before_action :authorize_committee, unless: :skip_committee_auth
+  # TODO: potentially dangerous, we should remove below unless and use TrialPolicy
+  after_action :verify_authorized, unless: :skip_committee_auth
 
   before_action :set_paper_trail_whodunnit
 
@@ -39,6 +41,10 @@ class ApplicationController < ActionController::Base
         render json: { 'error' => 'Access Denied' }.to_json
       end
     end
+  end
+
+  def skip_committee_auth
+    false
   end
 
   private

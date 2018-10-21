@@ -4,6 +4,9 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:update, :destroy, :edit]
   before_action :set_trial
 
+  # All actions are automatically un-authorized for blank users by TrialAuthorizer
+  # Method skip_auth_actions is required for TrialAuthorizer access
+
   skip_before_action :login_required, except: [:destroy]
   before_action :render_private_key_monit, except: [:destroy],
                                            unless: :trial_authorized?
@@ -70,5 +73,9 @@ class TasksController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def task_params
     params.require(:task).permit(:number, :content, :deadline)
+  end
+
+  def skip_auth_actions
+    action_methods
   end
 end

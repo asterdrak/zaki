@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 module TrialAuthorizer
+  def skip_committee_auth
+    current_user.blank? && skip_auth_actions.include?(action_name)
+  end
+
   def set_session_permitted_trials
     session['permitted_trials'] = [] if session['permitted_trials'].nil?
   end

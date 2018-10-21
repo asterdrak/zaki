@@ -79,6 +79,10 @@ class CommitteesController < ApplicationController
     @committee = Committee.find(params[:id])
   end
 
+  def authorize_committee
+    authorize @committee || Committee
+  end
+
   # Never trust parameters from the scary internet, only allow the white list through.
   def committee_params
     params.require(:committee).permit(:name, :overdue_state_id, :positive_finish_state_id,
