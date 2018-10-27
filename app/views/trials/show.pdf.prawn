@@ -29,7 +29,10 @@ prawn_document do |pdf|
   pdf.move_down 5
   pdf.text t(:environment_colon) + ' ' + @trial.environment.name
   pdf.move_down 5
-
+  if @trial.birthdate.present?
+    pdf.text t(:birthdate_colon) + ' ' + l(@trial.birthdate, format: :long)
+    pdf.move_down 5
+  end
 
 
   pdf.move_down 20

@@ -27,6 +27,7 @@ pl:
         supervisor_phone_number: Numer telefonu opiekuna
         supervisor_email: Email opiekuna
         troop: Drużyna
+        birthdate: Data urodzenia
       rank:
         name: Nazwa stopnia
       environment:
@@ -71,6 +72,9 @@ pl:
               invalid: jest nieprawidłowy
             troop:
               blank: musi być uzupełniona
+            birthdate:
+              blank:
+                musi być uzupełniona
         task:
           attributes:
             content:
@@ -148,8 +152,8 @@ pl:
   rank_successfully_destroyed: Pomyślnie usunięto stopień
   trials_list: Lista Prób
   meetings: Spotkania
-  accept: Akceptuj
-  reject: Odrzuć
+  accept: Archiwizuj+
+  reject: Archiwizuj-
   title: Tytuł
   deadline: Data zakończenia
   deadline_colon: 'Data zakończenia:'
@@ -166,9 +170,9 @@ pl:
   soon_overdue: Blisko przeterminowania (jeden miesiąc)
   ongoing: Trwające
   overdue: Przeterminowane
-  rejected: Odrzucone
+  rejected: "Archiwum: zakończone negatywnie"
   created: Nowo utworzone
-  accepted: Zaakceptowane
+  accepted: "Archiwum: zakończone pozytywnie"
   trial_authentication: Identyfikacja próby
   authorize: Potwierdź
   must_be_correct: musi być poprawny
@@ -197,6 +201,8 @@ pl:
   you_have_successfully_signed_out: Zostałeś poprawnie wylogowany
   deadline_in_future: musi być odpowiednio zdefiniowany
   rank_colon: "Stopień zdobywany:"
+  troop_colon: "Drużyna:"
+  birthdate_colon: "Data urodzenia:"
   rank: Stopień
   edit_committee_environments: Edycja środowisk
   add_environment: Dodaj środowisko
@@ -295,6 +301,9 @@ pl:
       placeholder: jan.kowalski123@zhr.pl
     troop:
       placeholder: 1 KDH Drużyna
+      description: Drużyna w której działasz.
+    birthdate:
+      description: Twoja data urodzenia.
   committee_form:
     formal_conditions:
       description: Warunki formalne otwarcia stopnia, jeden warunek w jednej linii.

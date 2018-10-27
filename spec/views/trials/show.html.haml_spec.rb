@@ -19,7 +19,6 @@ RSpec.describe 'trials/show', type: :view do
   it 'renders attributes in <p>' do
     render
     expect(rendered).to match(@trial.title)
-    expect(rendered).to match(@trial.status)
     expect(rendered).to match(@trial.email)
     expect(rendered).to match(@trial.phone_number)
     expect(rendered).to match(@trial.supervisor)

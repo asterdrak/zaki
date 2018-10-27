@@ -35,22 +35,26 @@
         %li.list-group-item.list-group-item-info
           %h4= @trial.title
         %li.list-group-item
+          %b= t(:rank_colon)
+          = @trial.rank.name
+          .ml-2.mr-2= '|'
           %b= t(:deadline_colon)
           = l(@trial.deadline, format: :month_year)
         %li.list-group-item
           %b= t(:email)
           = @trial.email
-        %li.list-group-item
+          .ml-2.mr-2= '|'
           %b= t(:phone_number)
           = @trial.phone_number
         %li.list-group-item
           %b= t(:environment_colon)
           = @trial.environment.name
-          ,
+          .ml-2.mr-2= '|'
+          %b= t(:troop_colon)
           = @trial.troop
         %li.list-group-item
-          %b= t(:rank_colon)
-          = @trial.rank.name
+          %b= t(:birthdate_colon)
+          = @trial.birthdate
         %li.list-group-item
           %b= t(:supervisor)
           = @trial.supervisor
@@ -59,18 +63,19 @@
           \/
           = mail_to @trial.supervisor_email
           )
-        %li.list-group-item
-          %b= t(:status)
-          = @trial.status
+        - if current_user&.admin?
+          %li.list-group-item
+            %b= t(:status)
+            = @trial.status
         %li.list-group-item
           %b= t(:private_key_digest)
           = @trial.private_key_digest
         %li.list-group-item
           %b= t(:created_at)
-          = l(@trial.created_at, format: :long)
-        %li.list-group-item
+          = l(@trial.created_at, format: :short)
+          .ml-2.mr-2= '|'
           %b= t(:updated_at)
-          = l(@trial.updated_at, format: :long)
+          = l(@trial.updated_at, format: :short)
   - if @trial.created? && !current_user.present?
     .col-md-5
       .ls40
@@ -91,6 +96,11 @@
             class: 'btn btn-sm btn-secondary float-right' do
               = t(:trial_changes)
         .ls20
+      - unless @trial.valid?
+        .alert.alert-danger{ role: 'alert' }
+          = @trial.errors.full_messages.join('. ')
+          = link_to t(:edit), edit_committee_trial_path(@committee, @trial),
+          class: 'btn btn-secondary btn-sm float-right'
       .hidden-md-up.ls40
       .px-lg-5
         %ul.list-group

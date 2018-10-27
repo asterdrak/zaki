@@ -23,4 +23,9 @@ role: 'dialog', tabindex: '-1' }
 
 - if @committee.formal_conditions.present?
   :javascript
-    $('#formal-conditions-modal').modal('toggle')
+    if(!$('#trial_formal_conditions').prop('checked'))
+      $('#formal-conditions-modal').modal('toggle');
+
+    $('#formal-conditions-modal button.btn.btn-primary').click(function() {
+      $('#trial_formal_conditions').prop('checked', true);
+    })

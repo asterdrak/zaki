@@ -20,6 +20,7 @@ FactoryGirl.define do
     association     :environment
     troop           'Sample troop'
     formal_conditions true
+    birthdate 15.years.ago
 
     to_create { |instance| instance.save(validate: false) }
   end
