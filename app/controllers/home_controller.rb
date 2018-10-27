@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class HomeController < ApplicationController
   skip_before_action :login_required, only: [:index, :permitted_keywords]
+  skip_committee_actions
 
   def index
     redirect_to committees_path if current_user.present?

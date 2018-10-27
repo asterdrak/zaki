@@ -33,7 +33,9 @@ RSpec.describe TasksController, type: :controller do
   # in order to pass any filters (e.g. authentication) defined in
   # TasksController. Be sure to keep this updated too.
   let(:valid_session) do
-    { user_id: { 'uid' => create(:user).uid, 'extra' => {},
+    { user_id: { 'uid' => create(:user).uid,
+                 'extra' => { 'permissions' => { 'zaki' => { 'committee' => [committee.id] } },
+                              'is_admin' => true },
                  'credentials' => { 'expires_at' => 1.hour.from_now.to_i } } }
   end
 

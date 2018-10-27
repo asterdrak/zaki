@@ -6,7 +6,10 @@ RSpec.describe 'trials', type: :request do
     let(:committee) { create(:committee) }
     before do
       allow(StatemanOrganization).to receive(:find) { OpenStruct.new(stateman_trials: []) }
-      allow_any_instance_of(ApplicationHelper).to receive(:current_user) { create(:user) }
+      allow_any_instance_of(ApplicationHelper).to receive(:current_user) do
+        create(:user).decorate('permissions' =>
+          { 'zaki' => { 'committee' => [committee.id] } }, 'is_admin' => true)
+      end
     end
 
     it 'works! (now write some real specs)' do

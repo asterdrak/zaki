@@ -6,6 +6,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :login_required
 
+  before_action :set_committee
+  before_action :authorize_committee, unless: :skip_committee_auth
+  # TODO: potentially dangerous, we should remove below unless and use TrialPolicy
+  after_action :verify_authorized, unless: :skip_committee_auth
+
   before_action :set_paper_trail_whodunnit
 
   rescue_from ActiveRecord::DeleteRestrictionError do |exception|
@@ -19,6 +24,13 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+  def self.skip_committee_actions
+    skip_before_action :set_committee, :authorize_committee
+    skip_after_action :verify_authorized
+  end
+
+  protected
+
   def login_required
     return if current_user
     respond_to do |format|
@@ -31,9 +43,21 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def skip_committee_auth
+    false
+  end
+
   private
 
   def user_not_authorized
     redirect_to(request.referer || root_path, alert: t(:not_authorized_alert))
+  end
+
+  def set_committee
+    @committee = Committee.find(params[:committee_id])
+  end
+
+  def authorize_committee
+    authorize @committee || Committee, :use?
   end
 end

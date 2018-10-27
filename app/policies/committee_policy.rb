@@ -20,6 +20,14 @@ class CommitteePolicy < ApplicationPolicy
     user&.admin? || permitted_committee_ids.include?(committee.id)
   end
 
+  def use?
+    if committee.is_a? Committee
+      user&.admin? || permitted_committee_ids.include?(committee.id)
+    else
+      user.present?
+    end
+  end
+
   class Scope < Scope
     def resolve
       if user&.admin?

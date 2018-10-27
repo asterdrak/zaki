@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class UserSessionsController < ApplicationController
   before_action :login_required, only: [:destroy]
+  skip_committee_actions
 
   # omniauth callback method
   #

@@ -2,7 +2,10 @@
 class TasksController < ApplicationController
   include TrialAuthorizer, TrialCommentizer
   before_action :set_task, only: [:update, :destroy, :edit]
-  before_action :set_committee, :set_trial
+  before_action :set_trial
+
+  # All actions are automatically un-authorized for blank users by TrialAuthorizer
+  # Method skip_auth_actions is required for TrialAuthorizer access
 
   skip_before_action :login_required, except: [:destroy]
   before_action :render_private_key_monit, except: [:destroy],
@@ -63,10 +66,6 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
   end
 
-  def set_committee
-    @committee = Committee.find(params[:committee_id])
-  end
-
   def set_trial
     @trial = @committee.trials.find(params[:trial_id])
   end
@@ -74,5 +73,9 @@ class TasksController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def task_params
     params.require(:task).permit(:number, :content, :deadline)
+  end
+
+  def skip_auth_actions
+    action_methods
   end
 end
