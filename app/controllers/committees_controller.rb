@@ -3,7 +3,7 @@
 require 'google_drive'
 
 class CommitteesController < ApplicationController
-  before_action :set_committee, only: [:show, :edit, :update, :destroy]
+  prepend_before_action :set_committee, only: [:show, :edit, :update, :destroy]
   skip_before_action :login_required, only: :show
 
   # GET /committees
