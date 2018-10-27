@@ -2,8 +2,8 @@
   = render template: 'shared/breadcrumbs',
   locals: { final_title: t(:listing_committees) }
 
-  = render 'shared/additional_menu' do
-    - if current_user.admin?
+  - if current_user.admin?
+    = render 'shared/additional_menu' do
       = link_to new_committee_path,
       class: 'nav-link btn btn-success' do
         %i.fa.fa-plus-square-o

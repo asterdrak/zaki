@@ -10,6 +10,7 @@ class CommitteesController < ApplicationController
   # GET /committees.json
   def index
     @committees = policy_scope(Committee)
+    redirect_to @committees.first if @committees.one?
   end
 
   # GET /committees/1

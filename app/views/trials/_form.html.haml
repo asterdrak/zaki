@@ -23,18 +23,19 @@
           = f.text_field :title, class: 'form-control',
           placeholder: t('trial_form.title.placeholder')
           %small.form-text.text-muted= t('trial_form.title.description')
-        .field.form-group
-          = f.label :rank_id
-          = f.select :rank_id, ranks.collect { |c| [c.name, c.id] },
-          {}, class: 'custom-select form-control'
-          %small.form-text.text-muted= t('trial_form.rank.description')
-        .field.form-group
-          = f.label :deadline
-          .container
-            .row= f.date_select :deadline,
-            { discard_day: true, with_css_classes: true },
-            class: 'custom-select mb-2 mb-sm-2 col-sm-6'
-          %small.form-text.text-muted= t('trial_form.deadline.description')
+        .row
+          .field.form-group.col-lg-6{ class: ranks.one? ? 'hidden' : 'show' }
+            = f.label :rank_id
+            = f.select :rank_id, ranks.collect { |c| [c.name, c.id] },
+            {}, class: 'custom-select form-control'
+            %small.form-text.text-muted= t('trial_form.rank.description')
+          .field.form-group.col-lg-6
+            = f.label :deadline
+            .container
+              .row= f.date_select :deadline,
+              { discard_day: true, with_css_classes: true },
+              class: 'custom-select mb-2 mb-sm-2 col-sm-6'
+            %small.form-text.text-muted= t('trial_form.deadline.description')
         - unless action_name == 'new'
           - if current_user.present?
             .field.form-group
@@ -42,7 +43,7 @@
               = f.select :status, Trial::STATUSES, {},
               class: 'custom-select form-control'
         .field.form-group
-          = f.label :supervisor
+          = f.label :supervisor, class: 'h4'
           = f.text_field :supervisor, class: 'form-control',
           placeholder: t('trial_form.supervisor.placeholder')
           %small.form-text.text-muted= t('trial_form.supervisor.description')
@@ -81,14 +82,28 @@
             = f.label :troop
             = f.text_field :troop, class: 'form-control',
             placeholder: t('trial_form.troop.placeholder')
-        - if trial.private_key_digest.blank?
-          .field.form-group
-            = f.label :private_key
-            = f.text_field :private_key, class: 'form-control',
-            placeholder: t('trial_form.private_key.placeholder')
-            %small.form-text.text-muted= t('trial_form.private_key.description')
-        - elsif trial.private_key.present?
-          = f.hidden_field :private_key, value: trial.private_key[0..-5]
+            %small.form-text.text-muted= t('trial_form.troop.description')
+        .row
+          .field.form-group.col-lg-6
+            = f.label :birthdate
+            .container
+              .row
+                = f.date_select :birthdate,
+                { start_year: 50.years.ago.year,
+                end_year: 10.years.ago.year,
+                include_blank: true },
+                class: 'custom-select mb-2 mb-sm-2 col-sm-4'
+                %small.form-text.text-muted
+                  = t('trial_form.birthdate.description')
+          - if trial.private_key_digest.blank?
+            .field.form-group.col-lg-6
+              = f.label :private_key
+              = f.text_field :private_key, class: 'form-control',
+              placeholder: t('trial_form.private_key.placeholder')
+              %small.form-text.text-muted
+                = t('trial_form.private_key.description')
+          - elsif trial.private_key.present?
+            = f.hidden_field :private_key, value: trial.private_key[0..-5]
         - if action_name == 'new' || !@trial.formal_conditions?
           - if @committee.formal_conditions.present?
             .field.form-group
