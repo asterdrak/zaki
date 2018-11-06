@@ -86,7 +86,7 @@ class Trial < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def can_become_pending?
-    created? && tasks.present? && committee.min_trial_tasks_count < tasks.count
+    created? && tasks.present? && committee.min_trial_tasks_count <= tasks.count
   end
 
   def private_key=(value)
