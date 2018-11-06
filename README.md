@@ -1,5 +1,11 @@
 # ZAKI README
 
+## How to use
+* manager guide [PL]: https://goo.gl/Zvsmbp
+* user guide [PL]: https://goo.gl/jEb3Au
+
+
+
 ## Managing production
 
 1. Push variables from config/application.yml to production
