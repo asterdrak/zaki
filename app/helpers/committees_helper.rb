@@ -10,6 +10,6 @@ module CommitteesHelper
 
   def formal_condition_value
     return nil if @committee.formal_conditions.blank?
-    @committee.formal_conditions.lines.each(&:squish!).join("\n").prepend("\t" + ' ' * 6)
+    @committee.formal_conditions.lines.each(&:squish!).join("\n")
   end
 end
