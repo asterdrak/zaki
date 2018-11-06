@@ -7,4 +7,9 @@ module CommitteesHelper
   def stateman_url(commitee)
     Rails.application.secrets.stateman_url + '/organizations/' + commitee.stateman.organization_id
   end
+
+  def formal_condition_value
+    return nil if @committee.formal_conditions.blank?
+    @committee.formal_conditions.lines.each(&:squish!).join("\n").prepend("\t" + ' ' * 6)
+  end
 end

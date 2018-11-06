@@ -36,7 +36,7 @@
     .field.form-group
       = f.label :formal_conditions
       = f.text_area :formal_conditions, class: 'form-control',
-      value: committee.formal_conditions.lines.each(&:squish!).join("\n")
+      value: formal_condition_value
       %small.form-text.text-muted
         = t('committee_form.formal_conditions.description')
     .field.form-group
