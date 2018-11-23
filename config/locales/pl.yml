@@ -144,8 +144,16 @@ pl:
   welcome: Witaj
   login_required: Wymagane logowanie
   plese_log_in: Aby kontynować jako członek komisji prosimy o zalogowanie
-  log_in_more_info: w przeciwnym razie potrzebujesz dokładny link do swojej komisji.
+  log_in_more_info: w przeciwnym razie potrzebujesz dokładny link do swojej komisji, sprawdź na stronie chorągwi lub hufca albo zapytaj swojego przełożonego.
   with_any_troubles: W razie problemów prosimy o kontakt
+  presentation: Prezentacja
+  meet_zaki: 'Dowiedz się więcej o projekcie'
+  starting_point: 'Najlepszym miejscem, żeby poznać projekt jest prezentacja on-line:'
+  visit_project_page: 'Możesz też odwiedzić stronę projektu pod adresem:'
+  or_add_fixes: 'Jeśli masz jakieś uwagi, znalazłeś błąd lub chcesz zaproponować nową funkcję opisz to i wyślij na adres e-mail:'
+  documentation: Instrukcja
+  dunno_how_to_start: Nie wiesz jak zacząć?
+  how_to_start: Dobrym punktem wyjścia będzie dokument z instrukcją zakładania próby.
   all_committees: Wszystkie komisje
   add_rank: Nowy stopień
   rank_successfully_created: Pomyślnie dodano stopień

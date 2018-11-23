@@ -10,13 +10,62 @@
     = link_to 'Committees', committees_path, class: 'btn btn-primary'
     = link_to 'Logout', logout_path, method: :delete, class: 'btn btn-danger'
 - else
-  .card.col-md-6.offset-md-3
-    %h3.card-header= t(:login_required)
-    .card-block
-      %h4.card-title= t(:plese_log_in)
-      %p.card-text
-        = t(:log_in_more_info)
-        %hr
-        = t(:with_any_troubles)
-        = mail_to(Rails.application.secrets.admin_email)
-      = link_to t(:sign_in).capitalize, '/auth/sso', class: 'btn btn-success'
+  .col-md-6.offset-md-3
+    %ul.nav.nav-tabs#landing-tabs{ role: 'tablist' }
+      %li.nav-item
+        %a.nav-link.active{ 'data-toggle': 'tab', href: '#home', role: 'tab' }
+          %i.fa.fa-home
+      %li.nav-item
+        %a.nav-link{ 'data-toggle': 'tab', href: '#intro', role: 'tab' }
+          %i.fa.fa-film
+      %li.nav-item
+        %a.nav-link{ 'data-toggle': 'tab', href: '#docs', role: 'tab' }
+          %i.fa.fa-file
+
+    .tab-content
+      .tab-pane.active#home{ role: 'tabpanel' }
+        .card
+          %h3.card-header= t(:login_required)
+          .card-block
+            %h4.card-title= t(:plese_log_in)
+            %p.card-text.pr-lg-5.text-justify
+              = t(:log_in_more_info)
+              %hr
+              = t(:with_any_troubles)
+              = mail_to(Rails.application.secrets.admin_email)
+            = link_to t(:sign_in).capitalize, '/auth/sso',
+            class: 'btn btn-success'
+      .tab-pane#intro{ role: 'tabpanel' }
+        .card
+          %h3.card-header= t(:presentation)
+          .card-block
+            %h4.card-title= t(:meet_zaki)
+            %p.card-text.pr-lg-5.text-justify
+              = t(:starting_point)
+              %b= link_to 'bit.ly/meet-zaki', 'https://bit.ly/meet-zaki',
+              target: '_blank'
+              %br
+              = t(:visit_project_page)
+              = link_to 'gitlab.com/modorg/zaki',
+              'https://gitlab.com/modorg/zaki', target: '_blank'
+              %hr
+              = t(:or_add_fixes)
+              = mail_to 'incoming+modorg/zaki@incoming.gitlab.com',
+              'incoming+modorg/zaki@incoming.gitlab.com'
+              %hr
+              = t(:with_any_troubles)
+              = mail_to(Rails.application.secrets.admin_email)
+      .tab-pane#docs{ role: 'tabpanel' }
+        .card
+          %h3.card-header= t(:documentation)
+          .card-block
+            %h4.card-title= t(:dunno_how_to_start)
+            %p.card-text.pr-lg-5.test-justify
+              = t(:how_to_start)
+              %br
+              .text-center
+                %big= link_to 'https://goo.gl/jEb3Au', 'https://goo.gl/jEb3Au',
+                target: '_blank'
+              %hr
+              = t(:with_any_troubles)
+              = mail_to(Rails.application.secrets.admin_email)
