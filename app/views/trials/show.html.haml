@@ -231,10 +231,7 @@
           %i= t(comment.role) if current_user.present?
         %p
           = l(comment.created_at, format: :short) if comment.title == 'history'
-          -# rubocop:disable Rails/OutputSafety
-          = raw sanitize comment.comment, attributes: %w(id class href),
-          tags: %w(strong em a br ul ol li del h1 pre div)
-          -# rubocop:enable Rails/OutputSafety
+          = sanitize_trix_html comment.comment
       %hr
     = render 'comment_form', trial: @trial
 
