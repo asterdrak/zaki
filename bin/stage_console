@@ -1,0 +1,11 @@
+#!/bin/bash
+
+project_name=`basename "$PWD"`
+if [ "$project_name" = "bin" ]; then
+	cd ..
+	project_name=`basename "$PWD"`;
+fi
+
+
+
+heroku run console -a "mod-$project_name-stage"

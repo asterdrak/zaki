@@ -1,0 +1,8 @@
+#!/bin/bash
+project_name=`basename "$PWD"`
+if [ "$project_name" = "bin" ]; then
+	cd ..
+	project_name=`basename "$PWD"`;
+fi
+
+ssh -t rails@modorg.pl "cd ~/$project_name/current && RAILS_ENV=production ~/.rvm/bin/rvm default do bundle exec rails c"
