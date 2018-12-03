@@ -12,7 +12,7 @@
     = stylesheet_link_tag    params[:controller], media: 'all',
     'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-  %body
+  %body{ class: "#{controller_name} #{action_name}" }
     %nav.navbar#main-navbar
       %button.navbar-toggler{ 'aria-controls': 'navbar-nav',
       'aria-expanded': 'false', 'aria-label': 'Toggle navigation',

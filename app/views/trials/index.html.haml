@@ -23,3 +23,7 @@
 
     = render 'trials_table', trials: @trials.accepted, committee: @committee,
     header: t(:accepted), stateman_trials: @stateman_trials
+
+:coffee
+  $('.trials-table').each ->
+    $(this).find('tr').last().addClass('dropup')
