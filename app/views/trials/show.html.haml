@@ -76,18 +76,22 @@
           .ml-2.mr-2= '|'
           %b= t(:updated_at)
           = l(@trial.updated_at, format: :short)
-  - if @trial.created? && !current_user.present?
-    .col-md-5
+  .col-md-6
+    - unless @trial.valid?
+      .alert.alert-danger{ role: 'alert' }
+        = @trial.errors.full_messages.join('. ')
+        = link_to t(:edit), edit_committee_trial_path(@committee, @trial),
+        class: 'btn btn-secondary btn-sm float-right'
+    - if @trial.created? && !current_user.present?
       .ls40
       %h4= [t(:states_general), t(:registrations)].to_sentence
       %hr
-      %p.text-justify= t(:more_functionalities_available_after_confirm)
+      %p.text-justify.pr-5= t(:more_functionalities_available_after_confirm)
       %p.text-justify
         %b= t(:more_functionalities_available_after_confirm2)
       = link_to t(:tasks), '#tasks', class: 'btn btn-primary'
       %hr
-  - else
-    .col-md-6
+    - else
       - if @trial.pending_changes?
         .alert.alert-warning{ role: 'alert' }
           = t(:pending_changes_alert)
@@ -96,11 +100,6 @@
             class: 'btn btn-sm btn-secondary float-right' do
               = t(:trial_changes)
         .ls20
-      - unless @trial.valid?
-        .alert.alert-danger{ role: 'alert' }
-          = @trial.errors.full_messages.join('. ')
-          = link_to t(:edit), edit_committee_trial_path(@committee, @trial),
-          class: 'btn btn-secondary btn-sm float-right'
       .hidden-md-up.ls40
       .px-lg-5
         %ul.list-group
