@@ -81,10 +81,7 @@
     - if @committee.info.present?
       %h2= t(:committee_info)
       .ls20
-      -# rubocop:disable Rails/OutputSafety
-      = raw sanitize @committee.info, attributes: %w(id class href),
-      tags: %w(strong em a br ul ol li del h1 pre div)
-      -# rubocop:enable Rails/OutputSafety
+      = sanitize_trix_html @committee.info
   - if current_user.present?
     .col-md-6.col-lg-4
       .ls40.hidden-md-up
